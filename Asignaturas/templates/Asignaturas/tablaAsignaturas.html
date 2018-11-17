@@ -4,8 +4,11 @@
   <head>
 
     <title>Tabla Asignaturas</title>
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     
@@ -58,20 +61,43 @@
                     <td>{{m.departamento.nombre}}</td>
                     <td>{{m.componente.nombre}}</td>
                     <td>
-                      <p data-placement="top" data-toggle="tooltip" title="Modificar">
+                      <p data-placement="top" title="Modificar">
                         <form action='' method="post">
                           {% csrf_token %}
                           <input type="hidden" name="item_id" value="{{m.codigo}}" />
                           <input type="submit" name = "modo" class="btn btn-primary" value="Modificar">
+
                         </form>
                       </p>
                     </td>
                     <td>
-                      <p data-placement="top" data-toggle="tooltip" title="Eliminar">
+                      <p data-placement="top" title="Eliminar">
                         <form action='' method="post">
-                           {% csrf_token %}
-                          <input type="hidden" name="item_id" value="{{m.codigo}}" />
-                          <input type="submit" name = "modo" class="btn btn-primary" value="Eliminar">
+                           
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar">Eliminar</button>
+                          <!-- Modal para eliminar-->
+                          <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle">Eliminar {{m.codigo}}</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <p>¿Está seguro de que desea eliminar la asignatura?</p>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                  {% csrf_token %}
+                                  <input type="hidden" name="item_id" value="{{m.codigo}}" />
+                                  <input type="submit" name = "modo" class="btn btn-primary" value="Eliminar">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                         </form>
                       </p>
                     </td>
