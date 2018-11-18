@@ -10,6 +10,12 @@ def inicio(request):
 
 	return render(request, 'Asignaturas/index.html', {})
 
+def home(request):
+	return render(request,  'Asignaturas/home.html', {})
+
+def login(request):
+	return render(request,  'Asignaturas/login.html', {})		
+
 def tablaAsignaturas(request):
 	"""Toma las asignaturas de la base de datos y las carga en la tabla."""
 
