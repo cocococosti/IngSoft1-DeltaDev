@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login account</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        {% load staticfiles %}
+		<link href="{% static 'css/login.css' %}" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<ul>
+			<li><img src="{% static 'css/El-Espejo-Solar_large.jpg' %}" alt="My image" ></li>
+			<li><img src="{% static 'css/simonBolivar.jpeg' %}"></li>
+			<li><img src="{% static 'css/pajaro.jpg' %}"></li>
+			<li><img src="{% static 'css/cromovegetal.jpeg' %}"></li>
+			<li><img src="{% static 'css/escut_hidro1.jpg' %}"></li>
+			<li><img src="{% static 'css/biblio.jpeg' %}"></li>
+		</ul>
+	</header>
+	<div class="container">
+
+		<div class="formulario">
+			<form method="post">
+
+				<div class="form-group">
+					<div class="col-sm-8">
+						<label for="email">Email address:</label>
+					</div>
+					
+					<div class="col-md-12">
+						<input type="email" name="correo" class="form-control" id="email">
+					</div>
+					
+				</div><br>
+				<div class="form-group">
+					<div class="col-sm-8">
+						<label for="pwd">Password:</label>
+					</div>
+					
+					<div class="col-md-12">
+						<input type="password" name="clave" class="form-control" id="pwd">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-8">
+						<br><button type="submit" class="btn btn-default">Aceptar</button>
+					</div>					
+				</div><br>
+			{% csrf_token %}
+			</form> 
+		</div>		
+	</div>
+
+</body>
+</html>
