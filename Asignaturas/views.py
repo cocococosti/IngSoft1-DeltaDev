@@ -10,6 +10,12 @@ def inicio(request):
 
 	return render(request, 'Asignaturas/index.html', {})
 
+def home(request):
+	return render(request,  'Asignaturas/home.html', {})
+
+def login(request):
+	return render(request,  'Asignaturas/login.html', {})		
+
 def tablaAsignaturas(request):
 	"""Toma las asignaturas de la base de datos y las carga en la tabla."""
 
@@ -22,16 +28,17 @@ def tablaAsignaturas(request):
 			item.delete()
 			materias = Asignatura.objects.all()
 		elif ((request.POST.get('modo')) == "Modificar"):
-			materia = Asignatura.objects.filter(codigo = request.POST.get('item_id'))[0]
+			materia = Asignatura.objects.filter(codigo = request.POST.get('item_id')).first()
 
 			form = RegistrarMatForm(
 				{"codigo"     : materia.codigo,
 				"nombre"     : materia.nombre,
 				"unidadesCredito"   : materia.unidadesCredito,
-				"area"              : materia.area,
-				"programa" : materia.programa.nombre,
-				"departamento"      : materia.departamento.codigo,
-				"componente": materia.componente.nombre})
+				"horasTeoria"              : materia.horasTeoria,
+				"horasPractica" : materia.programa.horasPractica,
+				"horasLab": materia.horasLab,
+				"requisitos": materia.requisitos,
+				"departamento"      : materia.departamento.codigo})
 
 			return render(request, 'Asignaturas/modificarAsignatura.html', {'form':form})
 		elif ((request.POST.get('boton')) == "Modificar"):
