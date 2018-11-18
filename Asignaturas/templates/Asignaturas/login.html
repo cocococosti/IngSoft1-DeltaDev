@@ -31,7 +31,7 @@ $(function() {
 
 <style>
 body {
-    padding-top: 90px;
+    padding-top: 20px;
 }
 .panel-login {
 	border-color: #ccc;
@@ -129,52 +129,73 @@ body {
 	background-color: #1CA347;
 	border-color: #1CA347;
 }	
-li{
-	display: inline;
-}
-ul{
-	text-align: center;
-}
-img{
-	width: 200px;
-	height: 150px;
-}
 
-h1{
-	text-align:center; 
-}
 
-.container {
-	text-align: center;
-}
 
 .container img {
 	
 	width: 30%;
-	height: max-content;
+	height: 120px;
 
+}
+
+
+.column {
+    float: left;
+    width: 14.28%;
+    padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 500px) {
+    .column {
+        width: 100%;
+    }
 }
 </style>
 
+<div class="container">
+  <div class="column">
+    <img style="width:100%" src="/static/css/El-Espejo-Solar_large.jpg">
+  </div>
+
+  <div class="column">
+  	<img style="width:100%" src="/static/css/simonBolivar.jpeg">
+  </div>
+
+  <div class="column">
+  	<img style="width:100%" src="/static/css/pajaro.jpg">
+  </div>
+
+  <div class="column">
+  	<img style="width:100%" class="img-responsive center-block" src="/static/css/usb.png">
+  </div>
+
+  <div class="column">
+  	<img style="width:100%" src="/static/css/cromovegetal.jpeg">
+  </div>
 
 
-<header>
-		<ul>
-			<li><img src="/static/css/El-Espejo-Solar_large.jpg"></li>
-			<li><img src="/static/css/simonBolivar.jpeg"></li>
-			<li><img src="/static/css/pajaro.jpg"></li>
-			<li><img src="/static/css/cromovegetal.jpeg"></li>
-			<li><img src="/static/css/escut_hidro1.jpg"></li>
-			<li><img src="/static/css/biblio.jpeg"></li>			
+  <div class="column">
+  	<img style="width:100%" src="/static/css/escut_hidro1.jpg">
+  </div>
 
-		</ul>
-		<div class="container">
-			<img src="/static/css/usb.png">
-		</div>
-		<h1><b> Sistema de Oferta de Asginaturas - Postgrado</b></h1>
-</header>
+  <div class="column">
+  	<img style="width:100%" src="/static/css/biblio.jpeg">
+  </div>
+
+</div>
+</div>
 
 <div class="container">
+		<h1 class="text-center"><b> Sistema de Oferta de Asginaturas - Postgrado</b></h1>
 		<br>
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">

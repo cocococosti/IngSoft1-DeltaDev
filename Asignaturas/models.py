@@ -8,16 +8,16 @@ from django.contrib.postgres.fields import ArrayField
 
 # Modelos de cada Tabla y sus atributos
 
-class Departamento(models.Model):
-    codigo = models.CharField(primary_key=True, max_length=15)
-    nombre = models.CharField(max_length=60, unique=True)
+# class Departamento(models.Model):
+#     codigo = models.CharField(primary_key=True, max_length=15)
+#     nombre = models.CharField(max_length=60, unique=True)
 
-class Asignatura(models.Model):
-    codigo = models.CharField(primary_key=True,max_length=7, validators=[RegexValidator(regex='^[A-Z]{2}-[0-9]{4}$', message = 'Codigo Invalido')])
-    nombre = models.CharField(max_length=60)
-    unidadesCredito = models.IntegerField()  
-    horasTeoria = models.IntegerField()
-    horasPractica = models.IntegerField()
-    horasLab = models.IntegerField()
-    requisitos =  ArrayField(models.CharField(max_length=200))
-    departamento = models.ForeignKey(Departamento, default="",on_delete=models.CASCADE)
+# class Asignatura(models.Model):
+#     codigo = models.CharField(primary_key=True,max_length=7, validators=[RegexValidator(regex='^[A-Z]{2}-[0-9]{4}$', message = 'Codigo Invalido')])
+#     nombre = models.CharField(max_length=60)
+#     unidadesCredito = models.IntegerField()  
+#     horasTeoria = models.IntegerField()
+#     horasPractica = models.IntegerField()
+#     horasLab = models.IntegerField()
+#     requisitos =  ArrayField(models.CharField(max_length=200))
+#     departamento = models.ForeignKey(Departamento, default="",on_delete=models.CASCADE)

@@ -17,95 +17,95 @@ def login(request):
 	return render(request,  'Asignaturas/login.html', {})		
 
 def tablaAsignaturas(request):
-	"""Toma las asignaturas de la base de datos y las carga en la tabla."""
+	# """Toma las asignaturas de la base de datos y las carga en la tabla."""
 
-	materias = Asignatura.objects.all()
+	# materias = Asignatura.objects.all()
 
-	if request.method == 'POST':
+	# if request.method == 'POST':
 
-		if ((request.POST.get('modo')) == "Eliminar"):
-			item = Asignatura.objects.filter(codigo = request.POST.get('item_id'))       
-			item.delete()
-			materias = Asignatura.objects.all()
-		elif ((request.POST.get('modo')) == "Modificar"):
-			materia = Asignatura.objects.filter(codigo = request.POST.get('item_id')).first()
+	# 	if ((request.POST.get('modo')) == "Eliminar"):
+	# 		item = Asignatura.objects.filter(codigo = request.POST.get('item_id'))       
+	# 		item.delete()
+	# 		materias = Asignatura.objects.all()
+	# 	elif ((request.POST.get('modo')) == "Modificar"):
+	# 		materia = Asignatura.objects.filter(codigo = request.POST.get('item_id')).first()
 
-			form = RegistrarMatForm(
-				{"codigo"     : materia.codigo,
-				"nombre"     : materia.nombre,
-				"unidadesCredito"   : materia.unidadesCredito,
-				"horasTeoria"              : materia.horasTeoria,
-				"horasPractica" : materia.programa.horasPractica,
-				"horasLab": materia.horasLab,
-				"requisitos": materia.requisitos,
-				"departamento"      : materia.departamento.codigo})
+	# 		form = RegistrarMatForm(
+	# 			{"codigo"     : materia.codigo,
+	# 			"nombre"     : materia.nombre,
+	# 			"unidadesCredito"   : materia.unidadesCredito,
+	# 			"horasTeoria"              : materia.horasTeoria,
+	# 			"horasPractica" : materia.programa.horasPractica,
+	# 			"horasLab": materia.horasLab,
+	# 			"requisitos": materia.requisitos,
+	# 			"departamento"      : materia.departamento.codigo})
 
-			return render(request, 'Asignaturas/modificarAsignatura.html', {'form':form})
-		elif ((request.POST.get('boton')) == "Modificar"):
+	# 		return render(request, 'Asignaturas/modificarAsignatura.html', {'form':form})
+	# 	elif ((request.POST.get('boton')) == "Modificar"):
 
-			form = RegistrarMatForm(request.POST)
+	# 		form = RegistrarMatForm(request.POST)
 
-			if form.is_valid():
+	# 		if form.is_valid():
 
-				programa_id = Programa.objects.filter(nombre = form.cleaned_data['programa']).first()
-				dpto_id = Departamento.objects.filter(codigo = form.cleaned_data['departamento']).first()
-				area= Area.objects.filter(nombre = form.cleaned_data['area']).first()
-				componente = Componente.objects.filter(nombre = form.cleaned_data['componente']).first()
+	# 			programa_id = Programa.objects.filter(nombre = form.cleaned_data['programa']).first()
+	# 			dpto_id = Departamento.objects.filter(codigo = form.cleaned_data['departamento']).first()
+	# 			area= Area.objects.filter(nombre = form.cleaned_data['area']).first()
+	# 			componente = Componente.objects.filter(nombre = form.cleaned_data['componente']).first()
 
-				asignatura = Asignatura(
-							codigo     = form.cleaned_data[ 'codigo' ].upper(),
-							nombre     = form.cleaned_data['nombre'],
-							unidadesCredito   = form.cleaned_data['unidadesCredito'],
-							area              = area,
-							programa = programa_id,
-							departamento      = dpto_id,
-							componente = componente)
+	# 			asignatura = Asignatura(
+	# 						codigo     = form.cleaned_data[ 'codigo' ].upper(),
+	# 						nombre     = form.cleaned_data['nombre'],
+	# 						unidadesCredito   = form.cleaned_data['unidadesCredito'],
+	# 						area              = area,
+	# 						programa = programa_id,
+	# 						departamento      = dpto_id,
+	# 						componente = componente)
 
-				asignatura.save()
+	# 			asignatura.save()
 
-				materias = Asignatura.objects.all()
-				return redirect('index/')
-			else:
-				return render(request, 'Asignaturas/tablaAsignaturas.html', {'materias': materias})
+	# 			materias = Asignatura.objects.all()
+	# 			return redirect('index/')
+	# 		else:
+	# 			return render(request, 'Asignaturas/tablaAsignaturas.html', {'materias': materias})
 
 
-	elif request.method=='GET':
-		materias = Asignatura.objects.all()
+	# elif request.method=='GET':
+	# 	materias = Asignatura.objects.all()
 
 	return render(request, 'Asignaturas/tablaAsignaturas.html', {'materias': materias})
 
 
 def registroAsignaturas(request):
-	"""Genera el form para registro de asignaturas y guarda los datos en la base de datos."""
+	# """Genera el form para registro de asignaturas y guarda los datos en la base de datos."""
 
-	if request.method == 'POST':
+	# if request.method == 'POST':
 
-		# Generamos el form
-		form = RegistrarMatForm(request.POST)
+	# 	# Generamos el form
+	# 	form = RegistrarMatForm(request.POST)
 
-		if form.is_valid():
+	# 	if form.is_valid():
 
-			programa_id = Programa.objects.filter(nombre = form.cleaned_data['programa']).first()
-			dpto_id = Departamento.objects.filter(codigo = form.cleaned_data['departamento']).first()
-			area= Area.objects.filter(nombre = form.cleaned_data['area']).first()
-			componente = Componente.objects.filter(nombre = form.cleaned_data['componente']).first()
-			asignatura = Asignatura(
-						codigo     = form.cleaned_data[ 'codigo' ].upper(),
-						nombre     = form.cleaned_data['nombre'],
-						unidadesCredito   = form.cleaned_data['unidadesCredito'],
-						area              = area,
-						programa = programa_id,
-						departamento      = dpto_id,
-						componente = componente)
+	# 		programa_id = Programa.objects.filter(nombre = form.cleaned_data['programa']).first()
+	# 		dpto_id = Departamento.objects.filter(codigo = form.cleaned_data['departamento']).first()
+	# 		area= Area.objects.filter(nombre = form.cleaned_data['area']).first()
+	# 		componente = Componente.objects.filter(nombre = form.cleaned_data['componente']).first()
+	# 		asignatura = Asignatura(
+	# 					codigo     = form.cleaned_data[ 'codigo' ].upper(),
+	# 					nombre     = form.cleaned_data['nombre'],
+	# 					unidadesCredito   = form.cleaned_data['unidadesCredito'],
+	# 					area              = area,
+	# 					programa = programa_id,
+	# 					departamento      = dpto_id,
+	# 					componente = componente)
 
-			asignatura.save()
+	# 		asignatura.save()
 
-			materias = Asignatura.objects.all()
-			return redirect('/inicio/')
-		else:
-			return render(request, 'Asignaturas/registroAsignaturas.html', {'form':form})
-	else:
-		form = RegistrarMatForm()
+	# 		materias = Asignatura.objects.all()
+	# 		return redirect('/inicio/')
+	# 	else:
+	# 		return render(request, 'Asignaturas/registroAsignaturas.html', {'form':form})
+	# else:
+	# 	form = RegistrarMatForm()
 		return render(request, 'Asignaturas/registroAsignaturas.html', {'form':form})
 		
 def signup(request):
