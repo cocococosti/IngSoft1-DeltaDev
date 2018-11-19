@@ -6,6 +6,7 @@ from .forms import *
 from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth import logout
+from django.http import HttpResponse
 
 
 def inicio(request):
@@ -124,8 +125,14 @@ def registrar(request):
 			if form.is_valid():
 				form.save()
 				username = form.cleaned_data.get('username')
-				raw_password = form.cleaned_data.get('password1')
 				dpto = form.cleaned_data.get('departamento')
+				# FALTA GUARDAR EL USUARIO EN profesor
+				dept = Departamento.objects.filter(codigo=dpto).first()
+				profesor = Profesor(
+					user = User.objects.get(username=username),
+					departamento = dept
+					)
+				profesor.save()
 
 	return redirect('/autenticacion/')
 
@@ -139,7 +146,9 @@ def entrar(request):
 			login(request, user)
 			return redirect ('/inicio/')
 
+	
 	return redirect('/autenticacion/')
+
 
 def salir(request):
 	logout(request)
