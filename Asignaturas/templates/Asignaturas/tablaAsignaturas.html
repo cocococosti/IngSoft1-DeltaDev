@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 
   <head>
@@ -41,10 +41,11 @@
                   <th>Código</th>
                   <th>Nombre</th>
                    <th>Créditos</th>
-                   <th>Área</th>
-                   <th>Programa</th>
+                   <th>Horas Teoría</th>
+                   <th>Horas Práctica</th>
+                   <th>Horas Laboratorio</th>
+                   <th>Requisitos</th>
                    <th>Departamento</th>
-                   <th>Componente</th>
                    <th></th>
                    <th></th>
                 </tr>
@@ -56,10 +57,15 @@
                     <td>{{m.codigo}}</td>
                     <td>{{m.nombre}}</td>
                     <td>{{m.unidadesCredito}}</td>
-                    <td>{{m.area}}</td>
-                    <td>{{m.programa.nombre}}</td>
-                    <td>{{m.departamento.nombre}}</td>
-                    <td>{{m.componente.nombre}}</td>
+                    <td>{{m.horasTeoria}}</td>
+                    <td>{{m.horasPractica}}</td>
+                    <td>{{m.horasLab}}</td>
+                    {% if m.requisitos.Asignatura.Asignatura != None %}
+                    <td>{{m.requisitos}}</td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                    <td>{{m.departamento.codigo}}</td>
                     <td>
                       <p data-placement="top" title="Modificar">
                         <form action='' method="post">
@@ -75,7 +81,7 @@
                         <form action='' method="post">
                            
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar">Eliminar</button>
-                          <!-- Modal para eliminar-->
+                          Modal para eliminar
                           <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
@@ -112,4 +118,4 @@
 
   </body>
 
-</html> -->
+</html>

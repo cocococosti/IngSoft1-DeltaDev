@@ -14,9 +14,6 @@ def inicio(request):
 
 	return render(request, 'Asignaturas/index.html', {})
 
-def home(request):
-	return render(request,  'Asignaturas/home.html', {})
-	
 
 def tablaAsignaturas(request):
 	"""Toma las asignaturas de la base de datos y las carga en la tabla."""
@@ -43,32 +40,9 @@ def tablaAsignaturas(request):
 				"departamento"      : materia.departamento.codigo})
 
 			return render(request, 'Asignaturas/modificarAsignatura.html', {'form':form})
-		elif ((request.POST.get('boton')) == "Modificar"):
-
-			form = RegistrarMatForm(request.POST)
-
-			if form.is_valid():
-
-				programa_id = Programa.objects.filter(nombre = form.cleaned_data['programa']).first()
-				dpto_id = Departamento.objects.filter(codigo = form.cleaned_data['departamento']).first()
-				area= Area.objects.filter(nombre = form.cleaned_data['area']).first()
-				componente = Componente.objects.filter(nombre = form.cleaned_data['componente']).first()
-
-				asignatura = Asignatura(
-							codigo     = form.cleaned_data[ 'codigo' ].upper(),
-							nombre     = form.cleaned_data['nombre'],
-							unidadesCredito   = form.cleaned_data['unidadesCredito'],
-							area              = area,
-							programa = programa_id,
-							departamento      = dpto_id,
-							componente = componente)
-
-				asignatura.save()
-
-				materias = Asignatura.objects.all()
-				return redirect('index/')
-			else:
-				return render(request, 'Asignaturas/tablaAsignaturas.html', {'materias': materias})
+		
+		else:
+			return render(request, 'Asignaturas/tablaAsignaturas.html', {'materias': materias})
 
 
 	elif request.method=='GET':
@@ -87,19 +61,7 @@ def registroAsignaturas(request):
 
 		if form.is_valid():
 
-			#dpto_id = Departamento.objects.filter(codigo = form.cleaned_data['departamento']).first()
-			
-			asignatura = Asignatura(
-						nombre     = form.cleaned_data['nombre'],
-						codigo     = form.cleaned_data[ 'codigo' ].upper(),
-						horasTeoria = form.cleaned_data['horasTeoria'],
-						horasPractica = form.cleaned_data['horasPractica'],
-						horasLab = form.cleaned_data['horasLab'],
-						requisitos = form.cleaned_data['requisitos'],
-						departamento = form.cleaned_data['departamento']
-						)
-
-			asignatura.save()
+			form.save()
 
 			return redirect('/inicio/')
 		else:
@@ -107,12 +69,9 @@ def registroAsignaturas(request):
 	else:
 		form = RegistrarMatForm()
 		return render(request, 'Asignaturas/registroAsignaturas.html', {'form':form})
-
-	return render(request, 'Asignaturas/registroAsignaturas.html', {})
 		
 def autenticacion(request):
 	"""Registro de un usuario."""
-	
 	
 	form = SignUpForm()
 	form2 = AuthForm()
