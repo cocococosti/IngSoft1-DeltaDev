@@ -3,6 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from Asignaturas.models import *
 from .forms import *
+from django.contrib.auth.models import User
+from django import forms
+from django.contrib.auth import logout
 
 
 def inicio(request):
@@ -12,9 +15,7 @@ def inicio(request):
 
 def home(request):
 	return render(request,  'Asignaturas/home.html', {})
-
-def login(request):
-	return render(request,  'Asignaturas/login.html', {})		
+	
 
 def tablaAsignaturas(request):
 	"""Toma las asignaturas de la base de datos y las carga en la tabla."""
@@ -85,41 +86,62 @@ def registroAsignaturas(request):
 
 		if form.is_valid():
 
-			programa_id = Programa.objects.filter(nombre = form.cleaned_data['programa']).first()
-			dpto_id = Departamento.objects.filter(codigo = form.cleaned_data['departamento']).first()
-			area= Area.objects.filter(nombre = form.cleaned_data['area']).first()
-			componente = Componente.objects.filter(nombre = form.cleaned_data['componente']).first()
+			#dpto_id = Departamento.objects.filter(codigo = form.cleaned_data['departamento']).first()
+			
 			asignatura = Asignatura(
-						codigo     = form.cleaned_data[ 'codigo' ].upper(),
 						nombre     = form.cleaned_data['nombre'],
-						unidadesCredito   = form.cleaned_data['unidadesCredito'],
-						area              = area,
-						programa = programa_id,
-						departamento      = dpto_id,
-						componente = componente)
+						codigo     = form.cleaned_data[ 'codigo' ].upper(),
+						horasTeoria = form.cleaned_data['horasTeoria'],
+						horasPractica = form.cleaned_data['horasPractica'],
+						horasLab = form.cleaned_data['horasLab'],
+						requisitos = form.cleaned_data['requisitos'],
+						departamento = form.cleaned_data['departamento']
+						)
 
 			asignatura.save()
 
-			materias = Asignatura.objects.all()
 			return redirect('/inicio/')
 		else:
 			return render(request, 'Asignaturas/registroAsignaturas.html', {'form':form})
 	else:
 		form = RegistrarMatForm()
 		return render(request, 'Asignaturas/registroAsignaturas.html', {'form':form})
+
+	return render(request, 'Asignaturas/registroAsignaturas.html', {})
 		
-def signup(request):
+def autenticacion(request):
 	"""Registro de un usuario."""
 	
+	
+	form = SignUpForm()
+	form2 = AuthForm()
+	return render(request, 'Asignaturas/login.html', {'form': form, 'form2':form2})
+
+def registrar(request):
+
 	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
+			form = SignUpForm(request.POST)
+			if form.is_valid():
+				form.save()
+				username = form.cleaned_data.get('username')
+				raw_password = form.cleaned_data.get('password1')
+				dpto = form.cleaned_data.get('departamento')
+
+	return redirect('/autenticacion/')
+
+def entrar(request):
+	if request.method == 'POST':
+		form = AuthForm(data=request.POST)
 		if form.is_valid():
-			form.save()
 			username = form.cleaned_data.get('username')
-			raw_password = form.cleaned_data.get('password1')
+			raw_password = form.cleaned_data.get('password')
 			user = authenticate(username=username, password=raw_password)
 			login(request, user)
-			return redirect('asignaturas/')
-	else:
-		form = UserCreationForm()
-	return render(request, 'Asignaturas/signup.html', {'form': form})
+			return redirect ('/inicio/')
+
+	return redirect('/autenticacion/')
+
+def salir(request):
+	logout(request)
+
+	return redirect('/autenticacion/')

@@ -5,190 +5,39 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<script src="{% static "js/login.js" %}"></script>
 </head>	
-
-<script type="application/javascript">
-$(function() {
-
-    $('#login-form-link').click(function(e) {
-		$("#login-form").delay(100).fadeIn(100);
- 		$("#register-form").fadeOut(100);
-		$('#register-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-	$('#register-form-link').click(function(e) {
-		$("#register-form").delay(100).fadeIn(100);
- 		$("#login-form").fadeOut(100);
-		$('#login-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-
-});
-</script>
-
-
-<style>
-body {
-    padding-top: 20px;
-}
-.panel-login {
-	border-color: #ccc;
-	-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-	-moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-}
-.panel-login>.panel-heading {
-	color: #00415d;
-	background-color: #fff;
-	border-color: #fff;
-	text-align:center;
-}
-.panel-login>.panel-heading a{
-	text-decoration: none;
-	color: #666;
-	font-weight: bold;
-	font-size: 15px;
-	-webkit-transition: all 0.1s linear;
-	-moz-transition: all 0.1s linear;
-	transition: all 0.1s linear;
-}
-.panel-login>.panel-heading a.active{
-	color: #029f5b;
-	font-size: 18px;
-}
-.panel-login>.panel-heading hr{
-	margin-top: 10px;
-	margin-bottom: 0px;
-	clear: both;
-	border: 0;
-	height: 1px;
-	background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
-	background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-	background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-	background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-}
-.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
-	height: 45px;
-	border: 1px solid #ddd;
-	font-size: 16px;
-	-webkit-transition: all 0.1s linear;
-	-moz-transition: all 0.1s linear;
-	transition: all 0.1s linear;
-}
-.panel-login input:hover,
-.panel-login input:focus {
-	outline:none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-	border-color: #ccc;
-}
-.btn-login {
-	background-color: #59B2E0;
-	outline: none;
-	color: #fff;
-	font-size: 14px;
-	height: auto;
-	font-weight: normal;
-	padding: 14px 0;
-	text-transform: uppercase;
-	border-color: #59B2E6;
-}
-.btn-login:hover,
-.btn-login:focus {
-	color: #fff;
-	background-color: #53A3CD;
-	border-color: #53A3CD;
-}
-.forgot-password {
-	text-decoration: underline;
-	color: #888;
-}
-.forgot-password:hover,
-.forgot-password:focus {
-	text-decoration: underline;
-	color: #666;
-}
-
-.btn-register {
-	background-color: #1CB94E;
-	outline: none;
-	color: #fff;
-	font-size: 14px;
-	height: auto;
-	font-weight: normal;
-	padding: 14px 0;
-	text-transform: uppercase;
-	border-color: #1CB94A;
-}
-.btn-register:hover,
-.btn-register:focus {
-	color: #fff;
-	background-color: #1CA347;
-	border-color: #1CA347;
-}	
-
-
-
-.container img {
-	
-	width: 30%;
-	height: 120px;
-
-}
-
-
-.column {
-    float: left;
-    width: 14.28%;
-    padding: 5px;
-}
-
-/* Clearfix (clear floats) */
-.row::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 500px) {
-    .column {
-        width: 100%;
-    }
-}
-</style>
 
 <div class="container">
   <div class="column">
-    <img style="width:100%" src="/static/css/El-Espejo-Solar_large.jpg">
+	<img style="width:100%" src="/static/css/El-Espejo-Solar_large.jpg">
   </div>
 
   <div class="column">
-  	<img style="width:100%" src="/static/css/simonBolivar.jpeg">
+	<img style="width:100%" src="/static/css/simonBolivar.jpeg">
   </div>
 
   <div class="column">
-  	<img style="width:100%" src="/static/css/pajaro.jpg">
+	<img style="width:100%" src="/static/css/pajaro.jpg">
   </div>
 
   <div class="column">
-  	<img style="width:100%" class="img-responsive center-block" src="/static/css/usb.png">
+	<img style="width:100%" class="img-responsive center-block" src="/static/css/usb.png">
   </div>
 
   <div class="column">
-  	<img style="width:100%" src="/static/css/cromovegetal.jpeg">
+	<img style="width:100%" src="/static/css/cromovegetal.jpeg">
   </div>
 
 
   <div class="column">
-  	<img style="width:100%" src="/static/css/escut_hidro1.jpg">
+	<img style="width:100%" src="/static/css/escut_hidro1.jpg">
   </div>
 
   <div class="column">
-  	<img style="width:100%" src="/static/css/biblio.jpeg">
+	<img style="width:100%" src="/static/css/biblio.jpeg">
   </div>
 
 </div>
@@ -197,7 +46,7 @@ body {
 <div class="container">
 		<h1 class="text-center"><b> Sistema de Oferta de Asginaturas - Postgrado</b></h1>
 		<br>
-    	<div class="row">
+		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="panel panel-login">
 					<div class="panel-heading">
@@ -214,41 +63,18 @@ body {
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-								<form id="login-form" method="post" role="form" style="display: block;">
-									<div class="form-group">
-										<input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
-									</div>
-									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña">
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-primary" value="Iniciar Sesión">
-											</div>
-										</div>
-									</div>
+								<form action={% url 'entrar' %} id="login-form" method="post" role="form" style="display: block;">
+									{% csrf_token %}
+									{{ form2.as_p }}
+									<button type="submit">Entrar</button>
 								</form>
-								<form id="register-form" method="post" role="form" style="display: none;">
-									<div class="form-group">
-										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
-									</div>
-									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña">
-									</div>
-									<div class="form-group">
-										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirmar Contraseña">
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-primary" value="Registrarse">
-											</div>
-										</div>
-									</div>
+								<form action={% url 'registrar' %} id="register-form" method="post" role="form" style="display: none;">
+									{% csrf_token %}
+									{{ form.as_p }}
+									<button type="submit">Registrar</button>
+  
 								</form>
 							</div>
 						</div>
 					</div>
-					{% csrf_token %}
 </html>
