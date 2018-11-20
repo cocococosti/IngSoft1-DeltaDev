@@ -1,0 +1,170 @@
+[
+{
+    "model": "Asignaturas.departamento",
+    "pk": "BC",
+    "fields": {
+        "nombre": "BIOLOGIA CELULAR"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "BO",
+    "fields": {
+        "nombre": "BIOLOGIA DE ORGANISMO"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "CC",
+    "fields": {
+        "nombre": "CIENCIAS Y TECNOLOG\u00cdA DEL COMPORTAMIENTO"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "CE",
+    "fields": {
+        "nombre": "CIENCIAS ECONOMICAS Y ADMINISTRATIVAS"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "CI",
+    "fields": {
+        "nombre": "COMPUTACION Y TECNICA DE LA INFORMACION"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "CO",
+    "fields": {
+        "nombre": "COMPUTO CIENTIFICO"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "CS",
+    "fields": {
+        "nombre": "CIENCIAS SOCIALES"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "CT",
+    "fields": {
+        "nombre": "CONVERSION Y TRANSPORTE DE ENERGIA"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "DA",
+    "fields": {
+        "nombre": "DISE\u00d1O, ARQUITECTURA Y ARTES PLASTICAS"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "EA",
+    "fields": {
+        "nombre": "ESTUDIOS AMBIENTALES"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "EC",
+    "fields": {
+        "nombre": "ELECTRONICA Y CIRCUITOS"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "FL",
+    "fields": {
+        "nombre": "FILOSOFIA"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "FS",
+    "fields": {
+        "nombre": "FISICA"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "GC",
+    "fields": {
+        "nombre": "CIENCIAS DE LA TIERRA"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "ID",
+    "fields": {
+        "nombre": "IDIOMAS"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "LL",
+    "fields": {
+        "nombre": "LENGUA Y LITERATURA"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "MA",
+    "fields": {
+        "nombre": "MATEMATICAS PURAS Y APLICADAS"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "MC",
+    "fields": {
+        "nombre": "MECANICA"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "MT",
+    "fields": {
+        "nombre": "CIENCIAS DE LOS MATERIALES"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "PB",
+    "fields": {
+        "nombre": "TECNOLOGIA DE PROCESOS BIOLOGICOS Y BIOQUIMICOS"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "PL",
+    "fields": {
+        "nombre": "PLANIFICACION URBANA"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "PS",
+    "fields": {
+        "nombre": "PROCESOS Y SISTEMAS"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "QM",
+    "fields": {
+        "nombre": "QUIMICA"
+    }
+},
+{
+    "model": "Asignaturas.departamento",
+    "pk": "TF",
+    "fields": {
+        "nombre": "TERMODINAMICA Y FENOMENOS DE TRANSFERENCIA"
+    }
+}
+]
