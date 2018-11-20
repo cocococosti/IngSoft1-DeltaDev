@@ -63,8 +63,6 @@ Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramient
 
 2- Presione Boton Eliminar
 
-  ![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignatura_eliminar_confirmacion.png "Modal solicitando confirmación")
-
 3- Confirmación:
   Una vez presionado el botón de "Eliminar" se mostrará una ventana modal solicitado confirmar la solicitud.
 
