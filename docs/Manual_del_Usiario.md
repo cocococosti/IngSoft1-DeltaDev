@@ -8,22 +8,24 @@ esperados al ingresar a ciertas funcionalidades específicas.
 
 El presente documento presentará actualizacines durante la primera etapa de desarrollo hasta la culminación del mismo.
 
-## Inicio
+## 1-Inicio
 
 ![Página de Ingreso](imagenes/usuarios_Inicio_login.jpg "Página de ingreso a cuenta")
 
-### Registro de Cuenta.
-
+### 1.1 Registro de Cuenta
+  Al presionar el botón "Registrarse" verá el siguiente formulario.
 ![Registro de Cuenta](imagenes/usuarios_login_registrar_datos.png "Página de registro de cuenta")
   
  #### Formulario de Registro
+ Para poder crear un nuev usuario de forma satisfactoria debe llenar "Todos" los campos, a continuación de ofrece una explicación con el nombre del campo y el tipo de dato se espera recibir en él.
+ 
  - Nombre de Usuario: dirección de correo electrónico personal/institucional.
- - Departamento: código del Departamento al cual estará adscrita la cuenta. El código consiste en dos letras Mayusculas 
+ - Departamento: código del Departamento al cual estará adscrita la cuenta. El código se compone de dos letras Mayusculas 
  - Contraseña: codigo alfanumérico de 8 dígitos o más.
  - Confirmación: repetir nuevamente la contraseña.
 
 
-### Inicio de Sesión
+### 1.1 Inicio de Sesión
 
 Para poder acceder al sistema el usuario debe proporcionar los datos de identificación indicados en las casillas:
 
@@ -34,26 +36,26 @@ Para poder acceder al sistema el usuario debe proporcionar los datos de identifi
   
   ![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_menu.png "Menu de funcionalidades sobre módulo de Asignaturas")
 
-## Herramientas de Gestión de Asignaturas:
-Una vez ingrese al menu de asignaturas se pueden apreciar dos herramientas de gestion:
+## 2. Herramientas de Gestión de Asignaturas:
+Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramientas de gestion:
 
   - Registrar Asignatura: muestra un Formulario con los campos requeridos para crear una nueva asignatura.
   - Ver Asignatura: lista las asignaturas existentes y ofrece las funciones CRUD.
   
-### Registrar Asignatura-Formulario (Solo para Jefes de Departamento).
+### 2.1 Registrar Asignatura-Formulario (Solo para Jefes de Departamento).
 
   ![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_registrarAsignatura.png "Formulario para agregar nueva Asignatura")
 
 
-### Ver Asignaturas
+### 2.2 Ver Asignaturas
 
 ![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignatura.png "listado de Asignaturas")
 
-### Consultar una Asignatura (Todo usuario).
+### 2.2.1 Consultar una Asignatura (Todo usuario).
 (En desarrollo)
-### Modificar información de una asignatura (Solo para Jefes de Departamento).
+### 2.2.2 Modificar información de una asignatura (Solo para Jefes de Departamento).
 (En desarrollo)
-### Eliminar una Asignatura (Solo para Jefes de Departamento).
+### 2.2.3 Eliminar una Asignatura (Solo para Jefes de Departamento).
 
 1- Marcar la casilla con la Asignatura que desee eliminar.
 
@@ -64,9 +66,11 @@ Una vez ingrese al menu de asignaturas se pueden apreciar dos herramientas de ge
   ![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignatura_eliminar_confirmacion.png "Modal solicitando confirmación")
 
 3- Confirmación:
+  Una vez presionado el botón de "Eliminar" se mostrará una ventana modal solicitado confirmar la solicitud.
 
   ![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignatura_eliminar_confirmacion.png "Modal solicitando confirmación")
 
+Las siguientes imágenes muestran el resultado de c/u de las opciones:
 
   3.1- Eliminar:
  
