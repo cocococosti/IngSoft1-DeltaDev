@@ -12,6 +12,12 @@ class Departamento(models.Model):
 	codigo = models.CharField(primary_key=True, max_length=3)
 	nombre = models.CharField(max_length=60, unique=True)
 
+	class Meta:
+		ordering = ["codigo"]
+
+	def __str__(self):
+		return self.codigo + ": " + self.nombre
+
 class Profesor(models.Model):
 	user = models.OneToOneField(User, default="", on_delete=models.CASCADE)
 	departamento = models.ForeignKey(Departamento, default="",on_delete=models.CASCADE)
@@ -20,9 +26,15 @@ class Profesor(models.Model):
 class Asignatura(models.Model):
 	codigo = models.CharField(primary_key=True,max_length=7, validators=[RegexValidator(regex='^[A-Z]{2}-[0-9]{4}$', message = 'Codigo Invalido')])
 	nombre = models.CharField(max_length=60)
-	unidadesCredito = models.IntegerField()  
-	horasTeoria = models.IntegerField()
-	horasPractica = models.IntegerField()
-	horasLab = models.IntegerField()
+	unidadesCredito = models.IntegerField(default=0)  
+	horasTeoria = models.IntegerField(default=0)
+	horasPractica = models.IntegerField(default=0)
+	horasLab = models.IntegerField(default=0)
 	requisitos = models.ManyToManyField("self", blank=True)
 	departamento = models.ForeignKey(Departamento, default="",on_delete=models.CASCADE)
+
+	class Meta:
+		ordering = ["codigo"]
+
+	def __str__(self):
+		return self.codigo + " Nombre: " + self.nombre + " Dpto: " + self.departamento_id + " UC: " + str(self.unidadesCredito)
