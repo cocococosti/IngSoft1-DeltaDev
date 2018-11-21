@@ -13,6 +13,10 @@ class RegistrarMatForm(ModelForm):
 	def __init__(self, user, *args, **kwargs):
 		super(RegistrarMatForm, self).__init__(*args, **kwargs)
 		self.user = user
+		if kwargs and kwargs['instance']: 
+			materia = kwargs['instance']
+			self.fields['requisitos'].queryset =\
+					Asignatura.objects.exclude(codigo=materia.codigo)
 		if not self.user.is_anonymous:
 			departamento =\
 					Profesor.objects.get(user=self.user).departamento
@@ -23,7 +27,7 @@ class RegistrarMatForm(ModelForm):
 		fields = ['codigo', 'nombre', 'unidadesCredito', 
 		'horasTeoria', 'horasPractica', 'horasLab', 'requisitos', 'departamento']
 		labels = {
-        "codigo": "Código",
+        "codigo": 'Código',
         "nombre": "Nombre",
         "unidadesCredito": "Unidades de Crédito",
         "horasTeoria": "Horas de Teoria",

@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 
 <html lang="es">
@@ -11,6 +12,9 @@
 	 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
     <title>Modificar</title>
+        <link rel="stylesheet" href="{% static "css/chosen/style.css" %}">
+        <link rel="stylesheet" href="{% static "css/chosen/prism.css" %}">
+        <link rel="stylesheet" href="{% static "css/chosen/chosen.css" %}">
 
   </head>
 
@@ -31,6 +35,10 @@
       </div>
     </div>
 
+        <script src="{% static "js/chosen/jquery-3.2.1.min.js" %}"></script>
+        <script src="{% static "js/chosen/chosen.jquery.js" %}"></script>
+        <script src="{% static "js/chosen/prism.js" %}"></script>
+        <script src="{% static "js/chosen/init.js" %}"></script>
   </body>
   
 </html>
