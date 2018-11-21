@@ -10,9 +10,21 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.forms import ModelForm
 
 class RegistrarMatForm(ModelForm):
+	def __init__(self, user, *args, **kwargs):
+		super(RegistrarMatForm, self).__init__(*args, **kwargs)
+		self.user = user
+		if kwargs and kwargs['instance']:
+			materia = kwargs['instance']
+			self.fields['requisitos'].queryset =\
+					Asignatura.objects.exclude(codigo=materia.codigo)
+		if not self.user.is_anonymous:
+			departamento =\
+					Profesor.objects.get(user=self.user).departamento
+			self.fields['departamento'].queryset =\
+					Departamento.objects.filter(codigo=departamento.codigo)
 	class Meta():
 		model = Asignatura
-		fields = ['codigo', 'nombre', 'unidadesCredito', 
+		fields = ['codigo', 'nombre', 'unidadesCredito',
 		'horasTeoria', 'horasPractica', 'horasLab', 'requisitos', 'departamento']
 		labels = {
         "codigo": "Código",
