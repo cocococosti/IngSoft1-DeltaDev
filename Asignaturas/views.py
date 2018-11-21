@@ -54,10 +54,11 @@ def tablaAsignaturas(request):
 def registroAsignaturas(request):
 	"""Genera el form para registro de asignaturas y guarda los datos en la base de datos."""
 
+	user = request.user
 	if request.method == 'POST':
 
 		# Generamos el form
-		form = RegistrarMatForm(request.POST)
+		form = RegistrarMatForm(user, request.POST)
 
 		if form.is_valid():
 
@@ -67,7 +68,7 @@ def registroAsignaturas(request):
 		else:
 			return render(request, 'Asignaturas/registroAsignaturas.html', {'form':form})
 	else:
-		form = RegistrarMatForm()
+		form = RegistrarMatForm(user)
 		return render(request, 'Asignaturas/registroAsignaturas.html', {'form':form})
 		
 def autenticacion(request):
