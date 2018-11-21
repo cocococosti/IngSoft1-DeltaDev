@@ -34,7 +34,7 @@ def tablaAsignaturas(request):
 				"nombre"     : materia.nombre,
 				"unidadesCredito"   : materia.unidadesCredito,
 				"horasTeoria"              : materia.horasTeoria,
-				"horasPractica" : materia.programa.horasPractica,
+				"horasPractica" : materia.horasPractica,
 				"horasLab": materia.horasLab,
 				"requisitos": materia.requisitos,
 				"departamento"      : materia.departamento.codigo})
