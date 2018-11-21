@@ -19,6 +19,7 @@ def tablaAsignaturas(request):
 	"""Toma las asignaturas de la base de datos y las carga en la tabla."""
 
 	materias = Asignatura.objects.all()
+	user = request.user
 
 	if request.method == 'POST':
 
@@ -29,15 +30,7 @@ def tablaAsignaturas(request):
 		elif ((request.POST.get('modo')) == "Modificar"):
 			materia = Asignatura.objects.filter(codigo = request.POST.get('item_id')).first()
 
-			form = RegistrarMatForm(
-				{"codigo"     : materia.codigo,
-				"nombre"     : materia.nombre,
-				"unidadesCredito"   : materia.unidadesCredito,
-				"horasTeoria"              : materia.horasTeoria,
-				"horasPractica" : materia.programa.horasPractica,
-				"horasLab": materia.horasLab,
-				"requisitos": materia.requisitos,
-				"departamento"      : materia.departamento.codigo})
+			form = RegistrarMatForm(user, instance=materia)
 
 			return render(request, 'Asignaturas/modificarAsignatura.html', {'form':form})
 		
