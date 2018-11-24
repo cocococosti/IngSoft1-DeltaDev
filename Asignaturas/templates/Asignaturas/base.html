@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    {% block estilos %}
+    {% endblock %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+   
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <script src="{% static "js/login.js" %}"></script>
+    
+  </head> 
+
+  <body>
+    <div class="container">
+      <div class="column">
+      <img style="width:100%" src="/static/css/El-Espejo-Solar_large.jpg">
+      </div>
+
+      <div class="column">
+      <img style="width:100%" src="/static/css/simonBolivar.jpeg">
+      </div>
+
+      <div class="column">
+      <img style="width:100%" src="/static/css/pajaro.jpg">
+      </div>
+
+      <div class="column">
+      <img style="width:100%" class="img-responsive center-block" src="/static/css/usb.png">
+      </div>
+
+      <div class="column">
+      <img style="width:100%" src="/static/css/cromovegetal.jpeg">
+      </div>
+
+
+      <div class="column">
+      <img style="width:100%" src="/static/css/escut_hidro1.jpg">
+      </div>
+
+      <div class="column">
+      <img style="width:100%" src="/static/css/biblio.jpeg">
+      </div>
+
+    </div>
+
+    <div class="container">
+
+      <h2 class="text-center"><b> Sistema de Oferta de Asignaturas - Postgrado</b></h2>
+      <br>
+      {% block navbar %}
+          <div class="text-center">
+         <div class="btn-group">
+          <a type="button" class="btn btn-secondary" href="registro-asignaturas">Registrar asignatura</a>
+          <a type="button" class="btn btn-secondary" href="tabla-asignaturas">Ver asignaturas</a>
+          <a type="button" class="btn btn-secondary" href="salir">Salir</a>
+        </div>
+      {% endblock %}
+      <br>
+
+    </div>
+    {% block content %}
+    {% endblock %}
+
+        
+  </body>
+
+</html>

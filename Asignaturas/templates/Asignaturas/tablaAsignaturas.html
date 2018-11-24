@@ -1,9 +1,9 @@
- <!DOCTYPE html>
-<html>
+{% extends 'Asignaturas/base.html' %}
+
 
   <head>
-
     <title>Tabla Asignaturas</title>
+    {% block estilos %}
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -14,108 +14,97 @@
     
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     
     {% load static %}
     <script src="{% static "js/tablaAsignaturas.js" %}"></script>
 
+    {% endblock %}
+
   </head>
 
-  <body>
 
-    <div class="bg">
-      <div class="container" style=" margin: 0 auto; background-color: White;">
-      
-        <div class="container" style=" margin: 0 auto; margin-bottom: 4rem; margin-top: 4rem;background-color: White;">
-            <h4 style="margin: 0 auto">Asignaturas de la Maestría en Ciencias de la Computación</h4>
-        </div>
 
-        <div class="row">
-          <div class="table-responsive">
-            <table id="example" class="table table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th><input type="checkbox" id="checkall" /></th>
-                  <th>Código</th>
-                  <th>Nombre</th>
-                   <th>Créditos</th>
-                   <th>Horas Teoría</th>
-                   <th>Horas Práctica</th>
-                   <th>Horas Laboratorio</th>
-                   <th>Requisitos</th>
-                   <th>Departamento</th>
-                   <th></th>
-                   <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for m in materias %}
-                  <tr>
-                    <td><input type="checkbox" class="checkthis" /></td>
-                    <td>{{m.codigo}}</td>
-                    <td>{{m.nombre}}</td>
-                    <td>{{m.unidadesCredito}}</td>
-                    <td>{{m.horasTeoria}}</td>
-                    <td>{{m.horasPractica}}</td>
-                    <td>{{m.horasLab}}</td>
-                    {% if m.requisitos.Asignatura.Asignatura != None %}
-                    <td>{{m.requisitos}}</td>
-                    {% else %}
-                    <td></td>
-                    {% endif %}
-                    <td>{{m.departamento.codigo}}</td>
-                    <td>
-                      <p data-placement="top" title="Modificar">
-                        <form action='' method="post">
+  {% block content %}
+
+  <div class="container" style=" margin: 0 auto; background-color: White;padding-top: 2rem;">
+  
+
+    <table id="example" class="table table-striped table-bordered" style="width: 100%;">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nombre</th>
+           <th>Créditos</th>
+           <th>Horas Teoría</th>
+           <th>Horas Práctica</th>
+           <th>Horas Laboratorio</th>
+           <th>Requisitos</th>
+           <th>Departamento</th>
+           <th></th>
+           <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for m in materias %}
+          <tr>
+            <td>{{m.codigo}}</td>
+            <td>{{m.nombre}}</td>
+            <td>{{m.unidadesCredito}}</td>
+            <td>{{m.horasTeoria}}</td>
+            <td>{{m.horasPractica}}</td>
+            <td>{{m.horasLab}}</td>
+            {% if m.requisitos.Asignatura.Asignatura != None %}
+            <td>{{m.requisitos}}</td>
+            {% else %}
+            <td></td>
+            {% endif %}
+            <td>{{m.departamento.codigo}}</td>
+            <td>
+              <p data-placement="top" title="Modificar">
+                <form action='' method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="item_id" value="{{m.codigo}}" />
+                  <input type="submit" name = "modo" class="btn btn-primary" value="Modificar">
+
+                </form>
+              </p>
+            </td>
+            <td>
+              <p data-placement="top" title="Eliminar">
+                <form action='' method="post">
+                   
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar">Eliminar</button>
+                  <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Eliminar {{m.codigo}}</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p>¿Está seguro de que desea eliminar la asignatura?</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                           {% csrf_token %}
                           <input type="hidden" name="item_id" value="{{m.codigo}}" />
-                          <input type="submit" name = "modo" class="btn btn-primary" value="Modificar">
+                          <input type="submit" name = "modo" class="btn btn-primary" value="Eliminar">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-                        </form>
-                      </p>
-                    </td>
-                    <td>
-                      <p data-placement="top" title="Eliminar">
-                        <form action='' method="post">
-                           
-                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar">Eliminar</button>
-                          Modal para eliminar
-                          <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLongTitle">Eliminar {{m.codigo}}</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                  <p>¿Está seguro de que desea eliminar la asignatura?</p>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                  {% csrf_token %}
-                                  <input type="hidden" name="item_id" value="{{m.codigo}}" />
-                                  <input type="submit" name = "modo" class="btn btn-primary" value="Eliminar">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                        </form>
-                      </p>
-                    </td>
-                  </tr>
-                {% endfor %} 
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </body>
-
-</html>
+                </form>
+              </p>
+            </td>
+          </tr>
+        {% endfor %} 
+      </tbody>
+    </table>
+  </div>
+   
+  {% endblock %}
