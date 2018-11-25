@@ -42,7 +42,7 @@ class Asignatura(models.Model):
 	horasTeoria = models.IntegerField(default=0, validators=[MinValueValidator(0, message='Las horas de teoría no pueden ser negativas')])
 	horasPractica = models.IntegerField(default=0,validators=[MinValueValidator(0, message='Las horas de practica no pueden ser negativas')])
 	horasLab = models.IntegerField(default=0, validators=[MinValueValidator(0, message='Las horas de laboratorio no pueden ser negativas')])
-	requisitos = models.ManyToManyField("self", blank=True)
+	requisitos = models.ManyToManyField("self", symmetrical=False, blank=True)
 	departamento = models.ForeignKey(Departamento, default="",on_delete=models.CASCADE)
 
 	#Permite ingresar los elementos a la tabla asignatura ordenados por su codigo

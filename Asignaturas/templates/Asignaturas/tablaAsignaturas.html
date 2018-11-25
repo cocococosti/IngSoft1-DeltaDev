@@ -55,11 +55,11 @@
             <td>{{m.horasTeoria}}</td>
             <td>{{m.horasPractica}}</td>
             <td>{{m.horasLab}}</td>
-            {% if m.requisitos.Asignatura.Asignatura != None %}
-            <td>{{m.requisitos}}</td>
-            {% else %}
-            <td></td>
-            {% endif %}
+            <td>
+            {% for mat in m.requisitos.all %}
+            <p>{{mat.codigo}}</p>
+            {% endfor %}
+            </td>
             <td>{{m.departamento.codigo}}</td>
             <td>
               <p data-placement="top" title="Modificar">
