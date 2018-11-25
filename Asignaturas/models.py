@@ -9,10 +9,11 @@ from django.core.validators import *
 
 # Modelos de cada Tabla y sus atributos
 
-""" Tabla Departamento la cual posee el codigo del departamento como 
-	clave primaria y y a su vez posee sus respectivas validaciones para verificar
-	que los datos de entrada se encuentran en el dominio"""
 class Departamento(models.Model):
+	""" Tabla Departamento la cual posee el codigo del departamento como 
+		clave primaria y y a su vez posee sus respectivas validaciones para verificar
+		que los datos de entrada se encuentran en el dominio."""
+
 	codigo = models.CharField(primary_key=True, max_length=2, validators=[MaxLengthValidator(2, message='El código del Departamento debe contener exactamente 2 caracteres'), MinLengthValidator(2, message='El código del Departamento debe contener exactamente 2 caracteres')])
 	nombre = models.CharField(max_length=60, unique=True, validators=[MaxLengthValidator(60, message='El nombre del Departamento a lo sumo puede contener 60 caracteres'), MinLengthValidator(1, message='El nombre de la asignatura debe ser mayor a un caracter')])
 
@@ -24,15 +25,17 @@ class Departamento(models.Model):
 	def __str__(self):
 		return self.codigo + ": " + self.nombre
 
-""" Tabla profesor en la cual se almacena la informacion basica de usuario por defecto de Django
-	y el departento al cual pertece el profesor mediante la clave foranea"""
 class Profesor(models.Model):
+	""" Tabla profesor en la cual se almacena la informacion basica de usuario por defecto de Django
+		y el departento al cual pertece el profesor mediante la clave foranea."""
+
 	user = models.OneToOneField(User, default="", on_delete=models.CASCADE)
 	departamento = models.ForeignKey(Departamento, default="",on_delete=models.CASCADE)
 	
 
-""" Tabla asignatura con sus respectivos atributos y validaciones del dominio de entrada"""
 class Asignatura(models.Model):
+	""" Tabla asignatura con sus respectivos atributos y validaciones del dominio de entrada."""
+	
 	codigo = models.CharField(primary_key=True,max_length=7, validators=[RegexValidator(regex='^[A-Z]{2}-[0-9]{4}$', message = 'El código de la asignatura es inválido'), MaxLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres'), MinLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres')])
 	nombre = models.CharField(max_length=60, validators=[MaxLengthValidator(60, message='El nombre de la asignatura a lo sumo puede contener 60 caracteres'), MinLengthValidator(1, message='El nombre de la asignatura debe contener al menos un caracter')])
 	unidadesCredito = models.IntegerField(default=0,validators=[MinValueValidator(1, message='La asignatura debe contener al menos una unidad de crédito')])  

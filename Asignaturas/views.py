@@ -47,6 +47,8 @@ def modificarAsignatura(request, codigo):
 		if form.is_valid():
 			form.save()
 			return redirect('/tabla-asignaturas/')
+		else:
+			return render(request, 'Asignaturas/modificarAsignatura.html', {'form':form})
 
 	else:
 		form = RegistrarMatForm(user,instance=materia)
