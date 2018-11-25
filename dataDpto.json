@@ -31,7 +31,7 @@
     "model": "Asignaturas.departamento",
     "pk": "CI",
     "fields": {
-        "nombre": "COMPUTACION Y TECNICA DE LA INFORMACION"
+        "nombre": "COMPUTACION Y TECNOLOGIA DE LA INFORMACION"
     }
 },
 {

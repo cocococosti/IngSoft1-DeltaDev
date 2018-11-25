@@ -36,7 +36,7 @@ class Asignatura(models.Model):
 	codigo = models.CharField(primary_key=True,max_length=7, validators=[RegexValidator(regex='^[A-Z]{2}-[0-9]{4}$', message = 'El código de la asignatura es inválido'), MaxLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres'), MinLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres')])
 	nombre = models.CharField(max_length=60, validators=[MaxLengthValidator(60, message='El nombre de la asignatura a lo sumo puede contener 60 caracteres'), MinLengthValidator(1, message='El nombre de la asignatura debe contener al menos un caracter')])
 	unidadesCredito = models.IntegerField(default=0,validators=[MinValueValidator(1, message='La asignatura debe contener al menos una unidad de crédito')])  
-	horasTeoria = models.IntegerField(default=0, validators=[MinValueValidator(4, message='Las horas de teoría no pueden ser menor a 4')])
+	horasTeoria = models.IntegerField(default=0, validators=[MinValueValidator(0, message='Las horas de teoría no pueden ser negativas')])
 	horasPractica = models.IntegerField(default=0,validators=[MinValueValidator(0, message='Las horas de practica no pueden ser negativas')])
 	horasLab = models.IntegerField(default=0, validators=[MinValueValidator(0, message='Las horas de laboratorio no pueden ser negativas')])
 	requisitos = models.ManyToManyField("self", blank=True)
