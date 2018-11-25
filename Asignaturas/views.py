@@ -28,12 +28,7 @@ def tablaAsignaturas(request):
 			item.delete()
 			materias = Asignatura.objects.all()
 		elif ((request.POST.get('modo')) == "Modificar"):
-			materia = Asignatura.objects.filter(codigo = request.POST.get('item_id')).first()
-
-			form = RegistrarMatForm(user, instance=materia)
-
-			return render(request, 'Asignaturas/modificarAsignatura.html', {'form':form})
-		
+			return redirect('/modificar-asignatura/{}'.format(request.POST.get('item_id')))
 		else:
 			return render(request, 'Asignaturas/tablaAsignaturas.html', {'materias': materias})
 
@@ -43,6 +38,19 @@ def tablaAsignaturas(request):
 
 	return render(request, 'Asignaturas/tablaAsignaturas.html', {'materias': materias})
 
+def modificarAsignatura(request, codigo):
+	"""Busca la materia en la base de datos y llena el formulario con los datos"""
+	user = request.user
+	materia = Asignatura.objects.get(codigo=codigo)
+	if request.method == 'POST':
+		form = RegistrarMatForm(user, request.POST, instance=materia)
+		if form.is_valid():
+			form.save()
+			return redirect('/tabla-asignaturas/')
+
+	else:
+		form = RegistrarMatForm(user,instance=materia)
+		return render(request, 'Asignaturas/modificarAsignatura.html', {'form':form})
 
 def registroAsignaturas(request):
 	"""Genera el form para registro de asignaturas y guarda los datos en la base de datos."""

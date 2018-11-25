@@ -9,5 +9,7 @@ urlpatterns = [
 	url(r'inicio/$', views.inicio, name='inicio'),
 	url(r'tabla-asignaturas/$', views.tablaAsignaturas, name='asignaturas'),
 	url(r'registro-asignaturas/$', views.registroAsignaturas, name='registro'),
+	url(r'modificar-asignatura/(?P<codigo>[A-Z]{2}-[0-9]{4})/$', views.modificarAsignatura, name='modificar'),
+
 	url(r'salir/$', views.salir, name='salir')
 ]
