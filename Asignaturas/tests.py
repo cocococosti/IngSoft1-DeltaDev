@@ -151,11 +151,3 @@ class AsignaturasTest(TestCase):
 		a = self.create_asignatura("CO-5212","ANALISIS NUMERICO", 4, 6, 3, 3, "", d)
 		self.assertTrue(isinstance(a, Asignatura))
 		self.assertEqual(a.__str__(), "CO-5212 Nombre: ANALISIS NUMERICO Dpto: CO UC: 4")
-
-	######## Pruebas de malicia ########
-	# Arroja error al intentar colocar un codigo de 7 caracteres	
-	def test_codigo_asig_incorrecto_6(self):
-		d = self.create_departamento("CI","Departamento de Computación y Tecnología de la Información")
-		a = self.create_asignatura("CI-76218", "Teoria de Algoritmos", 4, 4, 0, 0, "", d)
-		form = RegistrarMatForm(user = User, instance = a)
-		self.assertTrue(form.is_valid())
