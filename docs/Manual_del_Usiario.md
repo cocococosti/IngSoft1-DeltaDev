@@ -58,12 +58,12 @@ Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramient
   1-Para modificar los datos de una asignatura presione el botón "Modificar", inmediatamente debería mostrarse el siguiente formulario.
   2- Modifique los datos respectivos.
 
-![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignatura_Modificar.png "listado de Asignaturas")
+![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignaturas_Modificar.png "listado de Asignaturas")
 
 
   3-Para Guardar los cambios presiona el botón "Modififar". Una vez hecho regresará inmediatamente a la tabla de asignaturas con los cambios actualizados.
 
-![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignatura_Modificar2.png "listado de Asignaturas")
+![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignaturas_Modificar2.png "listado de Asignaturas")
 
 
 ### 2.2.3 Eliminar una Asignatura (Solo para Jefes de Departamento).
