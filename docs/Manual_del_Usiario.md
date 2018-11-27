@@ -10,7 +10,7 @@ El presente documento presentará actualizacines durante la primera etapa de des
 
 ## 1-Inicio
 
-![Página de Ingreso](imagenes/usuarios_Inicio_login.jpg "Página de ingreso a cuenta")
+
 
 ### 1.1 Registro de Cuenta
   Al presionar el botón "Registrarse" verá el siguiente formulario.
