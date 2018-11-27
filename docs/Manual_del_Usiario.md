@@ -44,8 +44,35 @@ Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramient
   
 ### 2.1 Registrar Asignatura-Formulario (Solo para Jefes de Departamento).
 
-  ![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_registrarAsignatura.png "Formulario para agregar nueva Asignatura")
+![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_registrarAsignatura.png "Menu de funcionalidades sobre módulo de Asignaturas")
 
+  Al ingresar a la opción "Registrar Asignatura" se mostrará un formulario para añadir la nueva asignatura. A continuación se describen los formatos que deben poseer los valores a ingresar en cada campo:
+  
+  1-Código: LL-NNNN (LL=código del departamento al que perteneca, N=Numero entero).
+  
+  2-Nombre: Nombre de la materia (DEBE ESTAR EN MAYÚSCULAS). 
+  
+  3-Unidades de Crédito: Numero entero mayor que 0 y menor que 9.
+  
+  4- Horas de Teoria: Numero Natural mayor que cero.
+ 
+  5- Horas de Laboratorio: Numero Natural mayor que cero.
+  
+  6- Horas de Practica: Numero Natural Mayor que cero.
+  
+  7-Requisitos: Al hacer click sobre el campo se desplegará la lista de asignaturas existente para que señale aquellas que serán requisito (deben aprobarse) para ver la asignatura nueva.
+  
+  8- Departamento: Al hacer click sobre el campo se desplegará la lista de Departamentos, haga click sobre el departamento cuyo código coincid con las primeras dos letras del codigo de Asignatura
+  
+  Ejemplo: Agreguemos una nueva Asignatura llamada Redes Neuronales, perteneciente al departamento de Ciencias de la Economía, debe tener 6 horas de teoría semanal, no tiene laboratorios ni requiere prácticas.
+ 
+  ![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_registrarAsignatura_Formulario.png "Formulario para agregar nueva Asignatura")
+  
+  Una vez haya finalizado se presiona el botón de "Enviar", inmediatamente volveremos a la página de visualización de asignaturas donde se visualizará la actualización.
+ 
+  ![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignatura_Actualizado.png "Tabla de Asignaturas actualizada")
+
+  
 
 ### 2.2 Ver Asignaturas
 
@@ -56,6 +83,7 @@ Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramient
 ### 2.2.2 Modificar información de una asignatura (Solo para Jefes de Departamento).
 
   1-Para modificar los datos de una asignatura presione el botón "Modificar", inmediatamente debería mostrarse el siguiente formulario.
+  
   2- Modifique los datos respectivos.
 
 ![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignaturas_Modificar.png "listado de Asignaturas")
