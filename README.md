@@ -24,7 +24,33 @@ psycopg2 2.7.5            -- Instalación: pip install psycopg2
 
 ### Instalación
 
-1. Acceder al directorio donde se encuentra en el respositorio descargado de la rama master y ejecutar el siguiente comando en la terminal:
+1. Instalar requerimientos
+
+```
+ 
+ pip install -r requirements.txt
+
+```
+
+2. Configurar migraciones
+
+```
+python manage.py makemigrations
+
+python manage.py migrate
+
+```
+
+3. Cargar los datos iniciales a la base de datos.
+
+```
+
+python manage.py loaddata dataDpto.json
+
+
+```
+
+4. Acceder al directorio donde se encuentra en el respositorio descargado de la rama master y ejecutar el siguiente comando en la terminal:
 
 ```
 
@@ -32,7 +58,7 @@ python manage.py runserver
 
 ```
 
-2. Ingresar al sistema en siguiente URL:
+5. Ingresar al sistema en siguiente URL:
 
 ```
 
