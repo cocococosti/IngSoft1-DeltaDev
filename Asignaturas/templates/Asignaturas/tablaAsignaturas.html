@@ -75,8 +75,8 @@
               <p data-placement="top" title="Eliminar">
                 <form action='' method="post">
                    
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEliminar">Eliminar</button>
-                  <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{m.codigo}}">Eliminar</button>
+                  <div class="modal fade" id={{m.codigo}} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -91,8 +91,10 @@
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                           {% csrf_token %}
+                          <form action='' method="post">
                           <input type="hidden" name="item_id" value="{{m.codigo}}" />
                           <input type="submit" name = "modo" class="btn btn-primary" value="Eliminar">
+                        </form>
                         </div>
                       </div>
                     </div>
