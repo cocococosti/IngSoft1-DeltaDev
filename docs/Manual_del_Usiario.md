@@ -30,6 +30,10 @@ Una vez llenado todos los campos, el usuario debe hacer click en el botón Regis
 
 Nota: Actualmente todos los usuarios se registran como Jefes de Departamento. En las próximas actualizaciones se deshabilitará esta suposición.
 
+Nota 2: Solo se puede ingresar con alguno de los departamentos válidos como CI, PS, BC, BO, CC, etc. 
+
+Nota 3: Esta funcionalidad aún esta en desarrollo. Se implementó como un stub pues era necesaria para otros requerimientos del sistema.
+
 ### 1.1 Inicio de Sesión
 
 Para poder acceder al sistema el usuario debe proporcionar los datos de identificación indicados en las casillas:
