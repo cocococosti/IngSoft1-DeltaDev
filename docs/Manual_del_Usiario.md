@@ -10,7 +10,9 @@ El presente documento presentará actualizacines durante la primera etapa de des
 
 ## 1-Inicio
 
+Una vez instalado los requisitos del software y seguido las instrucciones indicadas en el archivo [README](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/README.md) aparecerá como vista inicial la pantalla de autenticación del sistema donde el usuario inicia sesión o se registra, si es la primera vez que ingresa en el sitio.
 
+![Login](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/login%20(2).png "Login") 
 
 ### 1.1 Registro de Cuenta
   Al presionar el botón "Registrarse" verá el siguiente formulario.
@@ -24,6 +26,9 @@ El presente documento presentará actualizacines durante la primera etapa de des
  - Contraseña: codigo alfanumérico de 8 dígitos o más.
  - Confirmación: repetir nuevamente la contraseña.
 
+Una vez llenado todos los campos, el usuario debe hacer click en el botón Registrar. Será redirigido al la pestaña de Inicio de Sesión donde llenará los respectivos campos para ingresar en el sistema.
+
+Nota: Actualmente todos los usuarios se registran como Jefes de Departamento. En las próximas actualizaciones se deshabilitará esta suposición.
 
 ### 1.1 Inicio de Sesión
 
@@ -39,8 +44,8 @@ Para poder acceder al sistema el usuario debe proporcionar los datos de identifi
 ## 2. Herramientas de Gestión de Asignaturas:
 Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramientas de gestion:
 
-  - Registrar Asignatura: muestra un Formulario con los campos requeridos para crear una nueva asignatura.
-  - Ver Asignatura: lista las asignaturas existentes y ofrece las funciones CRUD.
+  - Registrar Asignatura: muestra un Formulario con los campos requeridos para agregar una nueva asignatura en el catálogo.
+  - Ver Asignatura: catálogo asignaturas existentes donde es posible modificarlas, eliminarlas, ordenarlas y filtrarlas.
   
 ### 2.1 Registrar Asignatura-Formulario (Solo para Jefes de Departamento).
 
@@ -48,7 +53,7 @@ Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramient
 
   Al ingresar a la opción "Registrar Asignatura" se mostrará un formulario para añadir la nueva asignatura. A continuación se describen los formatos que deben poseer los valores a ingresar en cada campo:
   
-  1-Código: LL-NNNN (LL=código del departamento al que perteneca, N=Numero entero).
+  1-Código: XX-NNNN (LL=código del departamento al que perteneca, N=Numero entero).
   
   2-Nombre: Nombre de la materia (DEBE ESTAR EN MAYÚSCULAS). 
   
