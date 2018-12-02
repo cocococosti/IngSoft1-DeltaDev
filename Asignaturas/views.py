@@ -107,7 +107,12 @@ def registroAsignaturas(request):
 	else:
 		form = RegistrarMatForm(user)
 		return render(request, 'Asignaturas/registroAsignaturas.html', {'form':form})
-		
+
+
+def registroProfesores(request):
+	
+	return redirect('/inicio/')
+	
 def autenticacion(request):
 	"""Registro de un usuario."""
 	
@@ -124,9 +129,16 @@ def registrar(request):
 				username = form.cleaned_data.get('username')
 				dpto = form.cleaned_data.get('departamento')
 				dept = Departamento.objects.filter(codigo=dpto).first()
+				nombre = form.cleaned_data.get('nombre')
+				apellido = form.cleaned_data.get('apellido')
+				cedula = form.cleaned_data.get('cedula')
+
 				profesor = Profesor(
+					nombre = nombre,
+					apellido = apellido,
 					user = User.objects.get(username=username),
-					departamento = dept
+					departamento = dept,
+					cedula = cedula
 					)
 				profesor.save()
 

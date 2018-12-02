@@ -37,13 +37,31 @@ class RegistrarMatForm(ModelForm):
         "departamento": "Departamento"
     	}
 
+class RegistrarProfForm(ModelForm):
+
+	class Meta():
+		model = Profesor
+		fields = ['nombre', 'apellido', 'cedula',
+		'disponibilidad', 'departamento', 'email', 'asignaturas']
+		labels = {
+        "nombre": "Nombre",
+        "apellido": "Apellido",
+        "cedula": "Cédula",
+        "disponibilidad": "Disponibilidad",
+        "departamento": "Departamento",
+        "email": "e-mail",
+        "asignaturas": "Asignaturas"
+    	}
 
 class SignUpForm(UserCreationForm):
 	departamento = forms.CharField(label='Departamento', max_length=2, validators=[RegexValidator('^[a-zA-Z]{2}$',message="Formato de código incorrecto")])
+	nombre = forms.CharField(max_length=50)
+	apellido = forms.CharField(max_length=50)
+	cedula = forms.CharField(max_length=12)
 
 	class Meta:
 		model = User
-		fields = ('username', 'departamento', 'password1', 'password2')
+		fields = ('nombre', 'apellido', 'cedula', 'departamento', 'username', 'password1', 'password2')
 
 class AuthForm(AuthenticationForm):
 	class Meta:
