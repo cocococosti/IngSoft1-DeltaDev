@@ -1,1 +1,1 @@
-web: gunicorn IngSoftI.wsgi --log-file -
+web: gunicorn --pythonpath Asignaturas Asignaturas.wsgi
