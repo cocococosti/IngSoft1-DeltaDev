@@ -20,7 +20,6 @@ from django.conf import settings
 
 
 urlpatterns = [
-    url(r'^$', 'path.to.function'),
     url(r'^admin/', admin.site.urls), # agregamos la vista de admin
     #path('hello-world/' hello_world)
     url(r'^', include('Asignaturas.urls')),
