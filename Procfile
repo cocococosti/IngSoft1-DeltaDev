@@ -1,1 +1,1 @@
-web: gunicorn Asignaturas.wsgi --log-file -
+web: gunicorn IngSoftI.wsgi --log-file -
