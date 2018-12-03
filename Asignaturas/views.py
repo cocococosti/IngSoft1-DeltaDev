@@ -108,11 +108,96 @@ def registroAsignaturas(request):
 		form = RegistrarMatForm(user)
 		return render(request, 'Asignaturas/registroAsignaturas.html', {'form':form})
 
+def tablaProfesores(request):
+	"""Toma las asignaturas de la base de datos y las carga en la tabla."""
+
+	user = request.user
+	prof = Profesor.objects.get(user = user)
+	dept = prof.departamento.codigo
+
+	profesores = Profesor.objects.filter(departamento = dept).exclude(cedula=prof.cedula)
+	
+	if request.method == 'POST':
+
+		if ((request.POST.get('modo')) == "Eliminar"):
+
+			item = Profesor.objects.filter(cedula = request.POST.get('item_id')) 
+			if (Profesor.objects.filter(cedula = request.POST.get('item_id')).first() != None):  
+				itemProf = Profesor.objects.filter(cedula = request.POST.get('item_id')).first().departamento.codigo
+				# Chequeamos si el usuario autentica es del mismo dpto que desea eliminar
+				prof = Profesor.objects.get(user = user)
+				dept = prof.departamento.codigo
+				if (dept == itemProf):
+					item.delete()
+					profesores = Profesor.objects.filter(departamento = dept).exclude(cedula=prof.cedula)
+
+		elif ((request.POST.get('modo')) == "Modificar"):
+			item = Profesor.objects.filter(cedula = request.POST.get('item_id')) 
+			if (Profesor.objects.filter(cedula = request.POST.get('item_id')).first() != None):  
+				itemProf = Profesor.objects.filter(cedula = request.POST.get('item_id')).first().departamento.codigo
+				# Chequeamos si el usuario autentica es del mismo dpto que desea eliminar
+				prof = Profesor.objects.get(user = user)
+				dept = prof.departamento.codigo
+				if (dept == itemProf):
+
+					return redirect('/modificar-profesor/{}'.format(request.POST.get('item_id')))
+
+		else:
+			return render(request, 'Asignaturas/tablaProfesores.html', {'profesores': profesores})
+
+
+	return render(request, 'Asignaturas/tablaProfesores.html', {'profesores': profesores})
 
 def registroProfesores(request):
 	
-	return redirect('/inicio/')
-	
+	user = request.user
+	prof = Profesor.objects.get(user = user)
+	dept = prof.departamento.codigo
+	if request.method == 'POST':
+
+		# Generamos el form
+		form = RegistrarProfForm(user, request.POST)
+
+		if form.is_valid():
+			codigo = form.cleaned_data['departamento'].codigo
+
+			if (codigo == dept):
+
+				form.save()
+
+				return redirect('/inicio/')
+			else:
+				return render(request, 'Asignaturas/registroProfesor.html', {'form':form})
+		else:
+			return render(request, 'Asignaturas/registroProfesor.html', {'form':form})
+	else:
+		form = RegistrarProfForm(user)
+		return render(request, 'Asignaturas/registroProfesor.html', {'form':form})
+
+def modificarProfesor(request, codigo):
+	"""Busca la materia en la base de datos y llena el formulario con los datos"""
+	user = request.user
+	prof = Profesor.objects.get(user = user)
+	dept = prof.departamento.codigo
+	profesor = Profesor.objects.get(cedula=codigo)
+
+	if request.method == 'POST':
+		form = RegistrarProfForm(user, request.POST, instance=profesor)
+		if form.is_valid():
+			codigo = form.cleaned_data['departamento'].codigo
+
+			if (codigo == dept):
+				form.save()
+				return redirect('/tabla-profesores/')
+			else:
+				return render(request, 'Asignaturas/modificarProfesor.html', {'form':form})
+		else:
+			return render(request, 'Asignaturas/modificarProfesor.html', {'form':form})
+
+	else:
+		form = RegistrarProfForm(user,instance=profesor)
+		return render(request, 'Asignaturas/modificarProfesor.html', {'form':form})
+
 def autenticacion(request):
 	"""Registro de un usuario."""
 	

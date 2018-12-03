@@ -38,6 +38,18 @@ class RegistrarMatForm(ModelForm):
     	}
 
 class RegistrarProfForm(ModelForm):
+	def __init__(self, user, *args, **kwargs):
+		super(RegistrarProfForm, self).__init__(*args, **kwargs)
+		self.user = user
+		if kwargs and kwargs['instance']:
+			profesor = kwargs['instance']
+			self.fields['asignaturas'].queryset =\
+					Asignatura.objects.all()
+		if not self.user.is_anonymous:
+			departamento =\
+					Profesor.objects.get(user=self.user).departamento
+			self.fields['departamento'].queryset =\
+					Departamento.objects.filter(codigo=departamento.codigo)
 
 	class Meta():
 		model = Profesor
@@ -58,10 +70,11 @@ class SignUpForm(UserCreationForm):
 	nombre = forms.CharField(max_length=50)
 	apellido = forms.CharField(max_length=50)
 	cedula = forms.CharField(max_length=12)
+	email = forms.CharField(max_length=200)
 
 	class Meta:
 		model = User
-		fields = ('nombre', 'apellido', 'cedula', 'departamento', 'username', 'password1', 'password2')
+		fields = ('nombre', 'apellido', 'cedula', 'departamento', 'email', 'username', 'password1', 'password2')
 
 class AuthForm(AuthenticationForm):
 	class Meta:
