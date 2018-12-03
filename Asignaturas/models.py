@@ -16,10 +16,15 @@ class Departamento(models.Model):
 
 	codigo = models.CharField(primary_key=True, max_length=2, validators=[MaxLengthValidator(2, message='El código del Departamento debe contener exactamente 2 caracteres'), MinLengthValidator(2, message='El código del Departamento debe contener exactamente 2 caracteres')])
 	nombre = models.CharField(max_length=60, unique=True, validators=[MaxLengthValidator(60, message='El nombre del Departamento a lo sumo puede contener 60 caracteres'), MinLengthValidator(1, message='El nombre de la asignatura debe ser mayor a un caracter')])
-
+	jefe = models.ForeignKey('Profesor', related_name="jefe_de", null=True, on_delete=models.SET_NULL)
+	
 	#Permite ingresar los elementos a la tabla Departamento ordenados por su codigo
 	class Meta:
 		ordering = ["codigo"]
+
+	def tiene_jefe(self):
+		"""Determina si un Departamento tiene un jefe asociado."""
+		return bool(self.jefe)
 
 	# metodo que permite devolver la informacion del Departamento
 	def __str__(self):
@@ -31,7 +36,21 @@ class Profesor(models.Model):
 
 	user = models.OneToOneField(User, default="", on_delete=models.CASCADE)
 	departamento = models.ForeignKey(Departamento, default="",on_delete=models.CASCADE)
-	
+	nombre = models.CharField(max_length=50, default="")
+	apellido = models.CharField(max_length=50, default="")
+	email = models.EmailField(max_length=200, default="")
+	cedula = models.CharField(max_length=12, unique=True, default="")
+	disponibilidad = models.ManyToManyField('Disponibilidad', blank=True)
+	asignaturas = models.ManyToManyField('Asignatura', blank=True)
+
+	class Meta:
+		"""Provee algunas configuraciones básicas con respecto a las operaciones del modelo."""
+        # Ordenamiento por defecto: según su cédula
+		ordering = ["cedula"]
+
+	def __str__(self):
+		"""Muestra la instancia de Profesor como nombre apellido """
+		return self.nombre + " " + self.apellido	
 
 class Asignatura(models.Model):
 	""" Tabla asignatura con sus respectivos atributos y validaciones del dominio de entrada."""
@@ -52,3 +71,90 @@ class Asignatura(models.Model):
 	# metodo que permite devolver la informacion de la asignatura
 	def __str__(self):
 		return self.codigo + " Nombre: " + self.nombre + " Dpto: " + self.departamento_id + " UC: " + str(self.unidadesCredito)
+
+class Disponibilidad(models.Model):
+    """
+    Modelo auxiliar que representa un horario (día, bloque) de
+    disponibilidad para un profesor.
+    """
+
+    LUNES = (1, 'Lunes')
+    MARTES = (2, 'Martes')
+    MIERCOLES = (3, 'Miércoles')
+    JUEVES = (4, 'Jueves')
+    VIERNES = (5, 'Viernes')
+    SABADO = (6, 'Sábado')
+
+    DIA_CHOICES = (
+        LUNES,
+        MARTES,
+        MIERCOLES,
+        JUEVES,
+        VIERNES,
+        SABADO
+    )
+
+    bloque = models.IntegerField(
+        validators=[
+            MaxValueValidator(12),
+            MinValueValidator(1)
+        ]
+    )
+    dia = models.IntegerField(
+        choices=DIA_CHOICES,
+        validators=[
+            MaxValueValidator(6),
+            MinValueValidator(1)
+        ]
+    )
+
+    class Meta:
+        """
+        Provee algunas configuraciones básicas con respecto a las
+        operaciones del modelo.
+        """
+
+        # Ordenamiento por defecto: según el día, y luego según el bloque
+        ordering = ["dia", "bloque"]
+
+    def identificador_unico(self):
+        """
+        Retorna el identificador único numérico del bloque (dia y hora)
+        según una formula biyectiva de R² a R.
+        """
+
+        cantidad_bloques = 12
+
+        return cantidad_bloques*(self.dia-1) + self.bloque
+
+    def matriz_bloques():
+        """
+        Devuelve un diccionario que contiene los valores por biyección
+        asignados a cada bloque, cada valor representando un día,
+        de modo que se pueda representar fácilmente la matriz de manera
+        visual.
+        """
+
+        matriz_bloques = {
+            1: [1, 13, 25, 36, 49, 61],
+            2: [2, 14, 26, 38, 50, 62],
+            3: [3, 15, 27, 39, 51, 63],
+            4: [4, 16, 28, 40, 52, 64],
+            5: [5, 17, 29, 41, 53, 65],
+            6: [6, 18, 30, 42, 54, 66],
+            7: [7, 19, 31, 43, 55, 67],
+            8: [8, 20, 32, 44, 56, 68],
+            9: [9, 21, 33, 45, 57, 69],
+            10: [10, 22, 34, 46, 58, 70],
+            11: [11, 23, 35, 47, 59, 71],
+            12: [12, 24, 36, 48, 60, 72],
+        }
+
+        return matriz_bloques
+
+    def __str__(self):
+        """
+        Muestra representación en cadena de caracteres del bloque de disponibilidad,
+        indicando su día y luego su bloque.
+        """
+        return self.get_dia_display() + ", bloque " + str(self.bloque)
