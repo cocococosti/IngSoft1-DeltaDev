@@ -50,7 +50,7 @@ class Profesor(models.Model):
 
 	def __str__(self):
 		"""Muestra la instancia de Profesor como nombre apellido """
-		return self.nombre + " " + self.apellido	
+		return self.user.username + " "+ self.nombre + " " + self.apellido	
 
 class Asignatura(models.Model):
 	""" Tabla asignatura con sus respectivos atributos y validaciones del dominio de entrada."""
