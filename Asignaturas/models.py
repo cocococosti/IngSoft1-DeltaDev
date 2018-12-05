@@ -120,6 +120,7 @@ class Oferta(models.Model):
 	profesor = models.ForeignKey('Profesor', default="",on_delete=models.CASCADE)
 	materia = models.ForeignKey('Asignatura', default="",on_delete=models.CASCADE)
 	preferencia = models.NullBooleanField(default=None)
+	departamento = models.ForeignKey('Departamento',  default="",on_delete=models.CASCADE)
 
 	class Meta:
 		"""

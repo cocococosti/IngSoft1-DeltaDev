@@ -205,7 +205,21 @@ def tablaOferta(request):
 	dept = prof.departamento
 	profesores = Profesor.objects.filter(departamento = dept.codigo).all()
 	materias = Asignatura.objects.filter(departamento = dept.codigo).all()
-	return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores})
+	if request.method == 'POST':
+		profs = request.POST.getlist('profesores_oferta')
+		asig = Asignatura.objects.filter(codigo = request.POST.get('asignatura')).first()
+		for cedula in profs:
+			p =  Profesor.objects.filter(cedula = cedula).first()
+			oferta = Oferta(
+				trimestre = "SD-18",
+				profesor = p,
+				materia = asig,
+				departamento = dept)
+			oferta.save()
+	else:
+		profs = {"h":"hola"}
+	ofertas = Oferta.objects.filter(departamento = dept).all()
+	return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores, 'ofertas':ofertas, 'pro':profs})
 
 def autenticacion(request):
 	"""Registro de un usuario."""
