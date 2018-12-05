@@ -65,6 +65,7 @@ class RegistrarProfForm(ModelForm):
         "asignaturas": "Asignaturas"
     	}
 
+
 class SignUpForm(UserCreationForm):
 	departamento = forms.CharField(label='Departamento', max_length=2, validators=[RegexValidator('^[a-zA-Z]{2}$',message="Formato de código incorrecto")])
 	nombre = forms.CharField(max_length=50)

@@ -1,0 +1,162 @@
+{% extends 'Asignaturas/base.html' %}
+{% load static %}
+
+  <head>
+    <title>Tabla Asignaturas</title>
+    {% block estilos %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+
+    
+    <script src="{% static "js/tablaOferta.js" %}"></script>
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static "css/chosen/style.css" %}">
+    <link rel="stylesheet" href="{% static "css/chosen/prism.css" %}">
+    <link rel="stylesheet" href="{% static "css/chosen/chosen.css" %}">
+
+
+
+    {% endblock %}
+
+  </head>
+
+
+  {% block content %}
+<body>
+
+  <div class="container" style=" margin: 0 auto; background-color: White;padding-top: 2rem;">
+    <div class="container text-center">
+      <h3>Oferta de Asignaturas</h3>
+      <h4>{{departamento.nombre}}</h4>
+    </div>
+    <div class="container text-right" style="padding-bottom: 2rem;">
+      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#agregar">Agregar Asignatura</button>
+    </div>
+
+
+    <table id="example" class="table table-striped table-bordered" style="width: 100%;">
+      <thead>
+        <tr>
+          <th>Trimestre</th>
+          <th>Código</th>
+           <th>Créditos</th>
+           <th>Asignatura</th>
+           <th>Profesor</th>
+           <th></th>
+           <th></th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+            
+            <p></p>
+            </td>
+            <td>
+              <p data-placement="top" title="Modificar">
+                <form action='' method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="item_id" value="{{m.codigo}}" />
+                  <input type="submit" name = "modo" class="btn btn-primary" value="Modificar">
+
+                </form>
+              </p>
+            </td>
+            <td>
+              <p data-placement="top" title="Eliminar">
+                <form action='' method="post">
+                   
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{m.codigo}}">Eliminar</button>
+                  <div class="modal fade" id={{m.codigo}} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Eliminar {{m.codigo}}</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p>¿Está seguro de que desea eliminar la asignatura?</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                          {% csrf_token %}
+                          <form action='' method="post">
+                          <input type="hidden" name="item_id" value="{{m.codigo}}" />
+                          <input type="submit" name = "modo" class="btn btn-primary" value="Eliminar">
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+              </p>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal fade" id="agregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Agregar Asignatura</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post">
+            <label for="asignaturas">Asignatura</label>
+            <select name="asignaturas" id="asignaturas">
+            {% for m in materias %}
+            <option>{{m.nombre}}</option>
+            {% endfor %}
+            </select>
+            <br>
+            <label for="profesores_oferta">Profesores</label>
+            <select id="profesores_oferta" multiple="multiple">
+              {% for p in profesores %}
+            <option>{{p.nombre}} {{p.apellido}}</option>
+            {% endfor %}
+            </select>
+            
+          </form>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          {% csrf_token %}
+          <form action='' method="post">
+          <input type="hidden" name="item_id" value="{{m.codigo}}" />
+          <input type="submit" name = "modo" class="btn btn-primary" value="Agregar">
+        </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+        <script src="{% static "js/chosen/chosen.jquery.js" %}"></script>
+        <script src="{% static "js/chosen/prism.js" %}"></script>
+        <script src="{% static "js/chosen/init.js" %}"></script>
+</body>
+{% endblock %}

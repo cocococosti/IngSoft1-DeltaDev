@@ -198,6 +198,15 @@ def modificarProfesor(request, codigo):
 		form = RegistrarProfForm(user,instance=profesor)
 		return render(request, 'Asignaturas/modificarProfesor.html', {'form':form})
 
+
+def tablaOferta(request):
+	user = request.user
+	prof = Profesor.objects.get(user = user)
+	dept = prof.departamento
+	profesores = Profesor.objects.filter(departamento = dept.codigo).all()
+	materias = Asignatura.objects.filter(departamento = dept.codigo).all()
+	return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores})
+
 def autenticacion(request):
 	"""Registro de un usuario."""
 	
