@@ -206,6 +206,11 @@ def tablaOferta(request):
 	profesores = Profesor.objects.filter(departamento = dept.codigo).all()
 	materias = Asignatura.objects.filter(departamento = dept.codigo).all()
 	if request.method == 'POST':
+		if request.POST.get('enviar_oferta'):
+			profs = {'h':'MAIL'}
+			ofertas = Oferta.objects.filter(departamento = dept).all()
+			send_email()
+			return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores, 'ofertas':ofertas, 'pro':profs})
 		profs = request.POST.getlist('profesores_oferta')
 		asig = Asignatura.objects.filter(codigo = request.POST.get('asignatura')).first()
 		for cedula in profs:
@@ -270,3 +275,54 @@ def salir(request):
 	logout(request)
 
 	return redirect('/autenticacion/')
+
+def send_email():
+	from django.core.mail import send_mass_mail
+	ofertas = Oferta.objects.order_by('profesor_id')
+	prof_list = {}
+	for oferta in ofertas:
+		materia = Asignatura.objects.get(codigo=oferta.materia_id).nombre
+		prof_list.setdefault(oferta.profesor_id, []).append(materia)
+
+
+	correos = []
+	for profesor, materias in prof_list.items():
+		correo = (
+				'Materias para dictar el proximo trimestre',
+				'Usted ha sido selectionado para dictar las siguientes materias: '
+				+ ", ".join(materias),
+				'noreply@usb.ve',
+				['profe@usb.ve'],
+				)
+		correos.append(correo)
+
+	# correo = ('oferta tentativa', 'hola', 'noreply@usb.ve', ['profepapi@usb.ve'])
+	# message1 = ('Subject here', 'Here is the message', 'from@example.com', ['first@example.com', 'other@example.com'])
+	# message2 = ('Another Subject', 'HHHere is another message', 'from@example.com', ['second@test.com'])
+	send_mass_mail(correos,fail_silently=False)
+	# from django.template.loader import render_to_string
+	# correos = []
+	# for profesor, materias in lista_profesores.items():
+	# 	mensaje_texto = render_to_string(
+	# 			'email.txt', {
+	# 				'user': profesor,
+	# 				'asignaturas': ", ".join([materia.nombre for materia in materias])
+	# 				}
+	# 			)
+	# 	correo = (
+	# 			'Oferta Tentativa',
+	# 			mensaje_texto,
+	# 			'no-reply@usb.ve',
+	# 			[ profesor.email]
+	# 			)
+	# 	correos.append(correo)
+	# asignaturas = ['Matematicas', 'Filosofia']
+	# msg_plain = render_to_string('email.txt', {'user': 'moises', 'asignaturas':", ".join(asignaturas)})
+	# msg_html = render_to_string('email.html', {'user': 'moises', 'asignaturas': ", ".join(asignaturas)})
+
+	# 	msg_plain,
+	# 	'some@sender.com',
+	# 	['some@receiver.com'],
+	# 	html_message=msg_html,
+	# )
+
