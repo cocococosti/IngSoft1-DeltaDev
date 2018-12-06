@@ -1,4 +1,4 @@
-# Manual del Usuario
+# Manual del Jefe de Departamento
 
 Este documento tiene la finalidad de ofrecer, de forma clara y sencilla, las pautas que le permitirán al usuario de la aplicación 
 aprender a acceder y usar a las diversas herramientas de trabajo ofrecidas dentro del sistema. 
