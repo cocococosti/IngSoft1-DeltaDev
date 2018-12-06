@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth import logout
 from django.http import HttpResponse
+from django.contrib import messages
+import time
 
 
 def inicio(request):
@@ -173,6 +175,34 @@ def registroProfesores(request):
 	else:
 		form = RegistrarProfForm(user)
 		return render(request, 'Asignaturas/registroProfesor.html', {'form':form})
+
+def seleccionMatProfesores(request):
+	
+	user = request.user
+	prof = Profesor.objects.get(user = user)
+	dept = prof.departamento.codigo
+	if request.method == 'POST':
+
+		# Generamos el form
+		form = ProfSeleccionaAsignaturaForm(user, request.POST)
+
+		if form.is_valid():
+			codigo = form.cleaned_data['departamento'].codigo
+
+			if (codigo == dept):
+				
+				form.save()
+				messages.success(request, 'Datos actualizados')
+				time.sleep(1)
+
+				return redirect('/inicio/seleccionMat-profesores')
+			else:
+				return render(request, 'Asignaturas/dictaProfesor.html', {'form':form})
+		else:
+			return render(request, 'Asignaturas/dictaProfesor.html', {'form':form})
+	else:
+		form = ProfSeleccionaAsignaturaForm(user)
+		return render(request, 'Asignaturas/dictaProfesor.html', {'form':form})
 
 def modificarProfesor(request, codigo):
 	"""Busca la materia en la base de datos y llena el formulario con los datos"""
