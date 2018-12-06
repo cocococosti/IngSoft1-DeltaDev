@@ -33,17 +33,6 @@ from django.db import IntegrityError
 # CREATION OF MODELS
 class AsignaturasTest(TestCase):
 
-
-	def setUp(self):
-		"""
-        Método para crear los valores de la base de datos por defecto
-        antes de iniciar cada prueba.
-        """
-
-		#dpto_compu = Departamento.objects.create(nombre="Departamento de Computación y Tecnología de la Información", codigo="CI")
-		#Profesor.objects.create(nombre="María", apellido="Jaimes", email="12-10042@usb.ve", cedula="V-25.766.738", departamento=dpto_compu)
-
-
 	# docstring para el departamento
 	def create_departamento(self, codigo, nombre):
 		return Departamento.objects.create(codigo=codigo, nombre=nombre)
