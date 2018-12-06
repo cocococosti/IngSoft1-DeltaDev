@@ -146,7 +146,7 @@ El usuario puede ordenar las asignaturas del catálogo de forma alfabetica ascen
   
   
   
-  Procedamos a agregar a la profesora Marlene Goncalves, con sus respectivos campos
+  Como ejemplo se procese a agregar a la profesora Marlene Goncalves, con sus respectivos campos.
   
   
   ![Formulario para agregar nuevo Profesor](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento_Profesores_Agragar_Formulario.png "Formulario para agregar nuevo Profesor")
@@ -163,9 +163,14 @@ Nótese que el Departamento muestra una opción única, esto se debe a que cada 
 
 ## 4. Herramientas de Gestión de Ofertas Trimestrales:
 
+### 4.1 Registrar Oferta trimestral (Solo para Jefes de Departamento).
+
 ![Oferta trimestral](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento_OfertaTrimestral_Agregar.png "Visualización de Oferta Trimestral")
 
 
+
+
+  - Ahora podemos ver la Oferta trimestral Actualizada.
 
 ![Oferta Trimestral](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento_OfertaTromestral_Agregar_Resultado.png "Visualización de Oferta Trimestral")
 
