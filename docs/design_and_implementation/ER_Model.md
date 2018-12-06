@@ -10,15 +10,15 @@
   
   - Color amarillo: Entidades y relaciones previamente diseñadas por el equipo de desarrollo BIG Developers.
   
-   - Color Verde: Entidades y relaciones en proceso de implementación. Durante la fase actual de desarrollo. Estos elementos del diseño pueden estar sometidos a cambios hasta su completa validación.
+  - Color Verde: Entidades y relaciones en proceso de implementación. Durante la fase actual de desarrollo. Estos elementos del diseño pueden estar sometidos a cambios hasta su completa validación.
 ```  
 
              
  ## 2 Implementación:
  
-  ### 2.1 Requerimientos del Sistema y Representación deltro del Modelo ER:
+  ### 2.1 Diccionario de Terminos empleados en el Modelo ER:
 
-| Left-aligned | Center-aligned | Right-aligned |
-| :---         |     :---:      |          ---: |
-| git status   | git status     | git status    |
-| git diff     | git diff       | git diff      |
+| Entidad |  | Significado |
+| :----------------------:         |     :------------------------------------:      |
+| git status   | git status     |
+| git diff     | git diff       |
