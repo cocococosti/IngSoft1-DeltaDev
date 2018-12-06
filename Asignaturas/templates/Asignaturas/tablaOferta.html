@@ -34,12 +34,18 @@
 
   {% block content %}
 <body>
-
   <div class="container" style=" margin: 0 auto; background-color: White;padding-top: 2rem;">
     <div class="container text-center">
       <h3>Oferta de Asignaturas</h3>
       <h4>{{departamento.nombre}}</h4>
     </div>
+    {% if messages %}
+      <ul class="messages alert alert-success" style=" width: 50%; margin-left: 25%;">
+          {% for message in messages %}
+          <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+          {% endfor %}
+      </ul>
+    {% endif %}
     <div class="container text-right" style="padding-bottom: 2rem;">
       <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#agregar">Agregar Asignatura</button>
     </div>
