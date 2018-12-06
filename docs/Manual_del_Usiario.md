@@ -136,3 +136,34 @@ El usuario puede ordenar las asignaturas del catálogo de forma alfabetica ascen
 * Orden alfabético descendente: Dar click en la flecha que apunta hacia abajo en el encabezado de la tabla, en la columna Nombre.
 
 ![OrdenAD](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/ordenDescendente.png "Orden Descendente")
+
+
+## 3. Herramientas de Gestión de Profesores:
+
+### 3.1 Registrar Profesor-Formulario (Solo para Jefes de Departamento).
+
+  ![Menu de Asignaturas](imagenes/jefeDepartamento__Profesores_Agregar.png "Formulario para agregar nuevo Profesor")
+  
+  
+  
+  Procedamos a agregar a la profesora Marlene Goncalves, con sus respectivos campos
+  
+  
+  ![Menu de Asignaturas](imagenes/jefeDepartamento__Profesores_Agragar.png "Formulario para agregar nuevo Profesor")
+  
+
+### 3.1 Registrar Consultar Profesores partenecientes al Departamento (Solo para Jefes de Departamento).
+
+  ![Menu de Asignaturas](imagenes/jefeDepartamento__Profesores_Consultar.png "Tabla de Profesores adscritos al Departamento")
+
+Nótese que el Departamento muestra una opción única, esto se debe a que cada profesor puede pertenecer únicamente a un departamento (el del jefe que lo agrega).
+
+## 4. Herramientas de Gestión de Ofertas Trimestrales:
+
+![Menu de Asignaturas](imagenes/jefeDepartamento__OfertaTrimestral_Agregar.png "Visualización de Oferta Trimestral")
+
+
+
+![Menu de Asignaturas](imagenes/jefeDepartamento__OfertaTrimestral_Agregar_Resultado.png "Visualización de Oferta Trimestral")
+
+
