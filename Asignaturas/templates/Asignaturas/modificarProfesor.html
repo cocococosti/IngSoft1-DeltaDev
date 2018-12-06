@@ -31,7 +31,7 @@
           </div>
           <hr class="mt-0 mb-4">
           {% csrf_token %}
-          {{form.as_p }}
+          {{form | crispy }}
           <div class="text-center">
 			     <input type="submit" name="boton" class="btn btn-primary" value="Modificar">
           </div>

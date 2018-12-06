@@ -1,0 +1,6 @@
+Ha sido seleccionado para dictar las siguientes asignaturas:
+{{ materias}}
+
+Escoja las que se ajusten a sus preferencias en el siguiente enlace:
+{{ enlace }}
+

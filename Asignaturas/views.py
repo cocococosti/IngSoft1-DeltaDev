@@ -1,13 +1,15 @@
 from django.contrib.auth import login, authenticate
+from django.contrib.auth import logout
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from Asignaturas.models import *
 from .forms import *
 from django.contrib.auth.models import User
 from django import forms
-from django.contrib.auth import logout
 from django.http import HttpResponse
-
+from django.core.mail import send_mass_mail
+from django.template.loader import render_to_string
+from django.urls import reverse
 
 def inicio(request):
 	"""Carga la página incial."""
@@ -17,19 +19,15 @@ def inicio(request):
 
 def tablaAsignaturas(request):
 	"""Toma las asignaturas de la base de datos y las carga en la tabla."""
-
 	user = request.user
 	prof = Profesor.objects.get(user = user)
 	dept = prof.departamento.codigo
-
 	materias = Asignatura.objects.filter(departamento = dept).all()
-	
+
 	if request.method == 'POST':
-
 		if ((request.POST.get('modo')) == "Eliminar"):
-
-			item = Asignatura.objects.filter(codigo = request.POST.get('item_id')) 
-			if (Asignatura.objects.filter(codigo = request.POST.get('item_id')).first() != None):  
+			item = Asignatura.objects.filter(codigo = request.POST.get('item_id'))
+			if (Asignatura.objects.filter(codigo = request.POST.get('item_id')).first() != None):
 				itemAsig = Asignatura.objects.filter(codigo = request.POST.get('item_id')).first().departamento.codigo
 				# Chequeamos si el usuario autentica es del mismo dpto que desea eliminar
 				prof = Profesor.objects.get(user = user)
@@ -37,22 +35,17 @@ def tablaAsignaturas(request):
 				if (dept == itemAsig):
 					item.delete()
 					materias = Asignatura.objects.filter(departamento = dept).all()
-
 		elif ((request.POST.get('modo')) == "Modificar"):
-			item = Asignatura.objects.filter(codigo = request.POST.get('item_id')) 
-			if (Asignatura.objects.filter(codigo = request.POST.get('item_id')).first() != None):  
+			item = Asignatura.objects.filter(codigo = request.POST.get('item_id'))
+			if (Asignatura.objects.filter(codigo = request.POST.get('item_id')).first() != None):
 				itemAsig = Asignatura.objects.filter(codigo = request.POST.get('item_id')).first().departamento.codigo
 				# Chequeamos si el usuario autentica es del mismo dpto que desea eliminar
 				prof = Profesor.objects.get(user = user)
 				dept = prof.departamento.codigo
 				if (dept == itemAsig):
-
 					return redirect('/modificar-asignatura/{}'.format(request.POST.get('item_id')))
-
 		else:
 			return render(request, 'Asignaturas/tablaAsignaturas.html', {'materias': materias})
-
-
 	elif request.method=='GET':
 		materias = Asignatura.objects.filter(departamento = dept).all()
 
@@ -83,7 +76,6 @@ def modificarAsignatura(request, codigo):
 
 def registroAsignaturas(request):
 	"""Genera el form para registro de asignaturas y guarda los datos en la base de datos."""
-
 	user = request.user
 	prof = Profesor.objects.get(user = user)
 	dept = prof.departamento.codigo
@@ -110,19 +102,18 @@ def registroAsignaturas(request):
 
 def tablaProfesores(request):
 	"""Toma las asignaturas de la base de datos y las carga en la tabla."""
-
 	user = request.user
 	prof = Profesor.objects.get(user = user)
 	dept = prof.departamento.codigo
 
 	profesores = Profesor.objects.filter(departamento = dept).exclude(cedula=prof.cedula)
-	
+
 	if request.method == 'POST':
 
 		if ((request.POST.get('modo')) == "Eliminar"):
 
-			item = Profesor.objects.filter(cedula = request.POST.get('item_id')) 
-			if (Profesor.objects.filter(cedula = request.POST.get('item_id')).first() != None):  
+			item = Profesor.objects.filter(cedula = request.POST.get('item_id'))
+			if (Profesor.objects.filter(cedula = request.POST.get('item_id')).first() != None):
 				itemProf = Profesor.objects.filter(cedula = request.POST.get('item_id')).first().departamento.codigo
 				# Chequeamos si el usuario autentica es del mismo dpto que desea eliminar
 				prof = Profesor.objects.get(user = user)
@@ -132,8 +123,8 @@ def tablaProfesores(request):
 					profesores = Profesor.objects.filter(departamento = dept).exclude(cedula=prof.cedula)
 
 		elif ((request.POST.get('modo')) == "Modificar"):
-			item = Profesor.objects.filter(cedula = request.POST.get('item_id')) 
-			if (Profesor.objects.filter(cedula = request.POST.get('item_id')).first() != None):  
+			item = Profesor.objects.filter(cedula = request.POST.get('item_id'))
+			if (Profesor.objects.filter(cedula = request.POST.get('item_id')).first() != None):
 				itemProf = Profesor.objects.filter(cedula = request.POST.get('item_id')).first().departamento.codigo
 				# Chequeamos si el usuario autentica es del mismo dpto que desea eliminar
 				prof = Profesor.objects.get(user = user)
@@ -149,7 +140,6 @@ def tablaProfesores(request):
 	return render(request, 'Asignaturas/tablaProfesores.html', {'profesores': profesores})
 
 def registroProfesores(request):
-	
 	user = request.user
 	prof = Profesor.objects.get(user = user)
 	dept = prof.departamento.codigo
@@ -173,6 +163,27 @@ def registroProfesores(request):
 	else:
 		form = RegistrarProfForm(user)
 		return render(request, 'Asignaturas/registroProfesor.html', {'form':form})
+
+def seleccionMatProfesores(request, ci):
+	user = request.user
+	prof = Profesor.objects.get(cedula=ci)
+	dept = prof.departamento.codigo
+	oferta_prof = [oferta_asig for oferta_asig in Oferta.objects.filter(profesor__cedula=ci)]
+	if request.method == 'POST':
+
+		form = PreferenciaForm(oferta_prof, request.POST)
+		if form.is_valid():
+			preferencias = request.POST.getlist('preferencias')
+			for oferta_asig in oferta_prof:
+				if oferta_asig.materia.codigo in preferencias:
+					 oferta_asig.preferencia = True
+					 oferta_asig.save()
+			return redirect('/inicio/')
+		else :
+			return render(request, 'Asignaturas/dictaProfesor.html', {'form': form})
+	else:
+		form = PreferenciaForm(oferta_prof)
+		return render(request, 'Asignaturas/dictaProfesor.html', {'form':form})
 
 def modificarProfesor(request, codigo):
 	"""Busca la materia en la base de datos y llena el formulario con los datos"""
@@ -201,7 +212,7 @@ def modificarProfesor(request, codigo):
 
 def tablaOferta(request):
 	user = request.user
-	prof = Profesor.objects.get(user = user)
+	prof = Profesor.objects.get(user=user)
 	dept = prof.departamento
 	profesores = Profesor.objects.filter(departamento = dept.codigo).all()
 	materias = Asignatura.objects.filter(departamento = dept.codigo).all()
@@ -214,6 +225,11 @@ def tablaOferta(request):
 					item.delete()
 		elif ((request.POST.get('modo')) == "Modificar"):
 			return redirect('/modificar-oferta/{}'.format(request.POST.get('item_id')))
+		elif request.POST.get('enviar_oferta'):
+			profs = {'h':'MAIL'}
+			ofertas = Oferta.objects.filter(departamento = dept).all()
+			send_email(user, request)
+			return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores, 'ofertas':ofertas, 'pro':profs})
 		else:
 			profs = request.POST.getlist('profesores_oferta')
 			asig = Asignatura.objects.filter(codigo = request.POST.get('asignatura')).first()
@@ -225,6 +241,7 @@ def tablaOferta(request):
 					materia = asig,
 					departamento = dept)
 				oferta.save()
+
 
 
 	ofertas = Oferta.objects.filter(departamento = dept).all()
@@ -246,14 +263,12 @@ def modificarOferta(request, id):
 
 def autenticacion(request):
 	"""Registro de un usuario."""
-	
 	form = SignUpForm()
 	form2 = AuthForm()
 
 	return render(request, 'Asignaturas/login.html', {'form': form, 'form2':form2})
 
 def registrar(request):
-
 	if request.method == 'POST':
 			form = SignUpForm(request.POST)
 			if form.is_valid():
@@ -273,7 +288,6 @@ def registrar(request):
 					cedula = cedula
 					)
 				profesor.save()
-
 	return redirect('/autenticacion/')
 
 def entrar(request):
@@ -285,12 +299,32 @@ def entrar(request):
 			user = authenticate(username=username, password=raw_password)
 			login(request, user)
 			return redirect ('/inicio/')
-
-	
 	return redirect('/autenticacion/')
 
 
 def salir(request):
 	logout(request)
-
 	return redirect('/autenticacion/')
+
+def send_email(jefe, request):
+	ofertas = Oferta.objects.order_by('profesor_id')
+	prof_list = {}
+	for oferta in ofertas:
+		prof_list.setdefault(oferta.profesor, []).append(oferta.materia.nombre)
+
+
+	correos = []
+	for profesor, materias in prof_list.items():
+		relative_url = reverse('preferencias', args=(profesor.cedula,))
+		full_url = request.build_absolute_uri(relative_url)
+		# full_url = request.get_full_path(relative_url)
+		mensaje_txt = render_to_string('email.txt', {'materias': ", ".join(materias), 'enlace': full_url})
+		correo = (
+				'Materias para dictar el proximo trimestre',
+				mensaje_txt,
+				jefe.email,
+				[profesor.email],
+				)
+		correos.append(correo)
+
+	send_mass_mail(correos,fail_silently=False)
