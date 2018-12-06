@@ -2,19 +2,19 @@
 
 Los jefes de Departamento poseen las siguientes funcionalidades:
 
-  _ - Agregar Nuevas asignaturas para los titulos de postgrado.
+  _Agregar Nuevas asignaturas para los titulos de postgrado.
   
-  _- Registrar nuevos profesores.
+  _Registrar nuevos profesores.
  
- - Realizar operaciones basicas de gestion sobre los campos descritos anteriormente (__Crear, borrar, modificar, consultar__).
+  _Realizar operaciones basicas de gestion sobre los campos descritos anteriormente (__Crear, borrar, modificar, consultar__).
  
- _-Seleccionar las asignaturas de posgrado que tentativamente van a ser dictadas el proximo trimestre para construir la oferta del departamento.
+ _Seleccionar las asignaturas de posgrado que tentativamente van a ser dictadas el proximo trimestre para construir la oferta del departamento.
  
- _- Seleccionar los profesores que la pueden dictar como posibles candidatos para la oferta trimestral del departamento.
+ _Seleccionar los profesores que la pueden dictar como posibles candidatos para la oferta trimestral del departamento.
  
- _- Enviar a cada candidato (Via cooreo electronico) un enlace a la lista de asignaturas que pueden dictar para que seleccionen sus preferencias.
+ _Enviar a cada candidato (Via cooreo electronico) un enlace a la lista de asignaturas que pueden dictar para que seleccionen sus preferencias.
  
- _- Completar la asignacion de profesores a asignaturas.
+ _Completar la asignacion de profesores a asignaturas.
  
 El presente documento tiene la finalidad de ofrecer, de forma clara y sencilla, las pautas que le permitirán al usuario de la aplicación aprender a acceder y usar a las diversas herramientas de trabajo ofrecidas dentro del sistema. Para ello se presenta a continuación una serie de ejemplos explicando como llevar a cabo las tareas listadas al inicio.
 
