@@ -206,26 +206,50 @@ def tablaOferta(request):
 	profesores = Profesor.objects.filter(departamento = dept.codigo).all()
 	materias = Asignatura.objects.filter(departamento = dept.codigo).all()
 	if request.method == 'POST':
-		profs = request.POST.getlist('profesores_oferta')
-		asig = Asignatura.objects.filter(codigo = request.POST.get('asignatura')).first()
-		for cedula in profs:
-			p =  Profesor.objects.filter(cedula = cedula).first()
-			oferta = Oferta(
-				trimestre = "SD-18",
-				profesor = p,
-				materia = asig,
-				departamento = dept)
-			oferta.save()
-	else:
-		profs = {"h":"hola"}
+
+		if ((request.POST.get('modo')) == "Eliminar"):
+			item = Oferta.objects.filter(id = request.POST.get('item_id')).first()
+			if (item != None):
+				if (dept.codigo == item.profesor.departamento.codigo):
+					item.delete()
+		elif ((request.POST.get('modo')) == "Modificar"):
+			return redirect('/modificar-oferta/{}'.format(request.POST.get('item_id')))
+		else:
+			profs = request.POST.getlist('profesores_oferta')
+			asig = Asignatura.objects.filter(codigo = request.POST.get('asignatura')).first()
+			for cedula in profs:
+				p =  Profesor.objects.filter(cedula = cedula).first()
+				oferta = Oferta(
+					trimestre = "SD-18",
+					profesor = p,
+					materia = asig,
+					departamento = dept)
+				oferta.save()
+
+
 	ofertas = Oferta.objects.filter(departamento = dept).all()
-	return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores, 'ofertas':ofertas, 'pro':profs})
+	return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores, 'ofertas':ofertas})
+
+def modificarOferta(request, id):
+	oferta = Oferta.objects.filter(id = id).first()
+	user = request.user
+	prof = Profesor.objects.get(user = user)
+	dept = prof.departamento
+	profesores = Profesor.objects.filter(departamento = dept.codigo).all()
+	if request.method == 'POST':
+		oferta.profesor = Profesor.objects.get(cedula = request.POST.get('cedula'))
+		oferta.save()
+		return redirect('/tabla-oferta/')
+
+	return render(request, 'Asignaturas/modificarOferta.html', {'oferta':oferta, 'profesores': profesores})
+
 
 def autenticacion(request):
 	"""Registro de un usuario."""
 	
 	form = SignUpForm()
 	form2 = AuthForm()
+
 	return render(request, 'Asignaturas/login.html', {'form': form, 'form2':form2})
 
 def registrar(request):

@@ -4,7 +4,7 @@
   <head>
     <title>Tabla Asignaturas</title>
     {% block estilos %}
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
@@ -17,14 +17,14 @@
 
     
     <script src="{% static "js/tablaOferta.js" %}"></script>
-    
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     
+
     {% load static %}
     <link rel="stylesheet" href="{% static "css/chosen/style.css" %}">
     <link rel="stylesheet" href="{% static "css/chosen/prism.css" %}">
     <link rel="stylesheet" href="{% static "css/chosen/chosen.css" %}">
-
 
 
     {% endblock %}
@@ -64,19 +64,26 @@
             <td>{{m.materia.codigo}}</td>
             <td>{{m.materia.creditos}}</td>
             <td>{{m.materia.nombre}}</td>
+            {% if m.preferencia is False %}
+            <td style="color: red;">
+            {{m.profesor.nombre}} {{m.profesor.apellido}}
+            </td>
+            {% else %}
             <td>
             {{m.profesor.nombre}} {{m.profesor.apellido}}
             </td>
+            {% endif %}
             <td>
               <p data-placement="top" title="Modificar">
                 <form action='' method="post">
                   {% csrf_token %}
-                  <input type="hidden" name="item_id" value="{{m.codigo}}" />
+                  <input type="hidden" name="item_id" value="{{m.id}}" />
                   <input type="submit" name = "modo" class="btn btn-primary" value="Modificar">
 
                 </form>
               </p>
             </td>
+
             <td>
               <p data-placement="top" title="Eliminar">
                 <form action='' method="post">
@@ -97,10 +104,10 @@
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                           {% csrf_token %}
-                          <form action='' method="post">
-                          <input type="hidden" name="item_id" value="{{m.codigo}}" />
-                          <input type="submit" name = "modo" class="btn btn-primary" value="Eliminar">
-                        </form>
+                          <form action="" method="post">
+                            <input type="hidden" name="item_id" value="{{m.id}}" />
+                            <input type="submit" name = "modo" class="btn btn-primary" value="Eliminar">
+                          </form>
                         </div>
                       </div>
                     </div>
@@ -119,7 +126,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Agregar Asignatura</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">Agregar Oferta</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -135,7 +142,7 @@
             </select>
             <br>
             <label for="profesores_oferta">Profesores</label>
-            <select name="profesores_oferta" id="profesores_oferta" multiple="multiple">
+            <select name="profesores_oferta" class="profesores_oferta" multiple="multiple">
               {% for p in profesores %}
             <option value={{p.cedula}}>{{p.nombre}} {{p.apellido}}</option>
             {% endfor %}
@@ -150,9 +157,10 @@
     </div>
 
   </div>
-  <p>{{pro.h}}</p>
+
         <script src="{% static "js/chosen/chosen.jquery.js" %}"></script>
         <script src="{% static "js/chosen/prism.js" %}"></script>
         <script src="{% static "js/chosen/init.js" %}"></script>
+
 </body>
 {% endblock %}

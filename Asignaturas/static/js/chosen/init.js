@@ -17,7 +17,13 @@ var config = {
       disable_search_threshold: 10,
       placeholder_text_multiple: "Requisitos"
   },
-    '#profesores_oferta'           : {
+    '.profesores_oferta'           : {
+      no_results_text: 'No se encontro el profesor',
+      width: '70%',
+      disable_search_threshold: 10,
+      placeholder_text_multiple: "Profesores"
+  },
+    '.profesores_oferta_mod'           : {
       no_results_text: 'No se encontro el profesor',
       width: '70%',
       disable_search_threshold: 10,

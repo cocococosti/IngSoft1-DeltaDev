@@ -13,6 +13,7 @@ urlpatterns = [
 	url(r'registro-asignaturas/$', views.registroAsignaturas, name='registro'),
 	url(r'modificar-asignatura/(?P<codigo>[A-Z]{2}-[0-9]{4})/$', views.modificarAsignatura, name='modificar'),
 	url(r'modificar-profesor/(?P<codigo>[0-9]{6,10})/$', views.modificarProfesor, name='modificarProf'),
+	url(r'modificar-oferta/(?P<id>[0-9]*)/$', views.modificarOferta, name='modificarOferta'),
 	url(r'registro-profesores/$', views.registroProfesores, name='registro-profesor'),
 	url(r'salir/$', views.salir, name='salir')
 ]
