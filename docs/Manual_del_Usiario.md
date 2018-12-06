@@ -43,7 +43,7 @@ Para poder acceder al sistema el usuario debe proporcionar los datos de identifi
 
   Si el ingreso fué exitoso verá la siguiente pantalla con las Herramientas de Gestión de Asignaturas:
   
-  ![Menu de Asignaturas](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/jefeDepartamento__Asignaturas_menu.png "Menu de funcionalidades sobre módulo de Asignaturas")
+  ![Menu de Asignaturas](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/jefeDepartamento_pagina_principal.png "Menu de funcionalidades sobre módulo de Asignaturas")
 
 ## 2. Herramientas de Gestión de Asignaturas:
 Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramientas de gestion:
