@@ -18,7 +18,7 @@
  
   ### 2.1 Diccionario de Terminos empleados en el Modelo ER:
 
-| Entidad |  | Significado |
+| Entidad                          | Significado                                     |
 | :----------------------:         |     :------------------------------------:      |
-| git status   | git status     |
-| git diff     | git diff       |
+| git status                       | git status                                      |
+| git diff                         | git diff                                        |
