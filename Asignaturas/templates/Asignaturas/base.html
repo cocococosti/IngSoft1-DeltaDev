@@ -68,7 +68,16 @@
     {% block content %}
     {% endblock %}
 
-        
+    <br>
+
+    {% if messages %}
+      <ul class="messages alert alert-success" style=" width: 50%; margin-left: 25%;">
+          {% for message in messages %}
+          <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+          {% endfor %}
+      </ul>
+    {% endif %}
+
   </body>
 
 </html>
