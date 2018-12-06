@@ -1,10 +1,24 @@
-# Manual del Usuario
+# Manual del Jefe de Departamento.
 
-Este documento tiene la finalidad de ofrecer, de forma clara y sencilla, las pautas que le permitirán al usuario de la aplicación 
-aprender a acceder y usar a las diversas herramientas de trabajo ofrecidas dentro del sistema. 
+Los jefes de Departamento poseen las siguientes funcionalidades:
 
-Se proporcina una serie de imágenes que servirán de guia para entender el comportamiento del presente módulo, es decir, los resultados
-esperados al ingresar a ciertas funcionalidades específicas. 
+  _ - Agregar Nuevas asignaturas para los titulos de postgrado.
+  
+  _- Registrar nuevos profesores.
+ 
+ - Realizar operaciones basicas de gestion sobre los campos descritos anteriormente (__Crear, borrar, modificar, consultar__).
+ 
+ _-Seleccionar las asignaturas de posgrado que tentativamente van a ser dictadas el proximo trimestre para construir la oferta del departamento.
+ 
+ _- Seleccionar los profesores que la pueden dictar como posibles candidatos para la oferta trimestral del departamento.
+ 
+ _- Enviar a cada candidato (Via cooreo electronico) un enlace a la lista de asignaturas que pueden dictar para que seleccionen sus preferencias.
+ 
+ _- Completar la asignacion de profesores a asignaturas.
+ 
+El presente documento tiene la finalidad de ofrecer, de forma clara y sencilla, las pautas que le permitirán al usuario de la aplicación aprender a acceder y usar a las diversas herramientas de trabajo ofrecidas dentro del sistema. Para ello se presenta a continuación una serie de ejemplos explicando como llevar a cabo las tareas listadas al inicio.
+
+Se proporcina adicionalmente una serie de imágenes que servirán de guia para entender el comportamiento del presente módulo, es decir, los resultados esperados al ingresar a ciertas funcionalidades específicas. 
 
 El presente documento presentará actualizacines durante la primera etapa de desarrollo hasta la culminación del mismo.
 
@@ -43,7 +57,7 @@ Para poder acceder al sistema el usuario debe proporcionar los datos de identifi
 
   Si el ingreso fué exitoso verá la siguiente pantalla con las Herramientas de Gestión de Asignaturas:
   
-  ![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_menu.png "Menu de funcionalidades sobre módulo de Asignaturas")
+  ![Menu de Asignaturas](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/jefeDepartamento_pagina_principal.png "Menu de funcionalidades sobre módulo de Asignaturas")
 
 ## 2. Herramientas de Gestión de Asignaturas:
 Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramientas de gestion:
@@ -94,7 +108,7 @@ Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramient
   
   2- Modifique los datos respectivos.
 
-![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignaturas_Modificar.png "listado de Asignaturas")
+![Menu de Asignaturas](imagenes/jefeDepartamento_Asignaturas_verAsignaturas_Modificar.png "listado de Asignaturas")
 
 
   3-Para Guardar los cambios presiona el botón "Modififar". Una vez hecho regresará inmediatamente a la tabla de asignaturas con los cambios actualizados.
@@ -136,3 +150,42 @@ El usuario puede ordenar las asignaturas del catálogo de forma alfabetica ascen
 * Orden alfabético descendente: Dar click en la flecha que apunta hacia abajo en el encabezado de la tabla, en la columna Nombre.
 
 ![OrdenAD](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/ordenDescendente.png "Orden Descendente")
+
+
+## 3. Herramientas de Gestión de Profesores:
+
+### 3.1 Registrar Profesor-Formulario (Solo para Jefes de Departamento).
+
+  ![Formulario para agregar nuevo Profesor](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/jefeDepartamento_Profesores_Agregar.png "Formulario para agregar nuevo Profesor")
+  
+  
+  
+  Como ejemplo se procese a agregar a la profesora Marlene Goncalves, con sus respectivos campos.
+  
+  
+  ![Formulario para agregar nuevo Profesor](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento_Profesores_Agragar_Formulario.png "Formulario para agregar nuevo Profesor")
+
+
+Nótese que el Departamento muestra una opción única, esto se debe a que cada profesor puede pertenecer únicamente a un departamento (el del jefe que lo agrega).
+
+
+### 3.2 Consultar Profesores partenecientes al Departamento (Solo para Jefes de Departamento).
+
+  ![Menu de Asignaturas](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento_Profesores_Consultar.png "Tabla de Profesores adscritos al Departamento")
+
+
+
+## 4. Herramientas de Gestión de Ofertas Trimestrales:
+
+### 4.1 Registrar Oferta trimestral (Solo para Jefes de Departamento).
+
+![Oferta trimestral](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento_OfertaTrimestral_Agregar.png "Visualización de Oferta Trimestral")
+
+
+
+
+  - Ahora podemos ver la Oferta trimestral Actualizada.
+
+![Oferta Trimestral](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento_OfertaTromestral_Agregar_Resultado.png "Visualización de Oferta Trimestral")
+
+
