@@ -5,16 +5,21 @@
  
    ### 1.1 Clasificación de colores:
    
-  -Color azul: Entidades y relaciones previamente diseñadas e implementadas por el equipo de desarrollo Delta Developers.
-  -Color amarillo: Entidades y relaciones previamente diseñadas por el equipo de desarrollo BIG Developers.
-  ```diff 
-  -Color Verde: ``` Entidades y relaciones en proceso de implementación. Durante la fase actual de desarrollo. Estos elementos del diseño pueden estar sometidos a cambios hasta su completa validación.
+  [+ Color azul:] 
+   Entidades y relaciones previamente diseñadas e implementadas por el equipo de desarrollo Delta Developers.
+  
+  + Color amarillo: Entidades y relaciones previamente diseñadas por el equipo de desarrollo BIG Developers.
+
+```diff 
+  + Color Verde: 
+```  
+   Entidades y relaciones en proceso de implementación. Durante la fase actual de desarrollo. Estos elementos del diseño pueden estar sometidos a cambios hasta su completa validación.
              
  ## 2 Implementación:
  
   ### 2.1 Requerimientos del Sistema y Representación deltro del Modelo ER:
 
-  | Requerimiento  | Representación en ER |
-  | ------------- | ------------- |
-  |   | Content Cell  |
-  | Content Cell  | Content Cell  |
+| Left-aligned | Center-aligned | Right-aligned |
+| :---         |     :---:      |          ---: |
+| git status   | git status     | git status    |
+| git diff     | git diff       | git diff      |
