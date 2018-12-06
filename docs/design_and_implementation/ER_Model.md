@@ -18,7 +18,9 @@
  
   ### 2.1 Diccionario de Terminos empleados en el Modelo ER:
 
-| Entidad                          | Significado                                     |
-| :----------------------:         |     :------------------------------------:      |
-| git status                       | git status                                      |
-| git diff                         | git diff                                        |
+| Entidad                  | Significado                                                     |
+| :----------------------: |     :------------------------------------:                      |
+| Asignatura               | Materia que forma parte del programa de estudios de una Carrera.|
+| Departamento             | Unidades académica que se encargan del diseño, planificación, coordinación y evaluación de los programas bajo su responsabilidad, así como de llevar adelante la ejecución de esos programas|
+| Profesor                 | Trabajador de la USB  que dicta las asignaturas, las asignaturas están asociadas a sus conocimientos en una determinada área|
+| Oferta                   | Listado de asigaturas que un Departamento indica está en la capacidad de asegurar su impartición durante un periodo trimestral |
