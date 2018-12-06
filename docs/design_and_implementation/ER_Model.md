@@ -21,3 +21,12 @@
 | Departamento             | Unidad académica que se encargan del diseño, planificación, coordinación y evaluación de los programas bajo su responsabilidad, así como de llevar adelante la ejecución de esos programas|
 | Profesor                 | Trabajador de la USB  que dicta las asignaturas, las asignaturas están asociadas a sus conocimientos en una determinada área|
 | Oferta                   | Listado de asigaturas que un Departamento indica está en la capacidad de asegurar su impartición durante un periodo trimestral |
+
+| Requisito                | Significado                                                     |
+| :----------------------: |     :------------------------------------                       |
+| es_Requisito             | Una asignatura puede o no requerir que se haya aprobado una lista espacífica de asignaturas previas.|
+| esta_en                  | Una asignatura se puede ser ofertada por su Departamento en distintos períodos trimestrales.|
+| dicta                    | Todo profesor tiene adociada al menos una asignatura que éste este en la capacidad de enseñar.|
+| pertenece                | Cada Asignatura está asociada a un único Departamento. Un Departamento solo puede modificar y alterar las Asignaturas asociadas a él.|
+| adscrito_a               | Cada Profesor está adscrito a un único Departamento.|
+| pertenece_a              | Cada oferta fué creada por un único Departamento.|
