@@ -142,28 +142,31 @@ El usuario puede ordenar las asignaturas del catálogo de forma alfabetica ascen
 
 ### 3.1 Registrar Profesor-Formulario (Solo para Jefes de Departamento).
 
-  ![Menu de Asignaturas](imagenes/jefeDepartamento__Profesores_Agregar.png "Formulario para agregar nuevo Profesor")
+  ![Formulario para agregar nuevo Profeso](imagenes/jefeDepartamento__Profesores_Agregar.png "Formulario para agregar nuevo Profesor")
   
   
   
   Procedamos a agregar a la profesora Marlene Goncalves, con sus respectivos campos
   
   
-  ![Menu de Asignaturas](imagenes/jefeDepartamento__Profesores_Agragar.png "Formulario para agregar nuevo Profesor")
-  
+  ![Formulario para agregar nuevo Profeso](imagenes/jefeDepartamento__Profesores_Agragar_Formulario.png "Formulario para agregar nuevo Profesor")
 
-### 3.1 Registrar Consultar Profesores partenecientes al Departamento (Solo para Jefes de Departamento).
-
-  ![Menu de Asignaturas](imagenes/jefeDepartamento__Profesores_Consultar.png "Tabla de Profesores adscritos al Departamento")
 
 Nótese que el Departamento muestra una opción única, esto se debe a que cada profesor puede pertenecer únicamente a un departamento (el del jefe que lo agrega).
 
+
+### 3.2 Consultar Profesores partenecientes al Departamento (Solo para Jefes de Departamento).
+
+  ![Menu de Asignaturas](imagenes/jefeDepartamento__Profesores_Consultar.png "Tabla de Profesores adscritos al Departamento")
+
+
+
 ## 4. Herramientas de Gestión de Ofertas Trimestrales:
 
-![Menu de Asignaturas](imagenes/jefeDepartamento__OfertaTrimestral_Agregar.png "Visualización de Oferta Trimestral")
+![Oferta trimestral](imagenes/jefeDepartamento__OfertaTrimestral_Agregar.png "Visualización de Oferta Trimestral")
 
 
 
-![Menu de Asignaturas](imagenes/jefeDepartamento__OfertaTrimestral_Agregar_Resultado.png "Visualización de Oferta Trimestral")
+![Oferta Trimestral](imagenes/jefeDepartamento__OfertaTrimestral_Agregar_Resultado.png "Visualización de Oferta Trimestral")
 
 
