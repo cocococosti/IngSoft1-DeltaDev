@@ -14,6 +14,8 @@
 ```  
 
   ### 1.2 Diccionario de Terminos empleados en el Modelo ER:
+  
+### 1.2.1 Entidades
 
 | Entidad                  | Significado                                                     |
 | :----------------------: |     :------------------------------------                       |
@@ -21,6 +23,8 @@
 | Departamento             | Unidad académica que se encargan del diseño, planificación, coordinación y evaluación de los programas bajo su responsabilidad, así como de llevar adelante la ejecución de esos programas|
 | Profesor                 | Trabajador de la USB  que dicta las asignaturas, las asignaturas están asociadas a sus conocimientos en una determinada área|
 | Oferta                   | Listado de asigaturas que un Departamento indica está en la capacidad de asegurar su impartición durante un periodo trimestral |
+
+### 1.2.2 Relaciones
 
 | Requisito                | Significado                                                     |
 | :----------------------: |     :------------------------------------                       |
@@ -30,3 +34,4 @@
 | pertenece                | Cada Asignatura está asociada a un único Departamento. Un Departamento solo puede modificar y alterar las Asignaturas asociadas a él.|
 | adscrito_a               | Cada Profesor está adscrito a un único Departamento.|
 | pertenece_a              | Cada oferta fué creada por un único Departamento.|
+| participa_en             | Si un profesor indica al Departamento que puede dictar alguna Asignatura durante un período, se dice que este profesor participa en la oferta de dicho período.|
