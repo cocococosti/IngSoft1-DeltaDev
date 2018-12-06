@@ -9,7 +9,7 @@ from django import forms
 from django.http import HttpResponse
 from django.core.mail import send_mass_mail
 from django.template.loader import render_to_string
-
+from django.urls import reverse
 
 def inicio(request):
 	"""Carga la página incial."""
@@ -220,7 +220,7 @@ def tablaOferta(request):
 		if request.POST.get('enviar_oferta'):
 			profs = {'h':'MAIL'}
 			ofertas = Oferta.objects.filter(departamento = dept).all()
-			send_email(user)
+			send_email(user, request)
 			return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores, 'ofertas':ofertas, 'pro':profs})
 		profs = request.POST.getlist('profesores_oferta')
 		asig = Asignatura.objects.filter(codigo = request.POST.get('asignatura')).first()
@@ -281,7 +281,7 @@ def salir(request):
 	logout(request)
 	return redirect('/autenticacion/')
 
-def send_email(jefe):
+def send_email(jefe, request):
 	ofertas = Oferta.objects.order_by('profesor_id')
 	prof_list = {}
 	for oferta in ofertas:
@@ -290,7 +290,10 @@ def send_email(jefe):
 
 	correos = []
 	for profesor, materias in prof_list.items():
-		mensaje_txt = render_to_string('email.txt', {'materias': ", ".join(materias)})
+		relative_url = reverse('preferencias', args=(profesor.cedula,))
+		full_url = request.build_absolute_uri(relative_url)
+		# full_url = request.get_full_path(relative_url)
+		mensaje_txt = render_to_string('email.txt', {'materias': ", ".join(materias), 'enlace': full_url})
 		correo = (
 				'Materias para dictar el proximo trimestre',
 				mensaje_txt,
