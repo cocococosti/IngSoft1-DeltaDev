@@ -1,14 +1,14 @@
 from django.contrib.auth import login, authenticate
+from django.contrib.auth import logout
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from Asignaturas.models import *
 from .forms import *
 from django.contrib.auth.models import User
 from django import forms
-from django.contrib.auth import logout
 from django.http import HttpResponse
-from django.contrib import messages
-import time
+from django.core.mail import send_mass_mail
+from django.template.loader import render_to_string
 
 
 def inicio(request):
@@ -212,11 +212,16 @@ def modificarProfesor(request, codigo):
 
 def tablaOferta(request):
 	user = request.user
-	prof = Profesor.objects.get(user = user)
+	prof = Profesor.objects.get(user=user)
 	dept = prof.departamento
 	profesores = Profesor.objects.filter(departamento = dept.codigo).all()
 	materias = Asignatura.objects.filter(departamento = dept.codigo).all()
 	if request.method == 'POST':
+		if request.POST.get('enviar_oferta'):
+			profs = {'h':'MAIL'}
+			ofertas = Oferta.objects.filter(departamento = dept).all()
+			send_email(user)
+			return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores, 'ofertas':ofertas, 'pro':profs})
 		profs = request.POST.getlist('profesores_oferta')
 		asig = Asignatura.objects.filter(codigo = request.POST.get('asignatura')).first()
 		for cedula in profs:
@@ -275,3 +280,23 @@ def entrar(request):
 def salir(request):
 	logout(request)
 	return redirect('/autenticacion/')
+
+def send_email(jefe):
+	ofertas = Oferta.objects.order_by('profesor_id')
+	prof_list = {}
+	for oferta in ofertas:
+		prof_list.setdefault(oferta.profesor, []).append(oferta.materia.nombre)
+
+
+	correos = []
+	for profesor, materias in prof_list.items():
+		mensaje_txt = render_to_string('email.txt', {'materias': ", ".join(materias)})
+		correo = (
+				'Materias para dictar el proximo trimestre',
+				mensaje_txt,
+				jefe.email,
+				[profesor.email],
+				)
+		correos.append(correo)
+
+	send_mass_mail(correos,fail_silently=False)
