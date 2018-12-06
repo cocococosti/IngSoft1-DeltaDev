@@ -109,3 +109,11 @@ class AuthForm(AuthenticationForm):
 	class Meta:
 		model = User
 		fields = ('username', 'password')
+
+class PreferenciaForm(forms.Form):
+	def __init__(self, oferta, *args, **kwargs):
+		super(PreferenciaForm, self).__init__(*args, **kwargs)
+		self.fields['preferencias']=forms.MultipleChoiceField(
+				[(oferta_asig.materia.codigo, oferta_asig.materia.nombre)
+					for oferta_asig in oferta],
+				required=False)
