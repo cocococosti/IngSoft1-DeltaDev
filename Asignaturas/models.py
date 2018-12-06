@@ -10,13 +10,13 @@ from django.core.validators import *
 # Modelos de cada Tabla y sus atributos
 
 class Departamento(models.Model):
-	""" Tabla Departamento la cual posee el codigo del departamento como 
+	""" Tabla Departamento la cual posee el codigo del departamento como
 		clave primaria y y a su vez posee sus respectivas validaciones para verificar
 		que los datos de entrada se encuentran en el dominio."""
 
 	codigo = models.CharField(primary_key=True, max_length=2, validators=[MaxLengthValidator(2, message='El código del Departamento debe contener exactamente 2 caracteres'), MinLengthValidator(2, message='El código del Departamento debe contener exactamente 2 caracteres')])
 	nombre = models.CharField(max_length=60, unique=True, validators=[MaxLengthValidator(60, message='El nombre del Departamento a lo sumo puede contener 60 caracteres'), MinLengthValidator(1, message='El nombre de la asignatura debe ser mayor a un caracter')])
-	jefe = models.ForeignKey('Profesor', related_name="jefe_de", null=True, on_delete=models.SET_NULL) 
+	jefe = models.ForeignKey('Profesor', related_name="jefe_de", null=True, on_delete=models.SET_NULL)
 
 	#Permite ingresar los elementos a la tabla Departamento ordenados por su codigo
 	class Meta:
@@ -59,14 +59,14 @@ class Departamento(models.Model):
 			)
 
 		return self.jefe.departamento == self
-	
+
 
 class Asignatura(models.Model):
 	""" Tabla asignatura con sus respectivos atributos y validaciones del dominio de entrada."""
-	
+
 	codigo = models.CharField(primary_key=True,max_length=7, validators=[RegexValidator(regex='^[A-Z]{2}-[0-9]{4}$', message = 'El código de la asignatura es inválido'), MaxLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres'), MinLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres')])
 	nombre = models.CharField(max_length=60, validators=[MaxLengthValidator(60, message='El nombre de la asignatura a lo sumo puede contener 60 caracteres'), MinLengthValidator(1, message='El nombre de la asignatura debe contener al menos un caracter')])
-	unidadesCredito = models.IntegerField(default=0,validators=[MinValueValidator(1, message='La asignatura debe contener al menos una unidad de crédito')])  
+	unidadesCredito = models.IntegerField(default=0,validators=[MinValueValidator(1, message='La asignatura debe contener al menos una unidad de crédito')])
 	horasTeoria = models.IntegerField(default=0, validators=[MinValueValidator(0, message='Las horas de teoría no pueden ser negativas')])
 	horasPractica = models.IntegerField(default=0,validators=[MinValueValidator(0, message='Las horas de practica no pueden ser negativas')])
 	horasLab = models.IntegerField(default=0, validators=[MinValueValidator(0, message='Las horas de laboratorio no pueden ser negativas')])
@@ -111,7 +111,7 @@ class Profesor(models.Model):
 		Muestra la instancia de Profesor como
 		nombre apellido
 		"""
-		return self.user.username + " "+ self.nombre + " " + self.apellido	
+		return self.nombre + " " + self.apellido
 
 class Oferta(models.Model):
 	''' Tabla que representa las asignaturas que cada profesor puede dar en la proxima
@@ -132,11 +132,11 @@ class Oferta(models.Model):
 		ordering = ["trimestre"]
 		# Limita a que no hayan repeticiones de la tupla trimestre-profesor-materia
 		# Garantiza que no aparezca 2 o mas veces un mismo profesor dando una misma materia en un mismo trimestre
-		unique_together = ("trimestre","profesor", "materia") 
+		unique_together = ("trimestre","profesor", "materia")
 
 	def __str__(self):
 		"""
-		Muestra la oferta de manera abreviada 
+		Muestra la oferta de manera abreviada
 		"""
 		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id + ", " + str(self.preferencia)
 

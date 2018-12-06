@@ -65,6 +65,34 @@ class RegistrarProfForm(ModelForm):
         "asignaturas": "Asignaturas"
     	}
 
+class ProfSeleccionaAsignaturaForm(ModelForm):
+	def __init__(self, user, *args, **kwargs):
+		super(ProfSeleccionaAsignaturaForm, self).__init__(*args, **kwargs)
+		self.user = user
+		if kwargs and kwargs['instance']:
+			profesor = kwargs['instance']
+			#self.fields['materia'] = django_filters.MultipleChoiceFilter(queryset=Asignatura.objects.all(),
+        #widget=forms.CheckboxSelectMultiple)
+			self.fields['materia'].queryset =\
+					Asignatura.objects.all()
+		if not self.user.is_anonymous:
+			self.fields['profesor'].queryset =\
+					Profesor.objects.filter(user=self.user)
+			departamento =\
+					Profesor.objects.get(user=self.user).departamento
+			self.fields['departamento'].queryset =\
+					Departamento.objects.filter(codigo=departamento.codigo)
+
+	class Meta():
+		model = Oferta
+		fields = [ 'trimestre','profesor','materia','preferencia','departamento']
+		labels = {
+        "trimestre": "Trimestre",
+        "profesor": "Profesor",
+        "materia": "Materia",
+        "preferencia":"Preferencia" ,
+        "departamento": "Departamento"
+    	}
 
 class SignUpForm(UserCreationForm):
 	departamento = forms.CharField(label='Departamento', max_length=2, validators=[RegexValidator('^[a-zA-Z]{2}$',message="Formato de código incorrecto")])
@@ -81,3 +109,11 @@ class AuthForm(AuthenticationForm):
 	class Meta:
 		model = User
 		fields = ('username', 'password')
+
+class PreferenciaForm(forms.Form):
+	def __init__(self, oferta, *args, **kwargs):
+		super(PreferenciaForm, self).__init__(*args, **kwargs)
+		self.fields['preferencias']=forms.MultipleChoiceField(
+				[(oferta_asig.materia.codigo, oferta_asig.materia.nombre)
+					for oferta_asig in oferta],
+				required=False)
