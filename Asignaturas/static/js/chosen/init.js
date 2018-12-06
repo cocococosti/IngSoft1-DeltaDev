@@ -9,19 +9,25 @@ var config = {
       no_results_text: 'No se encontro la materia',
       width: '70%',
       disable_search_threshold: 10,
-      placeholder_text_multiple: "Requisitos"
+      placeholder_text_multiple: "Asignaturas"
   },
     '#id_disponibilidad'           : {
       no_results_text: 'No se encontro el bloque',
       width: '70%',
       disable_search_threshold: 10,
-      placeholder_text_multiple: "Requisitos"
+      placeholder_text_multiple: "Disponibilidad"
   },
     '#profesores_oferta'           : {
       no_results_text: 'No se encontro el profesor',
       width: '70%',
       disable_search_threshold: 10,
       placeholder_text_multiple: "Profesores"
+  },
+    '#id_preferencias'           : {
+      no_results_text: 'No se encontro la materia',
+      width: '70%',
+      disable_search_threshold: 10,
+      placeholder_text_multiple: "Materias"
   },
   // '.chosen-select-deselect'  : { allow_single_deselect: true },
   // '.chosen-select-no-single' : { disable_search_threshold: 10 },
