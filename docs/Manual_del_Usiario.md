@@ -94,7 +94,7 @@ Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramient
   
   2- Modifique los datos respectivos.
 
-![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignaturas_Modificar.png "listado de Asignaturas")
+![Menu de Asignaturas](imagenes/jefeDepartamento_Asignaturas_verAsignaturas_Modificar.png "listado de Asignaturas")
 
 
   3-Para Guardar los cambios presiona el botón "Modififar". Una vez hecho regresará inmediatamente a la tabla de asignaturas con los cambios actualizados.
@@ -149,7 +149,7 @@ El usuario puede ordenar las asignaturas del catálogo de forma alfabetica ascen
   Procedamos a agregar a la profesora Marlene Goncalves, con sus respectivos campos
   
   
-  ![Formulario para agregar nuevo Profesor](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento__Profesores_Agragar_Formulario.png "Formulario para agregar nuevo Profesor")
+  ![Formulario para agregar nuevo Profesor](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento_Profesores_Agragar_Formulario.png "Formulario para agregar nuevo Profesor")
 
 
 Nótese que el Departamento muestra una opción única, esto se debe a que cada profesor puede pertenecer únicamente a un departamento (el del jefe que lo agrega).
@@ -157,16 +157,16 @@ Nótese que el Departamento muestra una opción única, esto se debe a que cada 
 
 ### 3.2 Consultar Profesores partenecientes al Departamento (Solo para Jefes de Departamento).
 
-  ![Menu de Asignaturas](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento__Profesores_Consultar.png "Tabla de Profesores adscritos al Departamento")
+  ![Menu de Asignaturas](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento_Profesores_Consultar.png "Tabla de Profesores adscritos al Departamento")
 
 
 
 ## 4. Herramientas de Gestión de Ofertas Trimestrales:
 
-![Oferta trimestral](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento__OfertaTrimestral_Agregar.png "Visualización de Oferta Trimestral")
+![Oferta trimestral](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento_OfertaTrimestral_Agregar.png "Visualización de Oferta Trimestral")
 
 
 
-![Oferta Trimestral](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento__OfertaTrimestral_Agregar_Resultado.png "Visualización de Oferta Trimestral")
+![Oferta Trimestral](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento_OfertaTromestral_Agregar_Resultado.png "Visualización de Oferta Trimestral")
 
 
