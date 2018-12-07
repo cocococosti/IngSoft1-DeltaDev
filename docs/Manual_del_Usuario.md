@@ -4,7 +4,7 @@ El presente documento tiene la finalidad de ofrecer, de forma clara y sencilla, 
 
 Se proporcina adicionalmente una serie de imágenes que servirán de guia para entender el comportamiento del presente módulo, es decir, los resultados esperados al ingresar a ciertas funcionalidades específicas. 
 
-El presente documento presentará actualizacines durante las etapas de desarrollo.
+El presente documento presentará actualizaciones durante las etapas de desarrollo.
 
 Los jefes de Departamento poseen las siguientes funcionalidades:
 
@@ -69,7 +69,7 @@ Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramient
   - Registrar Asignatura: muestra un Formulario con los campos requeridos para agregar una nueva asignatura en el catálogo.
   - Ver Asignatura: catálogo de asignaturas existentes donde es posible modificarlas, eliminarlas, ordenarlas y filtrarlas.
   
-### 2.1 Registrar Asignatura-Formulario (Solo para Jefes de Departamento).
+### 2.1 Registrar Asignatura-Formulario:
 
 ![Registrar_Asignatura](imagenes/jefeDepartamento__Asignaturas_registrarAsignatura.png "Menu de funcionalidades sobre módulo de Asignaturas")
 
@@ -106,7 +106,7 @@ Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramient
 ![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignatura.png "listado de Asignaturas")
 
 
-### 2.2.1 Modificar información de una asignatura (Solo para Jefes de Departamento).
+### 2.2.1 Modificar información de una asignatura.
 
   1-Para modificar los datos de una asignatura presione el botón "Modificar" en la respectiva entrada del catálogo, inmediatamente se muestra el siguiente formulario.
   
@@ -117,7 +117,7 @@ Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramient
 
   3-Para Guardar los cambios presiona el botón "Modififar". Una vez hecho regresará inmediatamente a la tabla de asignaturas con los cambios actualizados.
 
-### 2.2.2 Eliminar una Asignatura (Solo para Jefes de Departamento).
+### 2.2.2 Eliminar una Asignatura.
 
 
 1- Presione Boton Eliminar en la respectiva entrada del catálogo.
@@ -158,7 +158,9 @@ El usuario puede ordenar las asignaturas del catálogo de forma alfabetica ascen
 
 ## 3. Herramientas de Gestión de Profesores:
 
-### 3.1 Registrar Profesor-Formulario (Solo para Jefes de Departamento).
+### 3.1 Registrar Profesor
+
+Es posible ingresar en el sistema los datos del profesor tal como se muestran a continuación. Los campos fueron diseñados por el equipo BIG Developers e integrados en el sistema de forma satisfactoria. Para ingresar al formulario se debe dar click en la pestaña "Registrar profesor"
 
   ![Formulario para agregar nuevo Profesor](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/jefeDepartamento_Profesores_Agregar.png "Formulario para agregar nuevo Profesor")
   
@@ -173,10 +175,11 @@ El usuario puede ordenar las asignaturas del catálogo de forma alfabetica ascen
 Nótese que el Departamento muestra una opción única, esto se debe a que cada profesor puede pertenecer únicamente a un departamento (el del jefe que lo agrega).
 
 
-### 3.2 Consultar Profesores partenecientes al Departamento (Solo para Jefes de Departamento).
+### 3.2 Consultar Profesores partenecientes al Departamento
+
+Al ingresar en la pestaña "Ver profesores" se listan los profesores registrados con sus respectivos datos. 
 
   ![Menu de Asignaturas](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/JefeDepartamento_Profesores_Consultar.png "Tabla de Profesores adscritos al Departamento")
-
 
 
 ## 4. Herramientas de Gestión de Ofertas Trimestrales:
@@ -185,7 +188,7 @@ Nótese que el Departamento muestra una opción única, esto se debe a que cada 
 
 El usuario debe hacer click en la pestaña de "Oferta de Asignaturas", luego para inicar el proceso de creación de la oferta debe hacer click en el boton "Agregar Asignatura" y aparecerá la siguiente venta emergente:
 
-![Agregar_Asignatura_Oferta]()
+![Agregar_Asignatura_Oferta](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/Agrega_asginatura_oferta.png "agrega a oferta")
 
 En el campo asignatura apareceran las materias registradas en el paso 2.1 del presente documento. En el campo de profesores aparecen los profesores registrados en el sistema en el punto 3.
 **Nota:** Proximamente los profesores que apareceran seran quienes en el punto 3 hayan indicado que suele dictar dicha asignatura.
@@ -195,7 +198,7 @@ Se pueden seleccionar varios profesores y apareceran en diferentes entradas de l
 
 Una vez hayan sido cargadas las asignaturas en la oferta con los respectivos profesores tentativos, se debe hacer click en el boton "Enviar Oferta". Esta opcion enviará un enlace que lleva  a un formulario personalizado a cada profesor que pertenece a la oferta a traves del correo electrónico.
 
-![Enviar_Oferta]()
+![Enviar_Oferta](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/Agrega_asginatura_oferta.png "Enviar oferta")
 
 **Nota:** Durante la etapa de desarrollo se utilizará la herramienta de django [Console backend](https://docs.djangoproject.com/en/1.11/topics/email/#console-backend) que escribe el email en la salida estandar. Proximamente el envio de correo se realizará de forma real.
 
@@ -203,7 +206,7 @@ Una vez hayan sido cargadas las asignaturas en la oferta con los respectivos pro
 
 En el correo que se envia a cada profesor, se encuentra un enlace que redirige al profesor a un formulario personalizado donde se le muestran las asignaturas a las que ha sido seleccionado y decide confirmar o no, que dictará esas asignaturas, tal como se muestra a continuación:
 
-![Formulario_Seleccion]()
+![Formulario_Seleccion](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/preferencias_profesor.png "Formulario de seleccion de preferencias")
 
 Este formulario es de caracter privado y solo puede ser accedido por los profesores a través del enlace enviado. 
 
@@ -213,5 +216,5 @@ Una vez que los profesores respondan al formulario, o puede suceder el caso en q
 
 Si el color está en rojo, quiere decir que no hay respuesta del profesor aun, o  que este la rechazó. Si el color es el mismo que el resto de los campos de la entrada de la tabla, quiere decir que el profesor aceptó dictar esa materia para el respectivo trimestre.
 
-![Oferta_Actualizada]()
+![Oferta_Actualizada](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/actualizar_oferta.png "Oferta actualizada")
 
