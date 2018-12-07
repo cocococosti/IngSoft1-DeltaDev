@@ -90,7 +90,12 @@ Leer el [MANUAL DE USUARIO](https://github.com/cocococosti/IngSoft1-DeltaDev/blo
 
 ## Versión
 
-Actualmente no se ha desplegado el producto, pues el equipo se encuentra en la fase de trabajo de desarrollo durante el Sprint.
+**Novedad** Se hizo un deployment del producto para las correciones realizadas del Sprint 1 y las funcionalidades agregadas del Sprint 2 en Heroku. En el siguiente enlace puede acceder al sistema sin necesidad de realizar las configuraciones iniciales.
+
+```
+https://sistema-asignaturas-usb.herokuapp.com
+
+```
 
 ## Autores
 
