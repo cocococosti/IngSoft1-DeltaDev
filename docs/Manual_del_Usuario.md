@@ -1,6 +1,6 @@
 # Manual del Usuario
 
-El presente documento tiene la finalidad de ofrecer, de forma clara y sencilla, las pautas que le permitirán al usuario de la aplicación aprender a acceder y usar a las diversas herramientas de trabajo ofrecidas dentro del sistema. Para ello se presenta a continuación una serie de ejemplos explicando como llevar a cabo las tareas listadas al inicio.
+El presente documento tiene la finalidad de ofrecer, de forma clara y sencilla, las pautas que le permitirán al usuario de la aplicación aprender a acceder y usar a las diversas herramientas de trabajo ofrecidas dentro del sistema. 
 
 Se proporcina adicionalmente una serie de imágenes que servirán de guia para entender el comportamiento del presente módulo, es decir, los resultados esperados al ingresar a ciertas funcionalidades específicas. 
 
@@ -37,7 +37,7 @@ Una vez instalado los requisitos del software y seguido las instrucciones indica
 ![Registro de Cuenta](imagenes/usuarios_login_registrar_datos.png "Página de registro de cuenta")
   
  #### Formulario de Registro
- Para poder crear un nuev usuario de forma satisfactoria debe llenar "Todos" los campos, a continuación de ofrece una explicación con el nombre del campo y el tipo de dato se espera recibir en él.
+ Para poder crear un nuevo usuario de forma satisfactoria, este debe llenar todos los campos que se presentan en el formulario de registro, a continuación de ofrece una explicación con el nombre del campo y el tipo de dato se espera recibir en él.
  
  - Nombre de Usuario: dirección de correo electrónico personal/institucional.
  - Departamento: código del Departamento al cual estará adscrita la cuenta. El código se compone de dos letras Mayusculas 
@@ -45,12 +45,6 @@ Una vez instalado los requisitos del software y seguido las instrucciones indica
  - Confirmación: repetir nuevamente la contraseña.
 
 Una vez llenado todos los campos, el usuario debe hacer click en el botón Registrar. Será redirigido al la pestaña de Inicio de Sesión donde llenará los respectivos campos para ingresar en el sistema.
-
-Nota: Actualmente todos los usuarios se registran como Jefes de Departamento. En las próximas actualizaciones se deshabilitará esta suposición.
-
-Nota 2: Solo se puede ingresar con alguno de los departamentos válidos como CI, PS, BC, BO, CC, etc. 
-
-Nota 3: Esta funcionalidad aún esta en desarrollo. Se implementó como un stub pues era necesaria para otros requerimientos del sistema.
 
 ### 1.1 Inicio de Sesión
 
