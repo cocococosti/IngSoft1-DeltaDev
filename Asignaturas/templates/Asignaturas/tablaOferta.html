@@ -39,9 +39,7 @@
       <h3>Oferta de Asignaturas</h3>
       <h4>{{departamento.nombre}}</h4>
     </div>
-<<<<<<< HEAD
-    <div class="fluid-container text-right" style="padding-bottom: 1em;">
-=======
+    <div class="container text-right" style="padding-bottom: 1em;">
     {% if messages %}
       <ul class="messages alert alert-success" style=" width: 50%; margin-left: 25%;">
           {% for message in messages %}
@@ -49,11 +47,12 @@
           {% endfor %}
       </ul>
     {% endif %}
+  </div>
     <div class="container text-right" style="padding-bottom: 2rem;">
->>>>>>> 0766de45ae27c1175a9d27cdea2907be613930fd
+
       <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#agregar">Agregar Asignatura</button>
     </div>
-    <div class="fluid-container text-right" style="padding-bottom:1em;">
+    <div class="container text-right" style="padding-bottom:1em;">
         <form class="" action="" method="post">
             {% csrf_token %}
             <input type="hidden" name="enviar_oferta" id="enviar_oferta" value="true" />
