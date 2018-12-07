@@ -1,9 +1,12 @@
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 from django.test import Client
 from django.core.urlresolvers import reverse
 from Asignaturas.models import *
 from .forms import *
 from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.models import User
+from django.contrib.auth.models import AnonymousUser
+from django.db import IntegrityError	
 
 # Fronteras:
 
@@ -30,13 +33,26 @@ from django.contrib.auth.base_user import BaseUserManager
 # CREATION OF MODELS
 class AsignaturasTest(TestCase):
 
-	# docstring for DepartamentoTest
+	# docstring para el departamento
 	def create_departamento(self, codigo, nombre):
 		return Departamento.objects.create(codigo=codigo, nombre=nombre)
 		
-	# docstring for Asignatura		
+	# docstring para la asignatura		
 	def create_asignatura(self, codigo, nombre,uc, ht, hp, hl, r, d):
 		return Asignatura.objects.create(codigo=codigo, nombre=nombre,unidadesCredito=uc, horasTeoria= ht, horasPractica=hp, horasLab=hl, requisitos=r, departamento=d)
+
+	# docstring para la disponibilidad
+	def create_disponibilidad(self, bloque, dia):
+		return Disponibilidad.objects.create(bloque=bloque, dia=dia)
+
+	# docstring para la oferta
+	def create_oferta(self, trimestre, profesor, materia, preferencia, departamento):
+		return Oferta.objects.create(trimestre=trimestre, profesor=profesor, materia=materia, departamento=departamento)
+
+	# do3cstring para los profesores
+	def create_prof(self, nombre, apellido, email, cedula, departamento):
+		return Profesor.objects.create(nombre=nombre, apellido=apellido, email=email, cedula=cedula, departamento=departamento)
+
 
 	######## Pruebas frontera ########
 	def test_codigo_asig_incorrecto_1(self):
@@ -151,3 +167,174 @@ class AsignaturasTest(TestCase):
 		a = self.create_asignatura("CO-5212","ANALISIS NUMERICO", 4, 6, 3, 3, "", d)
 		self.assertTrue(isinstance(a, Asignatura))
 		self.assertEqual(a.__str__(), "CO-5212 Nombre: ANALISIS NUMERICO Dpto: CO UC: 4")
+
+
+	# Creacion de asignatura con un departamento al que no pertenece
+	def test_asignatura_distinto_dpto(self):
+
+		dpto = self.create_departamento("CI","Departamento de Computación y Tecnología de la Información")
+		asignatura = self.create_asignatura("CO-5211", "CONTROL DE PROYECTOS DE PROGRAMAS", 4, 4, 0, 0, "", dpto)
+		self.assertFalse(asignatura.codigo == dpto.codigo)
+
+
+
+class ProfesorTest(TestCase):
+
+	# Metodo para crear valores iniciales por defecto
+	# en los casos de prueba
+	def setUp(self):
+
+		d_compu = Departamento.objects.create(nombre="Departamento de Matematicas", codigo="MA")
+		
+		Profesor.objects.create(nombre="Constanza", apellido="Abarca", email="cocosti@gmail.com", cedula="V-24.343.542", departamento=d_compu)
+		Profesor.objects.create(nombre="Pedro", apellido="Maldonado", email="pmaldonado@usb.ve", cedula="V-25.777.898", departamento=d_compu)
+
+
+	# docstring para el departamento
+	def create_departamento(self, codigo, nombre):
+		return Departamento.objects.create(codigo=codigo, nombre=nombre)
+		
+	# docstring para la asignatura		
+	def create_asignatura(self, codigo, nombre,uc, ht, hp, hl, r, d):
+		return Asignatura.objects.create(codigo=codigo, nombre=nombre,unidadesCredito=uc, horasTeoria= ht, horasPractica=hp, horasLab=hl, requisitos=r, departamento=d)
+
+	# docstring para la disponibilidad
+	def create_disponibilidad(self, bloque, dia):
+		return Disponibilidad.objects.create(bloque=bloque, dia=dia)
+
+	# docstring para la oferta
+	def create_oferta(self, trimestre, profesor, materia, preferencia, departamento):
+		return Oferta.objects.create(trimestre=trimestre, profesor=profesor, materia=materia, departamento=departamento)
+
+	# do3cstring para los profesores
+	def create_prof(self, nombre, apellido, email, cedula, departamento):
+		return Profesor.objects.create(nombre=nombre, apellido=apellido, email=email, cedula=cedula, departamento=departamento)
+
+
+	# Prueba del nombre de un profesor en la base de datos
+	def test_nombre_profesor(self):
+
+		profesor = Profesor.objects.get(cedula="V-24.343.542")
+		self.assertEqual(profesor.nombre + " " + profesor.apellido, "Constanza Abarca")
+
+	# Prueba de error al registrar un profesor ya existente
+	def test_profesor_existente(self):
+
+		d_compu = Departamento.objects.get(codigo="MA")
+		with self.assertRaises(IntegrityError):
+			Profesor.objects.create(nombre="Luis", apellido="Maldonado", email="pmaldonado@usb.ve", cedula="V-25.777.898", departamento=d_compu)
+
+	# Prueba de creacion de un profesor
+	def test_creacion_profesor(self):
+
+		dpto = Departamento.objects.get(codigo="MA")
+		profesor = self.create_prof("Luis", "Marcano", "marcano@hotmail.com", "V-14.421.214", departamento=dpto)
+		self.assertEqual(profesor.nombre + " " + profesor.apellido + " " + profesor.cedula, "Luis Marcano V-14.421.214")
+
+
+	# Prueba de busqueda de profesor
+	def test_profesor_con_departamento_existente(self):
+
+		d = self.create_departamento("CO","Departamento de Computo Cientifico")
+		d2 = Departamento.objects.get(codigo="MA") 
+		asignatura = self.create_asignatura("CO-5212","ANALISIS NUMERICO", 4, 6, 3, 3, "", d)
+		profesor = Profesor.objects.get(cedula="V-24.343.542")
+
+		profesor2 = Profesor.objects.filter(departamento=d2).first()
+
+		self.assertEqual(profesor.nombre, profesor2.nombre)
+ 
+
+	# Prueba de error al intentar crear un departamento ya existente
+	def test_dpto_existente(self): 
+
+		with self.assertRaises(IntegrityError):
+			depto = Departamento.objects.create(nombre="Departamento de Matematicas", codigo="MA")
+
+	# Prueba de error al intentar crear un departamento ya existente
+	def test_dpto_existente_2(self):
+	
+		d = self.create_departamento("CO","Departamento de Computo Cientifico")
+
+		with self.assertRaises(IntegrityError):
+			d2 = self.create_departamento("CO", "Departamento de Computo Cientifico")
+		
+		
+
+class OfertaTest(TestCase):
+
+	# Metodo para crear valores iniciales por defecto
+	# en los casos de prueba
+
+	def setUp(self):
+
+		d_compu = Departamento.objects.create(nombre="Departamento de Matematicas", codigo="MA")
+		
+		Profesor.objects.create(nombre="Constanza", apellido="Abarca", email="cocosti@gmail.com", cedula="V-24.343.542", departamento=d_compu)
+		Profesor.objects.create(nombre="Pedro", apellido="Maldonado", email="pmaldonado@usb.ve", cedula="V-25.777.898", departamento=d_compu)
+
+		a = self.create_asignatura("MA-6939", "DISEÑO Y ANALISIS DE EXPERIMENTOS", 4, 4, 0, 0, "", d_compu)
+ 
+
+	# docstring para el departamento
+	def create_departamento(self, codigo, nombre):
+		return Departamento.objects.create(codigo=codigo, nombre=nombre)
+		
+	# docstring para la asignatura		
+	def create_asignatura(self, codigo, nombre,uc, ht, hp, hl, r, d):
+		return Asignatura.objects.create(codigo=codigo, nombre=nombre,unidadesCredito=uc, horasTeoria= ht, horasPractica=hp, horasLab=hl, requisitos=r, departamento=d)
+
+	# docstring para la disponibilidad
+	def create_disponibilidad(self, bloque, dia):
+		return Disponibilidad.objects.create(bloque=bloque, dia=dia)
+
+	# docstring para la oferta
+	def create_oferta(self, trimestre, profesor, materia, preferencia, departamento):
+		return Oferta.objects.create(trimestre=trimestre, profesor=profesor, materia=materia, departamento=departamento)
+
+	# do3cstring para los profesores
+	def create_prof(self, nombre, apellido, email, cedula, departamento):
+		return Profesor.objects.create(nombre=nombre, apellido=apellido, email=email, cedula=cedula, departamento=departamento)
+
+
+	# Prueba de creacion de disponibilidad
+	def test_disponibilidad_1(self):
+		disponibilidad = self.create_disponibilidad(bloque=4,dia=2)
+		self.assertEqual(disponibilidad.__str__(), "Martes, bloque 4")
+
+	# Prueba de creacion de disponibilida
+	def test_disponibilidad_2(self):
+		disponibilidad = self.create_disponibilidad(bloque=10,dia=4)
+		self.assertEqual(disponibilidad.__str__(), str(disponibilidad.get_dia_display()) + ", bloque " + str(disponibilidad.bloque))
+
+	# Prueba de creacion de oferta trimestral
+	def test_oferta_1(self):
+		d = self.create_departamento("CI","Departamento de Computación y Tecnología de la Información")
+		a = self.create_asignatura("CI-7621", "Teoria de Algoritmos", 4, 4, 0, 0, "", d)
+		p = self.create_prof("María", "Ramirez", "12-10042@usb.ve", "V-25.766.738", d)
+		p.asignaturas.add(a)
+		oferta = Oferta.objects.create(trimestre="AJ-19", profesor=p, materia=a, departamento=d, preferencia=True)
+		self.assertEqual(oferta.__str__(), "AJ-19, "+str(oferta.profesor_id)+", CI-7621, True")
+
+	# Prueba de creacion de oferta trimestral
+	def test_oferta_2(self):
+
+		dpto = Departamento.objects.get(codigo="MA")
+		asignatura = Asignatura.objects.get(codigo="MA-6939")
+		asignatura2 = self.create_asignatura("MA-5273", "COMBINATORIA", 4, 4, 0, 0, "", dpto)
+		profesor = Profesor.objects.get(cedula="V-25.777.898")
+
+		profesor.asignaturas.add(asignatura2)
+		oferta = Oferta.objects.create(trimestre="AJ-19", profesor=profesor, materia=asignatura2, departamento=dpto, preferencia=None)
+		self.assertEqual(oferta.__str__(), "AJ-19, "+str(oferta.profesor_id)+", MA-5273, None")
+
+	# Prueba de creacion de oferta trimestral
+	def test_oferta_3(self):
+
+		dpto = self.create_departamento("CI","Departamento de Computación y Tecnología de la Información")
+		asignatura = self.create_asignatura("CI-5211", "CONTROL DE PROYECTOS DE PROGRAMAS", 4, 4, 0, 0, "", dpto)
+		profesor = Profesor.objects.get(cedula="V-25.777.898")
+
+		profesor.asignaturas.add(asignatura)
+		oferta = Oferta.objects.create(trimestre="SD-18", profesor=profesor, materia=asignatura, departamento=dpto, preferencia=False)
+		self.assertEqual(oferta.__str__(), oferta.trimestre + ", "+ str(oferta.profesor_id) + ", " + oferta.materia_id + ", " + str(oferta.preferencia))
