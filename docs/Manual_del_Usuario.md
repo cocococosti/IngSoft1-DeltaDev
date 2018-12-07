@@ -198,7 +198,7 @@ Se pueden seleccionar varios profesores y apareceran en diferentes entradas de l
 
 Una vez hayan sido cargadas las asignaturas en la oferta con los respectivos profesores tentativos, se debe hacer click en el boton "Enviar Oferta". Esta opcion enviará un enlace que lleva  a un formulario personalizado a cada profesor que pertenece a la oferta a traves del correo electrónico.
 
-![Enviar_Oferta](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/Agrega_asginatura_oferta.png "Enviar oferta")
+![Enviar_Oferta](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/enviar_oferta.png "Enviar oferta")
 
 **Nota:** Durante la etapa de desarrollo se utilizará la herramienta de django [Console backend](https://docs.djangoproject.com/en/1.11/topics/email/#console-backend) que escribe el email en la salida estandar. Proximamente el envio de correo se realizará de forma real.
 
