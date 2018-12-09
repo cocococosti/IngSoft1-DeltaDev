@@ -47,36 +47,36 @@
 
     </div>
 
-    <div class="container">
-
-      <h2 class="text-center"><b> Sistema de Oferta de Asignaturas - Postgrado</b></h2>
-      <br>
+    <div class="text-center container mb-4">
+      <h2><b> Sistema de Oferta de Asignaturas - Postgrado</b></h2>
       {% block navbar %}
-          <div class="text-center">
-         <div class="btn-group">
-          <a type="button" class="btn btn-secondary" href="registro-asignaturas">Registrar asignatura</a>
-          <a type="button" class="btn btn-secondary" href="tabla-asignaturas">Ver asignaturas</a>
-          <a type="button" class="btn btn-secondary" href="registro-profesores">Registrar Profesor</a>
-          <a type="button" class="btn btn-secondary" href="tabla-profesores">Ver profesores</a>
-          <a type="button" class="btn btn-secondary" href="tabla-oferta">Oferta Asignaturas</a>
-          <a type="button" class="btn btn-secondary" href="salir">Salir</a>
-        </div>
+           <div class="btn-group">
+            <a type="button" class="btn btn-secondary" href="registro-asignaturas">Registrar asignatura</a>
+            <a type="button" class="btn btn-secondary" href="tabla-asignaturas">Ver asignaturas</a>
+            <a type="button" class="btn btn-secondary" href="registro-profesores">Registrar Profesor</a>
+            <a type="button" class="btn btn-secondary" href="tabla-profesores">Ver profesores</a>
+            <a type="button" class="btn btn-secondary" href="tabla-oferta">Oferta Asignaturas</a>
+            <a type="button" class="btn btn-secondary" href="salir">Salir</a>
+           </div>
+      </div>
       {% endblock %}
-      <br>
+
+      <div class="container-fluid">
+          {% for message in messages %}
+              <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                  {{message}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+          {% endfor %}
+      </div>
 
     </div>
     {% block content %}
     {% endblock %}
 
     <br>
-
-    {% if messages %}
-      <ul class="messages alert alert-success" style=" width: 50%; margin-left: 25%;">
-          {% for message in messages %}
-          <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-          {% endfor %}
-      </ul>
-    {% endif %}
 
   </body>
 
