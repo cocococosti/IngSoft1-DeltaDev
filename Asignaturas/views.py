@@ -231,15 +231,14 @@ def tablaOferta(request):
 			send_email(user, request)
 			return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores, 'ofertas':ofertas, 'pro':profs})
 		else:
-			profs = request.POST.getlist('profesores_oferta')
-			asig = Asignatura.objects.filter(codigo = request.POST.get('asignatura')).first()
-			for cedula in profs:
-				p =  Profesor.objects.filter(cedula = cedula).first()
+			asig = Asignatura.objects.get(codigo=request.POST.get('asignatura'))
+			profesores = asig.profesor_set.all()
+			for profesor in profesores:
 				oferta = Oferta(
 					trimestre = "SD-18",
-					profesor = p,
-					materia = asig,
-					departamento = dept)
+					profesor=profesor,
+					materia=asig,
+					departamento=dept)
 				oferta.save()
 
 
