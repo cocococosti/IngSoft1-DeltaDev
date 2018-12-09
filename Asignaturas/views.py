@@ -1,15 +1,17 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 from django.shortcuts import render, redirect
-from Asignaturas.models import *
-from .forms import *
 from django.contrib.auth.models import User
 from django import forms
 from django.http import HttpResponse
 from django.core.mail import send_mass_mail
 from django.template.loader import render_to_string
 from django.urls import reverse
+
+from Asignaturas.models import *
+from .forms import *
 
 def inicio(request):
 	"""Carga la página incial."""
@@ -234,13 +236,14 @@ def tablaOferta(request):
 			asig = Asignatura.objects.get(codigo=request.POST.get('asignatura'))
 			profesores = asig.profesor_set.all()
 			for profesor in profesores:
-				oferta = Oferta(
-					trimestre = "SD-18",
-					profesor=profesor,
-					materia=asig,
-					departamento=dept)
-				oferta.save()
-
+				try:
+					Oferta.objects.create(
+							trimestre = "SD-18",
+							profesor=profesor,
+							materia=asig,
+							departamento=dept)
+				except Exception as e:
+					pass
 
 
 	ofertas = Oferta.objects.filter(departamento = dept).all()
