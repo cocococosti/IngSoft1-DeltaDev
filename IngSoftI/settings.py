@@ -75,7 +75,12 @@ WSGI_APPLICATION = 'IngSoftI.wsgi.application'
 
 
 # Email
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "costi.abarca@gmail.com"
+EMAIL_HOST_PASSWORD = "i.love.white.sneakers"
+EMAIL_PORT = 587
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
