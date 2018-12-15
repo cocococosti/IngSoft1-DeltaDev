@@ -86,7 +86,9 @@ python manage.py test
 
 ## Ayuda al Usuario
 
-Leer el [MANUAL DE USUARIO](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/Manual_del_Usuario.md) para detalles sobre la navegación en el sistema.
+* Leer el [MANUAL DE USUARIO](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/Manual_del_Usuario.md) para detalles sobre la navegación en el sistema.
+
+* Leer [DETALLES DE LA IMPLEMENTACIÓN](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/Detalles_de_Implementacion.md) para mayor documentación del software.
 
 ## Versión
 

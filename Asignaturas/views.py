@@ -1,15 +1,17 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 from django.shortcuts import render, redirect
-from Asignaturas.models import *
-from .forms import *
 from django.contrib.auth.models import User
 from django import forms
 from django.http import HttpResponse
 from django.core.mail import send_mass_mail
 from django.template.loader import render_to_string
 from django.urls import reverse
+
+from Asignaturas.models import *
+from .forms import *
 
 def inicio(request):
 	"""Carga la página incial."""
@@ -415,23 +417,21 @@ def tablaOferta(request):
 		
 		# si se selecciona agregar oferta
 		else:
-			# obtenemos losprofesores seleccionados
-			profs = request.POST.getlist('profesores_oferta')
-			
-			# obtenemos asignatura de la oferta
-			asig = Asignatura.objects.filter(codigo = request.POST.get('asignatura')).first()
-			
-			# para cada profesor guardar una oferta
-			for cedula in profs:
-				# obtenemos el objeto profesor
-				p =  Profesor.objects.filter(cedula = cedula).first()
-				#construimos objeto oferta
-				oferta = Oferta(
-					trimestre = "SD-18",
-					profesor = p,
-					materia = asig,
-					departamento = dept)
-				oferta.save()
+
+			# Asignatura de la oferta
+			asig = Asignatura.objects.get(codigo=request.POST.get('asignatura'))
+			# Profesores que expresaron preferencia por la asignatura
+			profesores = asig.profesor_set.all()
+			# guardar oferta para cada profesor
+			for profesor in profesores:
+				try:
+					Oferta.objects.create(
+							trimestre = "SD-18",
+							profesor=profesor,
+							materia=asig,
+							departamento=dept)
+				except Exception as e:
+					pass
 
 	# cargar tabla de ofertas
 	ofertas = Oferta.objects.filter(departamento = dept).all()

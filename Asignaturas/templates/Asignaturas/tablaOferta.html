@@ -9,17 +9,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    
+
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    
+
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
 
-    
+
     <script src="{% static "js/tablaOferta.js" %}"></script>
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-    
+
 
     {% load static %}
     <link rel="stylesheet" href="{% static "css/chosen/style.css" %}">
@@ -39,19 +39,11 @@
       <h3>Oferta de Asignaturas</h3>
       <h4>{{departamento.nombre}}</h4>
     </div>
-    <div class="container text-right" style="padding-bottom: 1em;">
-    {% if messages %}
-      <ul class="messages alert alert-success" style=" width: 50%; margin-left: 25%;">
-          {% for message in messages %}
-          <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-          {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
-    <div class="container text-right" style="padding-bottom: 2rem;">
 
+    <div class="container text-right" style="padding-bottom: 2rem;">
       <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#agregar">Agregar Asignatura</button>
     </div>
+
     <div class="container text-right" style="padding-bottom:1em;">
         <form class="" action="" method="post">
             {% csrf_token %}
@@ -103,7 +95,7 @@
             <td>
               <p data-placement="top" title="Eliminar">
                 <form action='' method="post">
-                   
+
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eliminar">Eliminar</button>
                   <div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -150,20 +142,14 @@
         <div class="modal-body">
           <form action="" method="post">
            {% csrf_token %}
-            <label for="asignatura">Asignatura</label>
-            <select name="asignatura" id="asignatura">
-            {% for m in materias %}
-            <option value={{m.codigo}}>{{m.nombre}}</option>
-            {% endfor %}
-            </select>
-            <br>
-            <label for="profesores_oferta">Profesores</label>
-            <select name="profesores_oferta" class="profesores_oferta" multiple="multiple">
-              {% for p in profesores %}
-            <option value={{p.cedula}}>{{p.nombre}} {{p.apellido}}</option>
-            {% endfor %}
-            </select>
-            
+           <div class="form-group">
+               <label for="asignatura">Asignatura</label>
+               <select name="asignatura" id="asignatura">
+               {% for m in materias %}
+               <option value={{m.codigo}}>{{m.nombre}}</option>
+               {% endfor %}
+               </select>
+           </div>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           <input type="submit" name = "modo" class="btn btn-primary" value="Agregar">
         </form>
