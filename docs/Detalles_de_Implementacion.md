@@ -17,7 +17,7 @@ Funcionalidad de búsqueda en el la tabla de asignaturas ubicado en la carpeta A
 **2.4 Eliminar Asignaturas del Catálogo**
 * Modelo: El mismo modelo de la historia 2.1
 * Template:  *tablaAsignaturas.html* en el directorio Asignatura> templates> Asignatura
-* Vista: Funcion tablaAsignaturas(request) para eliminar la entrada de la tabla en el botón “Eliminar”
+* Vista: Funcion tablaAsignaturas(request) en views.py para eliminar la entrada de la tabla en el botón “Eliminar”
  
 **2.5 Listar Asignaturas del Catálogo**
 
@@ -32,21 +32,21 @@ Funcionalidad del plug-in data tables de JQuery, ubicado en la carpeta Asignatur
 **3.1 Seleccionar Asignaturas, 3.2 Seleccionar Candidatos**
 * Modelo: Clase Oferta en models.py
 * Template: *tablaOferta.html* en Asignaturas > templates > Asignaturas
-* Vista: *tablaOferta(request)* en views.py
+* Vista: *tablaOferta(request)* en views.py para agregar boton "Agregar Asignatura" y su respectivo modal.
 
 **3.3 Presentar Opciones** 
 * Modelo: Igual que en las historias 3.1, 3.2
 * Template: *tablaOferta.html* en Asignaturas > templates > Asignaturas
-* Vista: *tablaOferta(request)*, *send_email(jefe, request)* en views.py
+* Vista: *tablaOferta(request)* para el boton "Enviar Oferta", *send_email(jefe, request)* para el envio de correos con el formulario especifico para cada profesor asignado en la oferta en views.py
 
 **3.4 Completar Asginación**
 * Modelo: Igual que en las historias 3.1, 3.2
 * Template: *tablaOferta.html*, *modificarOferta.html* en Asignaturas > templates > Asignaturas
-* Vista: *tablaOferta(request)*, *modificarOferta(request, id)* en views.py
+* Vista: *tablaOferta(request)*, *modificarOferta(request, id)* en views.py para agregar botones "Modificar" y "Eliminar" entradas de la oferta.
 
 **4.1 Seleccionar Preferencias**
 * Modelo: Igual que en las historias 3.1, 3.2
 * Template: *dictaProfesor.html* en Asignaturas > templates > Asignaturas
-* Vista: *seleccionMatProfesores(request, ci)* en views.py
+* Vista: *seleccionMatProfesores(request, ci)* en views.py para mostrar el formulario de selección de asignaturas a dictar para los profesores y actualizar su aceptación en la oferta.
 
 
