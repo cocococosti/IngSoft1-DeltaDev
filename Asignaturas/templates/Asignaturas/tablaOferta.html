@@ -72,6 +72,9 @@
             <td>{{m.materia.codigo}}</td>
             <td>{{m.materia.creditos}}</td>
             <td>{{m.materia.nombre}}</td>
+            {% if m.profesor == None %}
+            <td>No hay profesor asignado</td>
+            {% else %}
             {% if m.preferencia is True %}
             <td>
             {{m.profesor.nombre}} {{m.profesor.apellido}}
@@ -80,6 +83,7 @@
             <td style="color: red;">
             {{m.profesor.nombre}} {{m.profesor.apellido}}
             </td>
+            {% endif %}
             {% endif %}
             <td>
               <p data-placement="top" title="Modificar">

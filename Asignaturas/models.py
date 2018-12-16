@@ -117,7 +117,7 @@ class Oferta(models.Model):
 	''' Tabla que representa las asignaturas que cada profesor puede dar en la proxima
 		oferta (asignaturas por confirmar)'''
 	trimestre = models.CharField(max_length=5, default="SD-18", validators=[MaxLengthValidator(5, message='La específicación del trimestre son máximo 5 letras'), MinLengthValidator(5, message='La específicación del trimestre son mínimo 5 letras')])
-	profesor = models.ForeignKey('Profesor', default="",on_delete=models.CASCADE)
+	profesor = models.ForeignKey('Profesor', default="",on_delete=models.CASCADE, blank=True, null=True)
 	materia = models.ForeignKey('Asignatura', default="",on_delete=models.CASCADE)
 	preferencia = models.NullBooleanField(default=None)
 	departamento = models.ForeignKey('Departamento',  default="",on_delete=models.CASCADE)

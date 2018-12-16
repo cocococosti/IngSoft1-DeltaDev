@@ -102,6 +102,9 @@ def modificarAsignatura(request, codigo):
 
 	# Materia a modificar
 	materia = Asignatura.objects.get(codigo=codigo)
+
+	# Guardamos materia otra vez (lo necesitamos despues)
+	materia2 = Asignatura.objects.get(codigo=codigo)
 	
 	if request.method == 'POST':
 
@@ -111,11 +114,22 @@ def modificarAsignatura(request, codigo):
 		# Si los campos del form son validos
 		if form.is_valid():
 
-			# Obtenemos codigo del form
+			# codigo de la materia original
+			c = codigo
+			
+			# Obtenemos codigo del dpto del form
 			codigo = form.cleaned_data['codigo'][0]+form.cleaned_data['codigo'][1]
-
+				
 			# Si el codigo del formulario es el mismo que el dpto del usuario registrado
 			if (codigo == dept):
+
+				# Obtenemos codigo completo de la materia
+				codMateria = form.cleaned_data['codigo']
+
+				# si se esta modificando el codigo de la maetria
+				if (codMateria != c):
+					# Eliminar la materia con el codigo viejo
+					materia2.delete()
 
 				# Guardamos datos del form en la base de datos
 				form.save()
@@ -396,7 +410,9 @@ def tablaOferta(request):
 			if (item != None):
 
 				# si la oferta es del dpto del jefe
-				if (dept.codigo == item.profesor.departamento.codigo):
+				if (item.profesor==None):
+					item.delete()
+				elif (dept.codigo == item.profesor.departamento.codigo):
 					
 					item.delete()
 		
@@ -423,15 +439,25 @@ def tablaOferta(request):
 			# Profesores que expresaron preferencia por la asignatura
 			profesores = asig.profesor_set.all()
 			# guardar oferta para cada profesor
-			for profesor in profesores:
-				try:
-					Oferta.objects.create(
-							trimestre = "SD-18",
-							profesor=profesor,
-							materia=asig,
-							departamento=dept)
-				except Exception as e:
-					pass
+
+			# si no se registraron profesores para esa materia
+			if (len(profesores)==0):
+				# se registra la oferta con None en el campo profesor
+				Oferta.objects.create(
+						trimestre = "SD-18",
+						materia=asig,
+						departamento=dept)
+			else:
+				for profesor in profesores:
+					# registrar oferta para cada profesor
+					try:
+						Oferta.objects.create(
+								trimestre = "SD-18",
+								profesor=profesor,
+								materia=asig,
+								departamento=dept)
+					except:
+						pass
 
 	# cargar tabla de ofertas
 	ofertas = Oferta.objects.filter(departamento = dept).all()
@@ -534,21 +560,23 @@ def send_email(jefe, request):
 
 	# Para cada profesor y sus materias asignadas
 	for profesor, materias in prof_list.items():
-
-		# Obtener link a enviar al profesor
-		relative_url = reverse('preferencias', args=(profesor.cedula,))
-		full_url = request.build_absolute_uri(relative_url)
-		# full_url = request.get_full_path(relative_url)
-		mensaje_txt = render_to_string('email.txt', {'materias': ", ".join(materias), 'enlace': full_url})
-		
-		# Atributos del correo a enviar
-		correo = (
-				'Materias para dictar el proximo trimestre',
-				mensaje_txt,
-				jefe.email,
-				[profesor.email],
-				)
-		correos.append(correo)
+		if (profesor==None):
+			pass
+		else:
+			# Obtener link a enviar al profesor
+			relative_url = reverse('preferencias', args=(profesor.cedula,))
+			full_url = request.build_absolute_uri(relative_url)
+			# full_url = request.get_full_path(relative_url)
+			mensaje_txt = render_to_string('email.txt', {'materias': ", ".join(materias), 'enlace': full_url})
+			
+			# Atributos del correo a enviar
+			correo = (
+					'Materias para dictar el proximo trimestre',
+					mensaje_txt,
+					jefe.email,
+					[profesor.email],
+					)
+			correos.append(correo)
 		
 	# Enviar todos los correos
 	send_mass_mail(correos,fail_silently=False)
