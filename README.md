@@ -86,11 +86,18 @@ python manage.py test
 
 ## Ayuda al Usuario
 
-Leer el [MANUAL DE USUARIO](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/Manual_del_Usiario.md) para detalles sobre la navegación en el sistema.
+* Leer el [MANUAL DE USUARIO](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/Manual_del_Usuario.md) para detalles sobre la navegación en el sistema.
+
+* Leer [DETALLES DE LA IMPLEMENTACIÓN](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/Detalles_de_Implementacion.md) para mayor documentación del software.
 
 ## Versión
 
-Actualmente no se ha desplegado el producto, pues el equipo se encuentra en la fase de trabajo de desarrollo durante el Sprint.
+**Novedad** Se hizo un deployment del producto para las correciones realizadas del Sprint 1 y las funcionalidades agregadas del Sprint 2 en Heroku. En el siguiente enlace puede acceder al sistema sin necesidad de realizar las configuraciones iniciales.
+
+```
+https://sistema-asignaturas-usb.herokuapp.com
+
+```
 
 ## Autores
 
