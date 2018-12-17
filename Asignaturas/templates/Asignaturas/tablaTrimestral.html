@@ -36,24 +36,27 @@
 <body>
   <div class="container" style=" margin: 0 auto; background-color: White;padding-top: 2rem;">
     <div class="container text-center">
-      <h3>Oferta Trimestral del Departamento</h3>
-      <h4>{{departamento.nombre}}</h4>
+      <h3>Oferta Trimestral de Coordinación</h3>
     </div>
 
-    <div class="container text-right" style="padding-bottom: 1em; padding-top: 2em;">
-      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#agregar">Agregar Oferta de Asignatura</button>
+    <div class="container text-right" style="padding-bottom: 2rem;">
+      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#cargar">Cargar Oferta Previa</button>
+    </div>
+
+    <div class="container text-right" style="padding-bottom: 2rem;">
+      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#agregar">Agregar Asignatura</button>
     </div>
 
     <div class="container text-right" style="padding-bottom:1em;">
         <form class="" action="" method="post">
             {% csrf_token %}
             <input type="hidden" name="enviar_oferta" id="enviar_oferta" value="true" />
-            <input type="submit" class="btn btn-warning" value="Enviar Oferta Trimestral"/>
+            <input type="submit" class="btn btn-warning" value="Enviar a Coordinaciones"/>
         </form>
     </div>
 
 
-    <table id="example" class="table table-striped table-bordered" style="width: 100%;">
+    <table id="oferta" class="table table-striped table-bordered" style="width: 100%;">
       <thead>
         <tr>
           <th>Trimestre</th>
@@ -61,12 +64,14 @@
            <th>Créditos</th>
            <th>Asignatura</th>
            <th>Profesor</th>
+           <th>Programa</th>
+           <th>Horario</th>
            <th></th>
            <th></th>
         </tr>
       </thead>
       <tbody>
-        {% for m in ofertas %}
+        {% for m in oferta %}
           <tr>
             <td>{{m.trimestre}}</td>
             <td>{{m.materia.codigo}}</td>
@@ -75,16 +80,12 @@
             {% if m.profesor == None %}
             <td>No hay profesor asignado</td>
             {% else %}
-            {% if m.preferencia is True %}
             <td>
             {{m.profesor.nombre}} {{m.profesor.apellido}}
             </td>
-            {% else %}
-            <td style="color: red;">
-            {{m.profesor.nombre}} {{m.profesor.apellido}}
-            </td>
             {% endif %}
-            {% endif %}
+            <td>{{m.programa}}</td>
+            <td>{{m.horario}}</td>
             <td>
               <p data-placement="top" title="Modificar">
                 <form action='' method="post">
@@ -156,6 +157,36 @@
            </div>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           <input type="submit" name = "modo" class="btn btn-primary" value="Agregar">
+        </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+    <div class="modal fade" id="cargar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Cargar Oferta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post">
+           {% csrf_token %}
+           <div class="form-group">
+               <label for="asignatura">Trimestre</label>
+               <select name="oferta" id="oferta">
+               {% for m in trimestres %}
+               <option value={{m}}>{{m}}</option>
+               {% endfor %}
+               </select>
+           </div>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <input type="submit" name = "modo" class="btn btn-primary" value="Cargar">
         </form>
 
         </div>

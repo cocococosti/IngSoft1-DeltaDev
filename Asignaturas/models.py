@@ -64,7 +64,7 @@ class Departamento(models.Model):
 class Asignatura(models.Model):
 	""" Tabla asignatura con sus respectivos atributos y validaciones del dominio de entrada."""
 
-	codigo = models.CharField(primary_key=True,max_length=7, validators=[RegexValidator(regex='^[A-Z]{2}-[0-9]{4}$', message = 'El código de la asignatura es inválido'), MaxLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres'), MinLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres')])
+	codigo = models.CharField(primary_key=True, unique=True, max_length=7, validators=[RegexValidator(regex='^[A-Z]{2}-[0-9]{4}$', message = 'El código de la asignatura es inválido'), MaxLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres'), MinLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres')])
 	nombre = models.CharField(max_length=60, validators=[MaxLengthValidator(60, message='El nombre de la asignatura a lo sumo puede contener 60 caracteres'), MinLengthValidator(1, message='El nombre de la asignatura debe contener al menos un caracter')])
 	unidadesCredito = models.IntegerField(default=0,validators=[MinValueValidator(1, message='La asignatura debe contener al menos una unidad de crédito')])
 	horasTeoria = models.IntegerField(default=0, validators=[MinValueValidator(0, message='Las horas de teoría no pueden ser negativas')])
@@ -139,6 +139,35 @@ class Oferta(models.Model):
 		Muestra la oferta de manera abreviada
 		"""
 		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id + ", " + str(self.preferencia)
+
+class Trimestral(models.Model):
+	''' Tabla que representa las asignaturas que cada profesor puede dar en la proxima
+		oferta (asignaturas por confirmar)'''
+	trimestre = models.CharField(max_length=5, default="SD-18", validators=[MaxLengthValidator(5, message='La específicación del trimestre son máximo 5 letras'), MinLengthValidator(5, message='La específicación del trimestre son mínimo 5 letras')])
+	profesor = models.ForeignKey('Profesor', default="",on_delete=models.CASCADE, blank=True, null=True)
+	materia = models.ForeignKey('Asignatura', default="",on_delete=models.CASCADE)
+	departamento = models.ForeignKey('Departamento',  default="",on_delete=models.CASCADE)
+	programa = models.CharField(max_length=10, default="") 
+	horario = models.CharField(max_length=10, default="")
+
+	class Meta:
+		"""
+		Provee algunas configuraciones básicas con respecto a las
+		operaciones del modelo.
+		"""
+
+		# Ordenamiento por defecto por trimestre
+		ordering = ["trimestre"]
+		# Limita a que no hayan repeticiones de la tupla trimestre-profesor-materia
+		# Garantiza que no aparezca 2 o mas veces un mismo profesor dando una misma materia en un mismo trimestre
+		unique_together = ("trimestre","profesor", "materia")
+
+	def __str__(self):
+		"""
+		Muestra la oferta de manera abreviada
+		"""
+		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id + ", " + str(self.preferencia)
+
 
 class Disponibilidad(models.Model):
 	"""

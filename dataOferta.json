@@ -1,0 +1,175 @@
+[
+	{
+		"model": "Asignaturas.asignatura",
+		"pk": "CI-5437",
+		"fields": {
+			"nombre": "Inteligencia Artificial",
+			"unidadesCredito": 4,
+			"horasTeoria": 4,
+			"horasPractica": 0,
+			"horasLab": 0,
+			"requisitos": "",
+			"departamento": "CI"
+			
+		}
+	},
+
+	{
+		"model": "Asignaturas.asignatura",
+		"pk": "CI-6644",
+		"fields": {
+			"nombre": "Programación concurrente",
+			"unidadesCredito": 5,
+			"horasTeoria": 4,
+			"horasPractica": 2,
+			"horasLab": 0,
+			"requisitos": "",
+			"departamento": "CI"
+			
+		}
+	},
+
+	{
+		"model": "Asignaturas.asignatura",
+		"pk": "CI-7643",
+		"fields": {
+			"nombre": "Lenguajes de Especificación",
+			"unidadesCredito": 3,
+			"horasTeoria": 2,
+			"horasPractica": 2,
+			"horasLab": 2,
+			"requisitos": "",
+			"departamento": "CI"
+			
+		}
+	},
+
+	{
+		"model": "Asignaturas.asignatura",
+		"pk": "CI-7641",
+		"fields": {
+			"nombre": "Semiótica",
+			"unidadesCredito": 4,
+			"horasTeoria": 4,
+			"horasPractica": 0,
+			"horasLab": 0,
+			"requisitos": "",
+			"departamento": "CI"
+			
+		}
+	},
+
+	{
+		"model": "Asignaturas.profesor",
+		"pk": 1,
+		"fields": {
+			"nombre": "Ana",
+			"apellido": "Diaz",
+			"cedula": "1234567",
+			"disponibilidad": "",
+			"departamento": "CI",
+			"email": "ana@gmail.com",
+			"asignaturas": ["CI-5437", "CI-7641"],
+			"user": null
+			
+		}
+	},
+
+		{
+		"model": "Asignaturas.profesor",
+		"pk": 2,
+		"fields": {
+			"nombre": "Juan",
+			"apellido": "Perez",
+			"cedula": "22333444",
+			"disponibilidad": "",
+			"departamento": "CI",
+			"email": "juan@gmail.com",
+			"asignaturas": ["CI-5437", "CI-7643"],
+			"user": null
+			
+		}
+	},
+
+		{
+		"model": "Asignaturas.profesor",
+		"pk": 3,
+		"fields": {
+			"nombre": "Maria",
+			"apellido": "Garcia",
+			"cedula": "44555666",
+			"disponibilidad": "",
+			"departamento": "CI",
+			"email": "maria@gmail.com",
+			"asignaturas": ["CI-5437", "CI-6644", "CI-7641"],
+			"user": null
+			
+		}
+	},
+
+	{
+		"model": "Asignaturas.trimestral",
+		"pk": 1,
+		"fields": {
+			"trimestre": "SD-17",
+			"profesor": 1,
+			"materia": "CI-5437",
+			"departamento": "CI",
+			"programa": "",
+			"horario": ""
+		}
+	},
+
+	{
+		"model": "Asignaturas.trimestral",
+		"pk": 2,
+		"fields": {
+			"trimestre": "SD-17",
+			"profesor": 2,
+			"materia": "CI-5437",
+			"departamento": "CI",
+			"programa": "",
+			"horario": ""
+		}
+	},
+
+	{
+		"model": "Asignaturas.trimestral",
+		"pk": 3,
+		"fields": {
+			"trimestre": "SD-17",
+			"profesor": 1,
+			"materia": "CI-7641",
+			"departamento": "CI",
+			"programa": "",
+			"horario": ""
+		}
+	},
+
+	{
+		"model": "Asignaturas.trimestral",
+		"pk": 4,
+		"fields": {
+			"trimestre": "SD-17",
+			"profesor": 2,
+			"materia": "CI-7643",
+			"departamento": "CI",
+			"programa": "",
+			"horario": ""
+		}
+	},
+
+	{
+		"model": "Asignaturas.trimestral",
+		"pk": 5,
+		"fields": {
+			"trimestre": "SD-17",
+			"profesor": 3,
+			"materia": "CI-6644",
+			"departamento": "CI",
+			"programa": "",
+			"horario": ""
+		}
+	}
+
+]

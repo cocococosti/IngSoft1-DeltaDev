@@ -484,6 +484,36 @@ def modificarOferta(request, id):
 	return render(request, 'Asignaturas/modificarOferta.html', {'oferta':oferta, 'profesores': profesores})
 
 
+def tablaTrimestral(request):
+
+	# usuario autenticado
+	user = request.user
+	# profesor que corresponde al usuario
+	prof = Profesor.objects.get(user=user)
+	# dpto del prof autenticado
+	dept = prof.departamento
+	# los profesores del dpto
+	profesores = Profesor.objects.filter(departamento = dept.codigo).all()
+	# las maerias del dpto
+	materias = Asignatura.objects.filter(departamento = dept.codigo).all()
+	ofertas = Trimestral.objects.filter(departamento = dept).all()
+	trimestres = []
+	for f in ofertas:
+		if f.trimestre not in trimestres:
+			trimestres.append(f.trimestre)
+
+	if request.method == 'POST':
+		if ((request.POST.get('modo')) == "Cargar"):
+
+			trim = request.POST.get('oferta')
+			
+			oferta = Trimestral.objects.filter(departamento = dept, trimestre=trim).all()
+
+	else:
+
+		oferta = Trimestral.objects.filter(departamento = dept).filter(trimestre="SD-18").all()
+	return render(request, 'Asignaturas/tablaTrimestral.html', {'trimestres':trimestres, 'departamento':dept, 'materias':materias, 'profesores':profesores, 'oferta':oferta})
+
 def autenticacion(request):
 	"""Manejo de registro o autenticacion de un usuario."""
 	

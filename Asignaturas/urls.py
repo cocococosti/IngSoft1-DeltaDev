@@ -10,6 +10,7 @@ urlpatterns = [
 	url(r'tabla-asignaturas/$', views.tablaAsignaturas, name='asignaturas'),
 	url(r'tabla-profesores/$', views.tablaProfesores, name='profesores'),
 	url(r'tabla-oferta/$', views.tablaOferta, name='oferta'),
+	url(r'tabla-trimestral/$', views.tablaTrimestral, name='trimestral'),
 	url(r'registro-asignaturas/$', views.registroAsignaturas, name='registro'),
 	url(r'modificar-asignatura/(?P<codigo>[A-Z]{2}-[0-9]{4})/$', views.modificarAsignatura, name='modificar'),
 	url(r'modificar-profesor/(?P<codigo>[0-9]{6,10})/$', views.modificarProfesor, name='modificarProf'),
