@@ -495,7 +495,14 @@ def tablaTrimestral(request):
 	# los profesores del dpto
 	profesores = Profesor.objects.filter(departamento = dept.codigo).all()
 	# las maerias del dpto
-	materias = Asignatura.objects.filter(departamento = dept.codigo).all()
+	matOferta = Oferta.objects.filter(departamento = dept.codigo).all()
+
+	materias = []
+
+	for f in matOferta:
+		if (f.materia not in materias):
+			materias.append(f.materia)
+
 	ofertas = Trimestral.objects.filter(departamento = dept).all()
 	trimestres = []
 	for f in ofertas:
@@ -508,6 +515,10 @@ def tablaTrimestral(request):
 			trim = request.POST.get('oferta')
 			
 			oferta = Trimestral.objects.filter(departamento = dept, trimestre=trim).all()
+
+		elif ((request.POST.get('modo')) == "Agregar"):
+			pass
+
 
 	else:
 

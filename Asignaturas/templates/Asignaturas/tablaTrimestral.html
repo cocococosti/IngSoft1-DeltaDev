@@ -36,15 +36,18 @@
 <body>
   <div class="container" style=" margin: 0 auto; background-color: White;padding-top: 2rem;">
     <div class="container text-center">
-      <h3>Oferta Trimestral de Coordinación</h3>
+      <h3><b>Oferta Trimestral de Coordinación</b></h3>
     </div>
 
-    <div class="container text-right" style="padding-bottom: 2rem;">
-      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#cargar">Cargar Oferta Previa</button>
-    </div>
+    <div class="text-center container mb-4">
+      <div class="btn-group">
 
-    <div class="container text-right" style="padding-bottom: 2rem;">
-      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#agregar">Agregar Asignatura</button>
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cargar">Cargar Oferta Previa</button>
+      
+
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#agregar" name="modo" value="Agregar">Agregar Asignatura</button>
+
+      </div>
     </div>
 
     <div class="container text-right" style="padding-bottom:1em;">
@@ -151,7 +154,7 @@
                <label for="asignatura">Asignatura</label>
                <select name="asignatura" id="asignatura">
                {% for m in materias %}
-               <option value={{m.codigo}}>{{m.nombre}}</option>
+               <option value={{m.materia.codigo}}>{{m.codigo}}{{" "}}{{m.nombre}}</option>
                {% endfor %}
                </select>
            </div>
