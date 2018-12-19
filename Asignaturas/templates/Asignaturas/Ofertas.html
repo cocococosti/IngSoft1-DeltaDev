@@ -40,15 +40,15 @@
       <h4>{{departamento.nombre}}</h4>
     </div>
 
-   <!--  <div class="container text-right" style="padding-bottom: 1em; padding-top: 2em;">
+    <div class="container text-right" style="padding-bottom: 1em; padding-top: 2em;">
       <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#agregar">Agregar Oferta de Asignatura</button>
-    </div> -->
+    </div>
 
     <div class="container text-right" style="padding-bottom:1em;">
         <form class="" action="" method="post">
             {% csrf_token %}
             <input type="hidden" name="enviar_oferta" id="enviar_oferta" value="true" />
-            <input type="submit" class="btn btn-warning" value="Notificar profesores"/>
+            <input type="submit" class="btn btn-warning" value="Enviar Oferta Trimestral"/>
         </form>
     </div>
 

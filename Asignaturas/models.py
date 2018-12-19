@@ -64,7 +64,7 @@ class Departamento(models.Model):
 class Asignatura(models.Model):
 	""" Tabla asignatura con sus respectivos atributos y validaciones del dominio de entrada."""
 
-	codigo = models.CharField(primary_key=True, unique=True, max_length=7, validators=[RegexValidator(regex='^[A-Z]{2}-[0-9]{4}$', message = 'El código de la asignatura es inválido'), MaxLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres'), MinLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres')])
+	codigo = models.CharField(unique=True, max_length=7, validators=[RegexValidator(regex='^[A-Z]{2}-[0-9]{4}$', message = 'El código de la asignatura es inválido'), MaxLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres'), MinLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres')])
 	nombre = models.CharField(max_length=60, validators=[MaxLengthValidator(60, message='El nombre de la asignatura a lo sumo puede contener 60 caracteres'), MinLengthValidator(1, message='El nombre de la asignatura debe contener al menos un caracter')])
 	unidadesCredito = models.IntegerField(default=0,validators=[MinValueValidator(1, message='La asignatura debe contener al menos una unidad de crédito')])
 	horasTeoria = models.IntegerField(default=0, validators=[MinValueValidator(0, message='Las horas de teoría no pueden ser negativas')])
@@ -113,7 +113,7 @@ class Profesor(models.Model):
 		"""
 		return self.nombre + " " + self.apellido
 
-class Oferta(models.Model):
+class OfertaDpto(models.Model):
 	''' Tabla que representa las asignaturas que cada profesor puede dar en la proxima
 		oferta (asignaturas por confirmar)'''
 	trimestre = models.CharField(max_length=5, default="SD-18", validators=[MaxLengthValidator(5, message='La específicación del trimestre son máximo 5 letras'), MinLengthValidator(5, message='La específicación del trimestre son mínimo 5 letras')])
@@ -140,7 +140,7 @@ class Oferta(models.Model):
 		"""
 		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id + ", " + str(self.preferencia)
 
-class Trimestral(models.Model):
+class OfertaCoord(models.Model):
 	''' Tabla que representa las asignaturas que cada profesor puede dar en la proxima
 		oferta (asignaturas por confirmar)'''
 	trimestre = models.CharField(max_length=5, default="SD-18", validators=[MaxLengthValidator(5, message='La específicación del trimestre son máximo 5 letras'), MinLengthValidator(5, message='La específicación del trimestre son mínimo 5 letras')])
@@ -167,6 +167,11 @@ class Trimestral(models.Model):
 		Muestra la oferta de manera abreviada
 		"""
 		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id + ", " + str(self.preferencia)
+
+class Coordinacion(models.Model):
+	nombre = models.CharField(max_length=50)
+	email = models.EmailField(max_length=200)
+	materias = models.ManyToManyField("Asignatura", symmetrical=False, blank=True)
 
 
 class Disponibilidad(models.Model):
@@ -256,3 +261,4 @@ class Disponibilidad(models.Model):
 		"""
 
 		return self.get_dia_display() + ", bloque " + str(self.bloque)
+

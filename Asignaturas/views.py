@@ -86,7 +86,7 @@ def tablaAsignaturas(request):
 					return redirect('/modificar-asignatura/{}'.format(request.POST.get('item_id')))
 
 	# Carga la lista de asignaturas
-	return render(request, 'Asignaturas/tablaAsignaturas.html', {'materias': materias})
+	return render(request, 'Asignaturas/tablaAsignaturas.html', {'materias': materias, 'departamento': prof.departamento})
 
 def modificarAsignatura(request, codigo):
 	"""Busca la materia en la base de datos y llena el formulario con los datos"""
@@ -404,7 +404,7 @@ def tablaOferta(request):
 		if ((request.POST.get('modo')) == "Eliminar"):
 			
 			# obtenemos oferta seleccionada
-			item = Oferta.objects.filter(id = request.POST.get('item_id')).first()
+			item = OfertaDpto.objects.filter(id = request.POST.get('item_id')).first()
 			
 			# si la oferta existe
 			if (item != None):
@@ -425,7 +425,7 @@ def tablaOferta(request):
 			
 			# enviar correo
 			profs = {'h':'MAIL'}
-			ofertas = Oferta.objects.filter(departamento = dept).all()
+			ofertas = OfertaDpto.objects.filter(departamento = dept).all()
 			send_email(user, request)
 
 			# cargar tabla de ofertas
@@ -443,7 +443,7 @@ def tablaOferta(request):
 			# si no se registraron profesores para esa materia
 			if (len(profesores)==0):
 				# se registra la oferta con None en el campo profesor
-				Oferta.objects.create(
+				OfertaDpto.objects.create(
 						trimestre = "SD-18",
 						materia=asig,
 						departamento=dept)
@@ -451,7 +451,7 @@ def tablaOferta(request):
 				for profesor in profesores:
 					# registrar oferta para cada profesor
 					try:
-						Oferta.objects.create(
+						OfertaDpto.objects.create(
 								trimestre = "SD-18",
 								profesor=profesor,
 								materia=asig,
@@ -460,14 +460,14 @@ def tablaOferta(request):
 						pass
 
 	# cargar tabla de ofertas
-	ofertas = Oferta.objects.filter(departamento = dept).all()
+	ofertas = OfertaDpto.objects.filter(departamento = dept).all()
 	return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores, 'ofertas':ofertas})
 
 def modificarOferta(request, id):
 	""" Carga form de una oferta con los datos ya guardados. """
 
 	# Obtenemos la oferta a modificar
-	oferta = Oferta.objects.filter(id = id).first()
+	oferta = OfertaDpto.objects.filter(id = id).first()
 	user = request.user
 	prof = Profesor.objects.get(user = user)
 	dept = prof.departamento
@@ -476,8 +476,11 @@ def modificarOferta(request, id):
 	if request.method == 'POST':
 		
 		# De una oferta solo modificamos el profesor asignado
-		oferta.profesor = Profesor.objects.get(cedula = request.POST.get('cedula'))
-		oferta.save()
+		ofertaDpto.profesor = Profesor.objects.get(cedula = request.POST.get('cedula'))
+		try:
+			oferta.save()
+		except:
+			return render(request, 'Asignaturas/modificarOferta.html', {'oferta':oferta, 'profesores': profesores})
 		
 		return redirect('/tabla-oferta/')
 
@@ -495,7 +498,7 @@ def tablaTrimestral(request):
 	# los profesores del dpto
 	profesores = Profesor.objects.filter(departamento = dept.codigo).all()
 	# las maerias del dpto
-	matOferta = Oferta.objects.filter(departamento = dept.codigo).all()
+	matOferta = OfertaDpto.objects.filter(departamento = dept.codigo).all()
 
 	materias = []
 
