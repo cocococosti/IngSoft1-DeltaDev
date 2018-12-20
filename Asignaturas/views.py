@@ -760,47 +760,33 @@ def send_email(jefe, request):
 	# Enviar todos los correos
 	send_mass_mail(correos,fail_silently=False)
 
-def send_email_coord(jefe, request):
-	""" Formato del correo a enviar """
-
-	# Ofertas de asignaturas a las que fue asignado el profesor
-	ofertas = OfertaDpto.objects.order_by('profesor_id')
+def send_email_coord(jefe,request):
 	prof = Profesor.objects.get(user = jefe)
 	dept = prof.departamento
-	# Lista de profesores
-	coordinaciones = Coordinacion.objects.all()
-	coord_list = {}
-
-	for coordinacion in coordinaciones:
-		# Para cada oferta
-		for oferta in ofertas:
-			# Agregar maeria a la lista de materias que el profesor ha sido asignado
-			coord_list.setdefault(coordinacion, []).append(oferta.materia.nombre)
-
-	# Lista de datos de correos a enviar
+	materias_ofertadas = Asignatura.objects.filter(ofertadpto__isnull=False)
 	correos = []
 
-	# Para cada profesor y sus materias asignadas
-	for coord, materias in coord_list.items():
-		if (coord==None):
-			pass
-		else:
-			# Obtener link a enviar al profesor
-			relative_url = reverse('oferta-coord', args=(coord.id,))
+	for coordinacion in Coordinacion.objects.all():
+		interesan_coordinacion = coordinacion.materias.all()
+		materias_coordinacion =\
+			Asignatura.objects.\
+				filter(id__in=materias_ofertadas).\
+				filter(id__in=interesan_coordinacion)
+
+		if materias_coordinacion:
+			materias = [materia.nombre for materia in materias_coordinacion]
+			relative_url = reverse('oferta-coord', args=(coordinacion.id,))
 			full_url = request.build_absolute_uri(relative_url)
-			# full_url = request.get_full_path(relative_url)
-			mensaje_txt = render_to_string('emailCoord.txt', {'dpto':dept.nombre, 'enlace': full_url})
-			
+			mensaje_txt = render_to_string('emailCoord.txt', {
+				'materias':", ".join(materias), 'dpto':dept.nombre, 'enlace': full_url})
 			# Atributos del correo a enviar
 			correo = (
 					'Oferta Trimestral del Departamento',
 					mensaje_txt,
 					jefe.email,
-					[coord.email],
+					[coordinacion.email],
 					)
 			correos.append(correo)
-		
-	# Enviar todos los correos
 	send_mass_mail(correos,fail_silently=False)
 
 def ofertaCoord(request, id):
@@ -811,7 +797,6 @@ def ofertaCoord(request, id):
 	ofertasCoord = []
 	coord = Coordinacion.objects.filter(id = id).first()
 	materias = coord.materias.all()
-
 	
 	for f in ofertas:
 		if f.materia in materias:
