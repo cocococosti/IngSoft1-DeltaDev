@@ -127,3 +127,6 @@ class PreferenciaForm(forms.Form):
 				[(oferta_asig.materia.codigo, oferta_asig.materia.nombre)
 					for oferta_asig in oferta],
 				required=False)
+
+class OfertaDptoForm(ModelForm):
+	pass

@@ -452,7 +452,7 @@ def tablaOferta(request):
 		
 		# si se selecciona enviar oferta
 		elif request.POST.get('enviar_oferta'):
-			
+				
 			# enviar correo
 			profs = {'h':'MAIL'}
 			ofertas = Oferta.objects.filter(departamento = dept).all()
@@ -552,13 +552,20 @@ def tablaOfertaDpto(request):
 		elif ((request.POST.get('modo')) == "Modificar"):
 			return redirect('/modificar-oferta-dpto/{}'.format(request.POST.get('item_id')))
 		
+		elif ((request.POST.get('modo')) == "borrar"):
+			ofertas = OfertaDpto.objects.filter(departamento = dept, trimestre="SD-18").all()
+			for f in ofertas:
+				f.delete()
+			ofertas = OfertaDpto.objects.filter(departamento = dept, trimestre="SD-18").all()
+			return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores, 'ofertas':ofertas, 'trimestres':trimestres})
+
 		# si se selecciona enviar oferta
 		elif request.POST.get('enviar_oferta'):
 			
 			# enviar correo
 			profs = {'h':'MAIL'}
 			ofertas = OfertaDpto.objects.filter(departamento = dept).all()
-			send_email(user, request)
+			send_email_coord(user, request)
 
 			# cargar tabla de ofertas
 			return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores, 'ofertas':ofertas, 'pro':profs})
@@ -636,7 +643,7 @@ def modificarOfertaDpto(request, id):
 	""" Carga form de una oferta con los datos ya guardados. """
 
 	# Obtenemos la oferta a modificar
-	oferta = Oferta.objects.filter(id = id).first()
+	oferta = OfertaDpto.objects.filter(id = id).first()
 	user = request.user
 	prof = Profesor.objects.get(user = user)
 	dept = prof.departamento
@@ -651,50 +658,10 @@ def modificarOfertaDpto(request, id):
 		except:
 			return render(request, 'Asignaturas/modificarOferta.html', {'oferta':oferta, 'profesores': profesores})
 		
-		return redirect('/tabla-oferta/')
+		return redirect('/tabla-oferta-dpto/')
 
 	return render(request, 'Asignaturas/modificarOferta.html', {'oferta':oferta, 'profesores': profesores})
 
-def tablaTrimestral(request):
-
-	# usuario autenticado
-	user = request.user
-	# profesor que corresponde al usuario
-	prof = Profesor.objects.get(user=user)
-	# dpto del prof autenticado
-	dept = prof.departamento
-	# los profesores del dpto
-	profesores = Profesor.objects.filter(departamento = dept.codigo).all()
-	# las maerias del dpto
-	matOferta = OfertaDpto.objects.filter(departamento = dept.codigo).all()
-
-	materias = []
-
-	for f in matOferta:
-		if (f.materia not in materias):
-			materias.append(f.materia)
-
-	ofertas = Trimestral.objects.filter(departamento = dept).all()
-	trimestres = []
-	for f in ofertas:
-		if f.trimestre not in trimestres:
-			trimestres.append(f.trimestre)
-
-	if request.method == 'POST':
-		if ((request.POST.get('modo')) == "Cargar"):
-
-			trim = request.POST.get('oferta')
-			
-			oferta = Trimestral.objects.filter(departamento = dept, trimestre=trim).all()
-
-		elif ((request.POST.get('modo')) == "Agregar"):
-			pass
-
-
-	else:
-
-		oferta = Trimestral.objects.filter(departamento = dept).filter(trimestre="SD-18").all()
-	return render(request, 'Asignaturas/tablaTrimestral.html', {'trimestres':trimestres, 'departamento':dept, 'materias':materias, 'profesores':profesores, 'oferta':oferta})
 
 def autenticacion(request):
 	"""Manejo de registro o autenticacion de un usuario."""
@@ -792,3 +759,61 @@ def send_email(jefe, request):
 		
 	# Enviar todos los correos
 	send_mass_mail(correos,fail_silently=False)
+
+def send_email_coord(jefe, request):
+	""" Formato del correo a enviar """
+
+	# Ofertas de asignaturas a las que fue asignado el profesor
+	ofertas = OfertaDpto.objects.order_by('profesor_id')
+	prof = Profesor.objects.get(user = jefe)
+	dept = prof.departamento
+	# Lista de profesores
+	coordinaciones = Coordinacion.objects.all()
+	coord_list = {}
+
+	for coordinacion in coordinaciones:
+		# Para cada oferta
+		for oferta in ofertas:
+			# Agregar maeria a la lista de materias que el profesor ha sido asignado
+			coord_list.setdefault(coordinacion, []).append(oferta.materia.nombre)
+
+	# Lista de datos de correos a enviar
+	correos = []
+
+	# Para cada profesor y sus materias asignadas
+	for coord, materias in coord_list.items():
+		if (coord==None):
+			pass
+		else:
+			# Obtener link a enviar al profesor
+			relative_url = reverse('oferta-coord', args=(coord.id,))
+			full_url = request.build_absolute_uri(relative_url)
+			# full_url = request.get_full_path(relative_url)
+			mensaje_txt = render_to_string('emailCoord.txt', {'dpto':dept.nombre, 'enlace': full_url})
+			
+			# Atributos del correo a enviar
+			correo = (
+					'Oferta Trimestral del Departamento',
+					mensaje_txt,
+					jefe.email,
+					[coord.email],
+					)
+			correos.append(correo)
+		
+	# Enviar todos los correos
+	send_mass_mail(correos,fail_silently=False)
+
+def ofertaCoord(request, id):
+	user = request.user
+	prof = Profesor.objects.get(user = user)
+	dept = prof.departamento
+	ofertas = OfertaDpto.objects.filter(departamento = dept, trimestre="SD-18").all()
+	ofertasCoord = []
+	coord = Coordinacion.objects.filter(id = id).first()
+	materias = coord.materias.all()
+
+	
+	for f in ofertas:
+		if f.materia in materias:
+			ofertasCoord.append(f)
+	return render(request, 'Asignaturas/tablaTrimestral.html', {'departamento':dept,'ofertas':ofertasCoord})
