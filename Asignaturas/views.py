@@ -60,6 +60,7 @@ def tablaAsignaturas(request):
 
 					# Eliminar materia de la base
 					item.delete()
+					messages.success(request, 'Asignatura eliminada correctamente.')
 
 					# Obtenemos todas las asignaturas nuevamente (sin la que eliminamos)
 					materias = Asignatura.objects.filter(departamento = dept).all()
@@ -165,7 +166,7 @@ def modificarAsignatura(request, codigo):
 
 				# Guardamos datos del form en la base de datos
 				form.save()
-
+				messages.success(request, 'Asignatura modificada correctamente.')
 				# Redireccionamos a la tabla de asignaturas
 				return redirect('/tabla-asignaturas/')
 
@@ -215,7 +216,7 @@ def registroAsignaturas(request):
 			if (codigo == dept):
 
 				form.save()
-
+				messages.success(request, 'Asignatura registrada correctamente.')
 				# Redireccionamos al inicio
 				return redirect('/inicio/')
 
@@ -265,6 +266,7 @@ def tablaProfesores(request):
 					
 					# Eliminar profesor
 					item.delete()
+					messages.success(request, 'Profesor eliminado correctamente.')
 					profesores = Profesor.objects.filter(departamento = dept).exclude(cedula=prof.cedula)
 
 		# Si se selecciona el boton modificar			
@@ -318,6 +320,7 @@ def registroProfesores(request):
 
 				# Guardamos datos del profesor en la base de datos
 				form.save()
+				messages.success(request, 'Profesor registrado correctamente.')
 
 				# Redireccionamos a la pagina de inicio
 				return redirect('/inicio/')
@@ -367,6 +370,7 @@ def seleccionMatProfesores(request, ci):
 
 					# guardar en a base de datos
 					oferta_asig.save()
+					messages.success(request, 'Asignatura seleccionada correctamente')
 
 			return redirect('/inicio/')
 		
@@ -401,7 +405,7 @@ def modificarProfesor(request, codigo):
 
 				# guardar datos
 				form.save()
-
+				messages.success(request, 'Profesor modificado correctamente')
 				return redirect('/tabla-profesores/')
 			
 			else:
@@ -444,7 +448,7 @@ def tablaOferta(request):
 			if (item != None):
 				# si la oferta es del dpto del jefe
 				item.delete()
-				
+				messages.success(request, 'Asignatura eliminada de la oferta correctamente.')
 		
 		# si se selecciona modificar, redireccionar a la pagina de modificar
 		elif ((request.POST.get('modo')) == "Modificar"):
