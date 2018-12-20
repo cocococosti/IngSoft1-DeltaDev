@@ -140,6 +140,33 @@ class Oferta(models.Model):
 		"""
 		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id + ", " + str(self.preferencia)
 
+class OfertaFinal(models.Model):
+	""" Tabla que representa las asignaturas que cada profesor va a dar en la proxima
+		oferta """
+	trimestre = models.CharField(max_length=5, default="SD-18", validators=[MaxLengthValidator(5, message='La específicación del trimestre son máximo 5 letras'), MinLengthValidator(5, message='La específicación del trimestre son mínimo 5 letras')])
+	profesor = models.ForeignKey('Profesor', default="",on_delete=models.CASCADE, blank=True, null=True)
+	materia = models.ForeignKey('Asignatura', default="",on_delete=models.CASCADE)
+	departamento = models.ForeignKey('Departamento',  default="",on_delete=models.CASCADE)
+	horario = models.CharField(max_length=15, default="", validators=[MaxLengthValidator(15, message='El campo de horario puede contener hasta 15 letras'), MinLengthValidator(3, message='El horario debe contener al menos 3 letras')])
+
+	class Meta:
+		"""
+		Provee algunas configuraciones básicas con respecto a las
+		operaciones del modelo.
+		"""
+
+		# Ordenamiento por defecto por trimestre
+		ordering = ["trimestre"]
+		# Limita a que no hayan repeticiones de la tupla trimestre-profesor-materia
+		# Garantiza que no aparezca 2 o mas veces un mismo profesor dando una misma materia en un mismo trimestre
+		unique_together = ("trimestre","profesor", "materia")
+
+	def __str__(self):
+		"""
+		Muestra la oferta de manera abreviada
+		"""
+		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id 
+
 class Disponibilidad(models.Model):
 	"""
 	Modelo auxiliar que representa un horario (día, bloque) de

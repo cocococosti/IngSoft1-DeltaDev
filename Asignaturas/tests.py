@@ -28,7 +28,14 @@ from django.db import IntegrityError
 
 
 
-# models test
+# INICIO DE LAS PRUEBAS DE REGRESION
+
+
+# Son pruebas ya efectuadas en sprints anteriores en el sistema
+# que vuelven a ejecutarse para asegurarse de que se mantiene
+# la funcionalidad del sistema
+
+
 
 # CREATION OF MODELS
 class AsignaturasTest(TestCase):
@@ -338,3 +345,180 @@ class OfertaTest(TestCase):
 		profesor.asignaturas.add(asignatura)
 		oferta = Oferta.objects.create(trimestre="SD-18", profesor=profesor, materia=asignatura, departamento=dpto, preferencia=False)
 		self.assertEqual(oferta.__str__(), oferta.trimestre + ", "+ str(oferta.profesor_id) + ", " + oferta.materia_id + ", " + str(oferta.preferencia))
+
+# FIN DE LAS PRUEBAS DE REGRESION
+
+
+# Nuevas pruebas unitarias sobre la nueva tabla de base de datos
+
+class OfertaFinalTest(TestCase):
+
+	# Metodo para crear valores iniciales por defecto
+	# en los casos de prueba
+
+	def setUp(self):
+
+		d_comp_cientifico = Departamento.objects.create(nombre="Departamento de Cómputo Científico y Estadística", codigo="CO")
+		
+		prof1 = Profesor.objects.create(nombre="Moises", apellido="Gonzalez", email="moi@gmail.com", cedula="V-24.376.764", departamento=d_comp_cientifico)
+		prof2 = Profesor.objects.create(nombre="Denylson", apellido="Romero", email="den@usb.ve", cedula="V-25.666.898", departamento=d_comp_cientifico)
+
+		asig = self.create_asignatura("CO-6341", "MÉTODOS DE LA ESTADÍSTICA", 4, 4, 0, 0, "", d_comp_cientifico)
+		oferta = Oferta.objects.create(trimestre="AJ-19", profesor=prof1, materia=asig, departamento=d_comp_cientifico, preferencia=False)
+ 
+
+	# docstring para el departamento
+	def create_departamento(self, codigo, nombre):
+		return Departamento.objects.create(codigo=codigo, nombre=nombre)
+		
+	# docstring para la asignatura		
+	def create_asignatura(self, codigo, nombre,uc, ht, hp, hl, r, d):
+		return Asignatura.objects.create(codigo=codigo, nombre=nombre,unidadesCredito=uc, horasTeoria= ht, horasPractica=hp, horasLab=hl, requisitos=r, departamento=d)
+
+	# docstring para la disponibilidad
+	def create_disponibilidad(self, bloque, dia):
+		return Disponibilidad.objects.create(bloque=bloque, dia=dia)
+
+	# docstring para la oferta
+	def create_oferta(self, trimestre, profesor, materia, preferencia, departamento):
+		return Oferta.objects.create(trimestre=trimestre, profesor=profesor, materia=materia, departamento=departamento)
+
+	# do3cstring para los profesores
+	def create_prof(self, nombre, apellido, email, cedula, departamento):
+		return Profesor.objects.create(nombre=nombre, apellido=apellido, email=email, cedula=cedula, departamento=departamento)
+
+
+
+	# Prueba de creacion de oferta trimestral final
+	def test_oferta_final_1(self):
+		d = self.create_departamento("CI","Departamento de Computación y Tecnología de la Información")
+		asig1 = self.create_asignatura("CI-6646", "LAMBDA CÁLCULO Y MODELO", 4, 4, 0, 0, "", d)
+		asig2 = self.create_asignatura("CI-6821", "CARACTERIZACIÓN DE DESEMPEÑO EN SISTEMAS", 4, 4, 0, 0, "", d)
+
+		p = self.create_prof("Maestro", "Yoda", "yoda@gmail.com", "V-10.766.738", d)
+		p.asignaturas.add(asig1)
+		p.asignaturas.add(asig2)
+		oferta = Oferta.objects.create(trimestre="AJ-19", profesor=p, materia=asig2, departamento=d, preferencia=True)
+		oferta_final = OfertaFinal.objects.create(trimestre=oferta.trimestre, profesor=oferta.profesor, materia=asig2, departamento=d, horario="4-5")
+		# Verificamos que los datos en la oferta esten correctos
+		self.assertEqual(oferta.__str__(), "AJ-19, "+str(oferta.profesor_id)+", CI-6821, True")
+		# Verificamos que los datos en la oferta final concuerden con la propuesta de oferta
+		self.assertEqual(oferta_final.__str__(), str(oferta.trimestre) + ", " + str(oferta.profesor_id) + ", " + str(oferta.materia_id))
+
+	# Prueba de creacion de oferta trimestral final
+	def test_oferta_final_2(self):
+
+		d = Departamento.objects.get(codigo="CO")
+		asig1 = Asignatura.objects.get(codigo="CO-6341")
+
+		asig2 = self.create_asignatura("CI-6821", "CARACTERIZACIÓN DE DESEMPEÑO EN SISTEMAS", 4, 4, 0, 0, "", d)
+
+		p = Profesor.objects.get(cedula="V-25.666.898")
+		p.asignaturas.add(asig1)
+		p.asignaturas.add(asig2)
+
+		oferta = Oferta.objects.create(trimestre="AJ-19", profesor=p, materia=asig1, departamento=d, preferencia=None)
+
+		oferta_final = OfertaFinal.objects.create(trimestre=oferta.trimestre, profesor=oferta.profesor, materia=asig1, departamento=d, horario="6-7")
+		# Verificamos que los datos en la oferta esten correctos
+		self.assertEqual(oferta.__str__(), "AJ-19, "+str(oferta.profesor_id)+", CO-6341, None")
+		# Verificamos que los datos en la oferta final concuerden con la propuesta de oferta
+		self.assertEqual(oferta_final.__str__(), str(oferta.trimestre) + ", " + str(oferta.profesor_id) + ", " + str(oferta.materia_id))
+
+
+	# Prueba de creacion de oferta trimestral final
+	def test_oferta_final_3(self):
+
+		dpto = self.create_departamento("CI","Departamento de Computación y Tecnología de la Información")
+		asignatura = self.create_asignatura("CI-5211", "CONTROL DE PROYECTOS DE PROGRAMAS", 4, 4, 0, 0, "", dpto)
+		profesor = Profesor.objects.get(cedula="V-24.376.764")
+
+		profesor.asignaturas.add(asignatura)
+		oferta = Oferta.objects.create(trimestre="SD-19", profesor=profesor, materia=asignatura, departamento=dpto, preferencia=False)
+		self.assertEqual(oferta.__str__(), oferta.trimestre + ", "+ str(oferta.profesor_id) + ", " + oferta.materia_id + ", " + str(oferta.preferencia))
+		oferta_final = OfertaFinal.objects.create(trimestre=oferta.trimestre, profesor=oferta.profesor, materia=oferta.materia, departamento=oferta.departamento, horario="4-5")
+		self.assertEqual(oferta_final.__str__(), str(oferta.trimestre) + ", " + str(oferta.profesor_id) + ", " + str(oferta.materia_id))
+
+
+	# Prueba de creacion de oferta trimestral final
+	def test_oferta_final_3(self):
+
+		dpto = self.create_departamento("CI","Departamento de Computación y Tecnología de la Información")
+		asignatura = self.create_asignatura("CI-5211", "CONTROL DE PROYECTOS DE PROGRAMAS", 4, 4, 0, 0, "", dpto)
+		profesor = Profesor.objects.get(cedula="V-24.376.764")
+
+		profesor.asignaturas.add(asignatura)
+		oferta = Oferta.objects.create(trimestre="SD-19", profesor=profesor, materia=asignatura, departamento=dpto, preferencia=False)
+		self.assertEqual(oferta.__str__(), oferta.trimestre + ", "+ str(oferta.profesor_id) + ", " + oferta.materia_id + ", " + str(oferta.preferencia))
+		oferta_final = OfertaFinal.objects.create(trimestre=oferta.trimestre, profesor=oferta.profesor, materia=oferta.materia, departamento=oferta.departamento, horario="4-5")
+		self.assertEqual(oferta_final.__str__(), str(oferta.trimestre) + ", " + str(oferta.profesor_id) + ", " + str(oferta.materia_id))
+
+	# Prueba de creacion de oferta con asignatura y departamento diferente
+	def test_oferta_final_4(self):
+
+		dpto = self.create_departamento("CI","Departamento de Computación y Tecnología de la Información")
+		asignatura = Asignatura.objects.get(codigo="CO-6341")
+		profesor = Profesor.objects.get(cedula="V-24.376.764")
+
+		profesor.asignaturas.add(asignatura)
+		oferta = Oferta.objects.create(trimestre="SD-19", profesor=profesor, materia=asignatura, departamento=dpto, preferencia=False)
+		oferta_final = OfertaFinal.objects.create(trimestre=oferta.trimestre, profesor=oferta.profesor, materia=oferta.materia, departamento=oferta.departamento, horario="4-5")
+		
+		# Comparamos codigo del departamento de la oferta con el codigo
+		# del departamento de la materia en la oferta final
+		self.assertFalse(str(oferta.departamento_id) == str(oferta_final.materia_id)[:2])
+
+	# Prueba de creacion de oferta con asignatura y departamento diferente
+	def test_oferta_final_5(self):
+
+		dpto = self.create_departamento("CI","Departamento de Computación y Tecnología de la Información")
+		asignatura = Asignatura.objects.get(codigo="CO-6341")
+		profesor = Profesor.objects.get(cedula="V-24.376.764")
+
+		profesor.asignaturas.add(asignatura)
+		oferta = Oferta.objects.create(trimestre="SD-19", profesor=profesor, materia=asignatura, departamento=dpto, preferencia=False)
+		oferta_final = OfertaFinal.objects.create(trimestre=oferta.trimestre, profesor=oferta.profesor, materia=oferta.materia, departamento=oferta.departamento, horario="4-5")
+		
+		# Comparamos codigo del departamento con el codigo
+		# del departamento de la materia en la oferta final
+		self.assertFalse(str(oferta_final.departamento_id) == str(oferta_final.materia_id)[:2])
+
+
+	# Prueba de creacion de oferta con profesor diferente
+	def test_oferta_final_6(self):
+
+		dpto = Departamento.objects.get(codigo="CO")
+		asignatura = Asignatura.objects.get(codigo="CO-6341")
+		profesor = Profesor.objects.get(cedula="V-24.376.764")
+		profesor2 = self.create_prof("Maestro", "Yoda", "yoda@gmail.com", "V-10.766.738", dpto)
+
+		profesor.asignaturas.add(asignatura)
+		profesor2.asignaturas.add(asignatura)
+
+		oferta = Oferta.objects.create(trimestre="SD-19", profesor=profesor, materia=asignatura, departamento=dpto, preferencia=False)
+		oferta_final = OfertaFinal.objects.create(trimestre=oferta.trimestre, profesor=profesor2, materia=oferta.materia, departamento=oferta.departamento, horario="4-5")
+		
+		# Comparamos codigo del departamento de la oferta con el codigo
+		# del departamento de la materia en la oferta final
+		self.assertFalse(str(oferta.profesor_id) == str(oferta_final.profesor_id))
+
+
+	# Prueba de creacion de oferta con asignatura diferente
+	def test_oferta_final_7(self):
+
+		dpto = Departamento.objects.get(codigo="CO")
+		asignatura = Asignatura.objects.get(codigo="CO-6341")
+		asignatura2 = self.create_asignatura("CO-7224", "RESOLUCIÓN NUMÉRICA DE ECUAC. NO NUMÉRICA", 4, 4, 0, 0, "", dpto)
+
+		profesor = Profesor.objects.get(cedula="V-24.376.764")
+
+		profesor.asignaturas.add(asignatura)
+		profesor.asignaturas.add(asignatura2)
+
+		oferta = Oferta.objects.create(trimestre="SD-19", profesor=profesor, materia=asignatura, departamento=dpto, preferencia=False)
+		oferta_final = OfertaFinal.objects.create(trimestre=oferta.trimestre, profesor=profesor, materia=asignatura2, departamento=oferta.departamento, horario="4-5")
+		
+		# Comparamos codigo del departamento de la oferta con el codigo
+		# del departamento de la materia en la oferta final
+		self.assertFalse(str(oferta.materia_id) == str(oferta_final.materia_id))
+		
