@@ -233,7 +233,7 @@
 		"fields": {
 			"nombre": "Coordinación de Ingeniería de la Computación",
 			"email": "coord-ci@example.com",
-			"materias": [1, 2, 3, 4]
+			"materias": [1, 2, 3, 4, 5]
 		}
 	},
 
@@ -242,8 +242,8 @@
 		"pk": 3,
 		"fields": {
 			"nombre": "Coordinación de Biología",
-			"email": "coord-bio@example.com",
-			"materias": [5]
+			"email": "jareinozacg@gmail.com",
+			"materias": [1,5]
 		}
 	}
 
