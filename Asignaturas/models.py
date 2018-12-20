@@ -113,13 +113,30 @@ class Profesor(models.Model):
 		"""
 		return self.nombre + " " + self.apellido
 
+class Oferta(models.Model):
+	materia = models.ForeignKey(Asignatura, default="",on_delete=models.CASCADE)
+	profesor = models.ForeignKey(Profesor, default="",on_delete=models.CASCADE, blank=True, null=True)
+	preferencia = models.NullBooleanField(default=None)
+	departamento = models.ForeignKey('Departamento',  default="",on_delete=models.CASCADE)
+
+	class Meta:
+		"""
+		Provee algunas configuraciones básicas con respecto a las
+		operaciones del modelo.
+		"""
+
+		# Ordenamiento por defecto por trimestre
+		ordering = ["materia"]
+		# Limita a que no hayan repeticiones de la tupla trimestre-profesor-materia
+		# Garantiza que no aparezca 2 o mas veces un mismo profesor dando una misma materia en un mismo trimestre
+		unique_together = ("materia","profesor")
+
 class OfertaDpto(models.Model):
 	''' Tabla que representa las asignaturas que cada profesor puede dar en la proxima
 		oferta (asignaturas por confirmar)'''
 	trimestre = models.CharField(max_length=5, default="SD-18", validators=[MaxLengthValidator(5, message='La específicación del trimestre son máximo 5 letras'), MinLengthValidator(5, message='La específicación del trimestre son mínimo 5 letras')])
 	profesor = models.ForeignKey('Profesor', default="",on_delete=models.CASCADE, blank=True, null=True)
 	materia = models.ForeignKey('Asignatura', default="",on_delete=models.CASCADE)
-	preferencia = models.NullBooleanField(default=None)
 	departamento = models.ForeignKey('Departamento',  default="",on_delete=models.CASCADE)
 
 	class Meta:
@@ -138,7 +155,7 @@ class OfertaDpto(models.Model):
 		"""
 		Muestra la oferta de manera abreviada
 		"""
-		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id + ", " + str(self.preferencia)
+		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id
 
 class OfertaCoord(models.Model):
 	''' Tabla que representa las asignaturas que cada profesor puede dar en la proxima
@@ -166,7 +183,7 @@ class OfertaCoord(models.Model):
 		"""
 		Muestra la oferta de manera abreviada
 		"""
-		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id + ", " + str(self.preferencia)
+		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id
 
 class Coordinacion(models.Model):
 	nombre = models.CharField(max_length=50)

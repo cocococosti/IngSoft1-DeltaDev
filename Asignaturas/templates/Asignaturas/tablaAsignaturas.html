@@ -38,11 +38,9 @@
     <div class="container text-right" style="padding-bottom:1em;">
         <form class="" action="" method="post">
             {% csrf_token %}
-            <input type="hidden" name="ofertar" id="ofertar" value="true" />
+            <input type="hidden" name="modo" id="ofertar" value="Oferta" />
             <input type="submit" class="btn btn-warning" value="Ofertar Asignaturas"/>
-        </form>
-    </div>
-    
+
     <table id="example" class="table table-striped table-bordered" style="width: 100%;">
       <thead>
         <tr>
@@ -62,7 +60,7 @@
       <tbody>
         {% for m in materias %}
           <tr>
-            <td><input type="checkbox" name="oferta" value="{{m.codigo}}"></td>
+            <td><input type="checkbox" name="ofCheck" value="{{m.codigo}}"></td>
             <td>{{m.codigo}}</td>
             <td>{{m.nombre}}</td>
             <td>{{m.unidadesCredito}}</td>
@@ -121,6 +119,8 @@
         {% endfor %} 
       </tbody>
     </table>
+        </form>
+    </div>
   </div>
    
   {% endblock %}

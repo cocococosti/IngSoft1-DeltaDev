@@ -95,10 +95,9 @@ class ProfSeleccionaAsignaturaForm(ModelForm):
 					Departamento.objects.filter(codigo=departamento.codigo)
 
 	class Meta():
-		model = OfertaDpto
-		fields = [ 'trimestre','profesor','materia','preferencia','departamento']
+		model = Oferta
+		fields = [ 'profesor','materia','preferencia','departamento']
 		labels = {
-        "trimestre": "Trimestre",
         "profesor": "Profesor",
         "materia": "Materia",
         "preferencia":"Preferencia" ,

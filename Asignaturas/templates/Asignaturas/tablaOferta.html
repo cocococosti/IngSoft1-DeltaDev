@@ -36,24 +36,34 @@
 <body>
   <div class="container" style=" margin: 0 auto; background-color: White;padding-top: 2rem;">
     <div class="container text-center">
-      <h3>Oferta Trimestral del Departamento</h3>
-      <h4>{{departamento.nombre}}</h4>
+      <h3><b>Oferta Trimestral de Coordinación</b></h3>
     </div>
 
-   <!--  <div class="container text-right" style="padding-bottom: 1em; padding-top: 2em;">
-      <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#agregar">Agregar Oferta de Asignatura</button>
-    </div> -->
+    <div class="text-center container mb-4">
+      <div class="btn-group">
+
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cargar">Cargar Oferta Previa</button>
+      
+
+        <form class="" action="" method="post">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-secondary" value="Borrar Oferta"/>
+            <input type="hidden" name="modo" value="borrar" />
+        </form>
+
+      </div>
+    </div>
 
     <div class="container text-right" style="padding-bottom:1em;">
         <form class="" action="" method="post">
             {% csrf_token %}
             <input type="hidden" name="enviar_oferta" id="enviar_oferta" value="true" />
-            <input type="submit" class="btn btn-warning" value="Notificar profesores"/>
+            <input type="submit" class="btn btn-warning" value="Enviar a Coordinaciones"/>
         </form>
     </div>
 
 
-    <table id="example" class="table table-striped table-bordered" style="width: 100%;">
+    <table id="oferta" class="table table-striped table-bordered" style="width: 100%;">
       <thead>
         <tr>
           <th>Trimestre</th>
@@ -75,15 +85,9 @@
             {% if m.profesor == None %}
             <td>No hay profesor asignado</td>
             {% else %}
-            {% if m.preferencia is True %}
             <td>
             {{m.profesor.nombre}} {{m.profesor.apellido}}
             </td>
-            {% else %}
-            <td style="color: red;">
-            {{m.profesor.nombre}} {{m.profesor.apellido}}
-            </td>
-            {% endif %}
             {% endif %}
             <td>
               <p data-placement="top" title="Modificar">
@@ -99,27 +103,27 @@
             <td>
               <p data-placement="top" title="Eliminar">
                 <form action='' method="post">
-
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eliminar">Eliminar</button>
-                  <div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                   
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{m.id}}">Eliminar</button>
+                  <div class="modal fade" id={{m.id}} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLongTitle">Eliminar oferta</h5>
+                          <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Oferta</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
                         <div class="modal-body">
-                          <p>¿Está seguro de que desea eliminar la oferta?</p>
+                          <p>¿Está seguro de que desea eliminar la asignatura?</p>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                           {% csrf_token %}
-                          <form action="" method="post">
-                            <input type="hidden" name="item_id" value="{{m.id}}" />
-                            <input type="submit" name = "modo" class="btn btn-primary" value="Eliminar">
-                          </form>
+                          <form action='' method="post">
+                          <input type="hidden" name="item_id" value="{{m.id}}" />
+                          <input type="submit" name = "modo" class="btn btn-primary" value="Eliminar">
+                        </form>
                         </div>
                       </div>
                     </div>
@@ -150,12 +154,42 @@
                <label for="asignatura">Asignatura</label>
                <select name="asignatura" id="asignatura">
                {% for m in materias %}
-               <option value={{m.codigo}}>{{m.codigo}}{{" "}}{{m.nombre}}</option>
+               <option value={{m.materia.codigo}}>{{m.codigo}}{{" "}}{{m.nombre}}</option>
                {% endfor %}
                </select>
            </div>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           <input type="submit" name = "modo" class="btn btn-primary" value="Agregar">
+        </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal fade" id="cargar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Cargar Oferta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post">
+           {% csrf_token %}
+           <div class="form-group">
+               <label for="asignatura">Trimestre</label>
+               <select name="oferta" id="oferta">
+               {% for m in trimestres %}
+               <option value={{m}}>{{m}}</option>
+               {% endfor %}
+               </select>
+           </div>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <input type="submit" name = "modo" class="btn btn-primary" value="Cargar">
         </form>
 
         </div>

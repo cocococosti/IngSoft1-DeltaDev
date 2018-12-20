@@ -46,8 +46,8 @@ class AsignaturasTest(TestCase):
 		return Disponibilidad.objects.create(bloque=bloque, dia=dia)
 
 	# docstring para la oferta
-	def create_oferta(self, trimestre, profesor, materia, preferencia, departamento):
-		return Oferta.objects.create(trimestre=trimestre, profesor=profesor, materia=materia, departamento=departamento)
+	def create_oferta(self, trimestre, profesor, materia, departamento):
+		return OfertaDpto.objects.create(trimestre=trimestre, profesor=profesor, materia=materia, departamento=departamento)
 
 	# do3cstring para los profesores
 	def create_prof(self, nombre, apellido, email, cedula, departamento):
@@ -203,8 +203,8 @@ class ProfesorTest(TestCase):
 		return Disponibilidad.objects.create(bloque=bloque, dia=dia)
 
 	# docstring para la oferta
-	def create_oferta(self, trimestre, profesor, materia, preferencia, departamento):
-		return Oferta.objects.create(trimestre=trimestre, profesor=profesor, materia=materia, departamento=departamento)
+	def create_oferta(self, trimestre, profesor, materia, departamento):
+		return OfertaDpto.objects.create(trimestre=trimestre, profesor=profesor, materia=materia, departamento=departamento)
 
 	# do3cstring para los profesores
 	def create_prof(self, nombre, apellido, email, cedula, departamento):
@@ -289,8 +289,8 @@ class OfertaTest(TestCase):
 		return Disponibilidad.objects.create(bloque=bloque, dia=dia)
 
 	# docstring para la oferta
-	def create_oferta(self, trimestre, profesor, materia, preferencia, departamento):
-		return Oferta.objects.create(trimestre=trimestre, profesor=profesor, materia=materia, departamento=departamento)
+	def create_oferta(self, trimestre, profesor, materia, departamento):
+		return OfertaDpto.objects.create(trimestre=trimestre, profesor=profesor, materia=materia, departamento=departamento)
 
 	# do3cstring para los profesores
 	def create_prof(self, nombre, apellido, email, cedula, departamento):
@@ -313,8 +313,8 @@ class OfertaTest(TestCase):
 		a = self.create_asignatura("CI-7621", "Teoria de Algoritmos", 4, 4, 0, 0, "", d)
 		p = self.create_prof("María", "Ramirez", "12-10042@usb.ve", "V-25.766.738", d)
 		p.asignaturas.add(a)
-		oferta = Oferta.objects.create(trimestre="AJ-19", profesor=p, materia=a, departamento=d, preferencia=True)
-		self.assertEqual(oferta.__str__(), "AJ-19, "+str(oferta.profesor_id)+", CI-7621, True")
+		oferta = OfertaDpto.objects.create(trimestre="AJ-19", profesor=p, materia=a, departamento=d)
+		self.assertEqual(oferta.__str__(), "AJ-19, "+str(oferta.profesor_id)+", CI-7621")
 
 	# Prueba de creacion de oferta trimestral
 	def test_oferta_2(self):
@@ -325,8 +325,8 @@ class OfertaTest(TestCase):
 		profesor = Profesor.objects.get(cedula="V-25.777.898")
 
 		profesor.asignaturas.add(asignatura2)
-		oferta = Oferta.objects.create(trimestre="AJ-19", profesor=profesor, materia=asignatura2, departamento=dpto, preferencia=None)
-		self.assertEqual(oferta.__str__(), "AJ-19, "+str(oferta.profesor_id)+", MA-5273, None")
+		oferta = OfertaDpto.objects.create(trimestre="AJ-19", profesor=profesor, materia=asignatura2, departamento=dpto)
+		self.assertEqual(oferta.__str__(), "AJ-19, "+str(oferta.profesor_id)+", MA-5273")
 
 	# Prueba de creacion de oferta trimestral
 	def test_oferta_3(self):
@@ -336,5 +336,5 @@ class OfertaTest(TestCase):
 		profesor = Profesor.objects.get(cedula="V-25.777.898")
 
 		profesor.asignaturas.add(asignatura)
-		oferta = Oferta.objects.create(trimestre="SD-18", profesor=profesor, materia=asignatura, departamento=dpto, preferencia=False)
-		self.assertEqual(oferta.__str__(), oferta.trimestre + ", "+ str(oferta.profesor_id) + ", " + oferta.materia_id + ", " + str(oferta.preferencia))
+		oferta = OfertaDpto.objects.create(trimestre="SD-18", profesor=profesor, materia=asignatura, departamento=dpto)
+		self.assertEqual(oferta.__str__(), oferta.trimestre + ", "+ str(oferta.profesor_id) + ", " + oferta.materia_id)
