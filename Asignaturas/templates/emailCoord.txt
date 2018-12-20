@@ -1,5 +1,7 @@
-Puede revisar la Oferta Trimestral del Departamento de {{dpto}}
+El Departamento de {{dpto}} ofrecerá las siguientes materias el próximo trimestre:
 
-en el siguiente enlace
+{{materias}}
+
+para más detalles visite el siguiente enlace
 
 {{ enlace }}
