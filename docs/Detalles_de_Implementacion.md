@@ -98,8 +98,8 @@ Para cada coordinación se definen algunas materias de interes (a modo de prueba
 - Computación: CI-5437, CI-6644, CI-7643, CI-7641, PB-5611, CO-5221, CO-5422, CO-6411
 - Matemáticas: MA7671, MA8671, CO-5221, CO-5422, CO-6411
 
-De modo que en el correo recibido por las coordinaciones, solo veran las materias ofertadas que les interesan como se definieron en el fixture.
+De modo que en el correo recibido por las coordinaciones, solo se verán las materias ofertadas que les interesan, como se definieron en el fixture.
 Por ejemplo, si el Departamento de Computación oferta CI-5437, solo la coordinación de Computación y Biologia recibirán un correo con la oferta de CI-5437.
 
-La tabla coordinación y los datos relaionados que se cargaron con el fixture son un stub, con datos de ejemplo necesario para las pruebas. Al llevar el sistema a producción, se deben contar con los datos reales para cargarlos en la base.
+La tabla coordinación y los datos relaionados que se cargaron con el fixture son un stub, con datos de ejemplo necesarios para las pruebas. Al llevar el sistema a producción, se debe contar con los datos reales para cargarlos en la base.
 
