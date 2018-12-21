@@ -64,7 +64,7 @@ class Departamento(models.Model):
 class Asignatura(models.Model):
 	""" Tabla asignatura con sus respectivos atributos y validaciones del dominio de entrada."""
 
-	codigo = models.CharField(primary_key=True,max_length=7, validators=[RegexValidator(regex='^[A-Z]{2}-[0-9]{4}$', message = 'El código de la asignatura es inválido'), MaxLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres'), MinLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres')])
+	codigo = models.CharField(unique=True, max_length=7, validators=[RegexValidator(regex='^[A-Z]{2}-[0-9]{4}$', message = 'El código de la asignatura es inválido'), MaxLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres'), MinLengthValidator(7, message='El código de la asignatura debe contener exactamente 7 caracteres')])
 	nombre = models.CharField(max_length=60, validators=[MaxLengthValidator(60, message='El nombre de la asignatura a lo sumo puede contener 60 caracteres'), MinLengthValidator(1, message='El nombre de la asignatura debe contener al menos un caracter')])
 	unidadesCredito = models.IntegerField(default=0,validators=[MinValueValidator(1, message='La asignatura debe contener al menos una unidad de crédito')])
 	horasTeoria = models.IntegerField(default=0, validators=[MinValueValidator(0, message='Las horas de teoría no pueden ser negativas')])
@@ -81,25 +81,6 @@ class Asignatura(models.Model):
 	def __str__(self):
 		return self.codigo + " Nombre: " + self.nombre + " Dpto: " + self.departamento_id + " UC: " + str(self.unidadesCredito)
 
-	
-class Coordinacion(models.Model):
-	""" Tabla Cordinacion:
-			- Atributos
-				-nombre: Nombre de la coordinacion.
-				-correo: Correo electronico de la coordinacion (unico), formato: "coord-siglasCoordinacion@usb.ve"
-				-lista_asignaturas: Relacion mucho a muchos con tabla Asignaturas.
-			- Validaciones: formato del correo, no se aceptan entradas vacias.		
-	."""
-
-	correo = models.CharField(primary_key=True, max_length=60, validators=[RegexValidator(r'^coord-[a-z]+@usb.ve$', "El format debe ser coord-siglasDeLaCoordinacion@usb.ve"), MinLengthValidator(2, message='El código del Departamento debe contener exactamente 2 caracteres')])
-	nombre = models.CharField(max_length=60, unique=True, validators=[MaxLengthValidator(60, message='El nombre del Departamento a lo sumo puede contener 60 caracteres'), MinLengthValidator(1, message='El nombre de la Coordinacion debe ser mayor a un caracter')])
-	lista_asignaturas = models.ManyToManyField("Asignatura", blank=True)
-
-	# metodo que permite devolver la informacion de la asignatura
-	def __str__(self):
-		return " Coord. de " + self.nombre
-
-	
 class Profesor(models.Model):
 	"""
 	Modelo que representa un profesor de la USB
@@ -133,12 +114,34 @@ class Profesor(models.Model):
 		return self.nombre + " " + self.apellido
 
 class Oferta(models.Model):
-	''' Tabla que representa las asignaturas que cada profesor puede dar en la proxima
-		oferta (asignaturas por confirmar)'''
+	"""
+	Tabla que representa una oferta de asignatura tentativa. Contiene la asignatura, el profesor
+	asignado, el departamento y la preferencia del profesor (True si esta de acuerdo con dar la asignatura
+	False si no esta de acuerdo o no ha expresado su opinion).
+	"""
+	materia = models.ForeignKey(Asignatura, default="",on_delete=models.CASCADE)
+	profesor = models.ForeignKey(Profesor, default="",on_delete=models.CASCADE, blank=True, null=True)
+	preferencia = models.NullBooleanField(default=None)
+	departamento = models.ForeignKey('Departamento',  default="",on_delete=models.CASCADE)
+
+	class Meta:
+		"""
+		Provee algunas configuraciones básicas con respecto a las
+		operaciones del modelo.
+		"""
+
+		# Ordenamiento por defecto por trimestre
+		ordering = ["materia"]
+		# Limita a que no hayan repeticiones de la tupla trimestre-profesor-materia
+		# Garantiza que no aparezca 2 o mas veces un mismo profesor dando una misma materia en un mismo trimestre
+		unique_together = ("materia","profesor")
+
+class OfertaDpto(models.Model):
+	''' Tabla que representa las asignaturas ofertadas por el departamento en un trimestre.'''
+
 	trimestre = models.CharField(max_length=5, default="SD-18", validators=[MaxLengthValidator(5, message='La específicación del trimestre son máximo 5 letras'), MinLengthValidator(5, message='La específicación del trimestre son mínimo 5 letras')])
 	profesor = models.ForeignKey('Profesor', default="",on_delete=models.CASCADE, blank=True, null=True)
 	materia = models.ForeignKey('Asignatura', default="",on_delete=models.CASCADE)
-	preferencia = models.NullBooleanField(default=None)
 	departamento = models.ForeignKey('Departamento',  default="",on_delete=models.CASCADE)
 
 	class Meta:
@@ -157,7 +160,17 @@ class Oferta(models.Model):
 		"""
 		Muestra la oferta de manera abreviada
 		"""
-		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id + ", " + str(self.preferencia)
+		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id
+
+
+
+class Coordinacion(models.Model):
+	""" Tabla auxiliar que representa una coordinacion """
+	
+	nombre = models.CharField(max_length=50)
+	email = models.EmailField(max_length=200)
+	materias = models.ManyToManyField("Asignatura", symmetrical=False, blank=True)
+
 
 class Disponibilidad(models.Model):
 	"""
@@ -246,3 +259,4 @@ class Disponibilidad(models.Model):
 		"""
 
 		return self.get_dia_display() + ", bloque " + str(self.bloque)
+

@@ -1,0 +1,7 @@
+El Departamento de {{dpto}} ofrecerá las siguientes materias el próximo trimestre:
+
+{{materias}}
+
+para más detalles visite el siguiente enlace
+
+{{ enlace }}
