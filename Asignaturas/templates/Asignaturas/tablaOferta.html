@@ -2,7 +2,7 @@
 {% load static %}
 
   <head>
-    <title>Tabla Asignaturas</title>
+    <title>Oferta Departamento</title>
     {% block estilos %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
@@ -36,7 +36,8 @@
 <body>
   <div class="container" style=" margin: 0 auto; background-color: White;padding-top: 2rem;">
     <div class="container text-center">
-      <h3><b>Oferta Trimestral del Departamento</b></h3>
+      <h3>Oferta Trimestral del Departamento</h3>
+      <h4>{{departamento.nombre}}</h4>
     </div>
 
     <div class="text-center container mb-4">

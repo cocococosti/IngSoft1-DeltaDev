@@ -17,6 +17,11 @@ def inicio(request):
 	"""Carga la página incial."""
 	return render(request, 'Asignaturas/index.html', {})
 
+#########################################################
+#                                                       #
+#                    Asignaturas                        #
+#                                                       #
+#########################################################
 
 def tablaAsignaturas(request):
 	"""Toma las asignaturas de la base de datos y las carga en la tabla."""
@@ -229,6 +234,13 @@ def registroAsignaturas(request):
 		form = RegistrarMatForm(user)
 		return render(request, 'Asignaturas/registroAsignaturas.html', {'form':form})
 
+
+#########################################################
+#                                                       #
+#                    Profesores                         #
+#                                                       #
+#########################################################
+
 def tablaProfesores(request):
 	"""Toma las asignaturas de la base de datos y las carga en la tabla."""
 
@@ -287,7 +299,7 @@ def tablaProfesores(request):
 
 		
 	# Cargar tabla de profesores
-	return render(request, 'Asignaturas/tablaProfesores.html', {'profesores': profesores})
+	return render(request, 'Asignaturas/tablaProfesores.html', {'profesores': profesores, 'departamento': prof.departamento})
 
 def registroProfesores(request):
 	""" Registra un profesor en la base de datos. """
@@ -415,6 +427,12 @@ def modificarProfesor(request, codigo):
 		form = RegistrarProfForm(user,instance=profesor)
 		return render(request, 'Asignaturas/modificarProfesor.html', {'form':form})
 
+#########################################################
+#                                                       #
+#               Oferta de Asignaturas                   #
+#                                                       #
+#########################################################
+
 def tablaOferta(request):
 	""" Muestra la oferta de asignaturas """
 	
@@ -510,9 +528,37 @@ def tablaOferta(request):
 
 	return render(request, 'Asignaturas/Ofertas.html', {'departamento':dept, 'materias':materias, 'profesores':profesores, 'ofertas':ofertas})
 
+def modificarOferta(request, id):
+	""" Carga form de una oferta con los datos ya guardados. """
+
+	# Obtenemos la oferta a modificar
+	oferta = Oferta.objects.filter(id = id).first()
+	user = request.user
+	prof = Profesor.objects.get(user = user)
+	dept = prof.departamento
+	profesores = Profesor.objects.filter(departamento = dept.codigo).all()
+	
+	if request.method == 'POST':
+		
+		# De una oferta solo modificamos el profesor asignado
+		oferta.profesor = Profesor.objects.get(cedula = request.POST.get('cedula'))
+		try:
+			oferta.save()
+		except:
+			return render(request, 'Asignaturas/modificarOferta.html', {'oferta':oferta, 'profesores': profesores})
+		
+		return redirect('/tabla-oferta/')
+
+	return render(request, 'Asignaturas/modificarOferta.html', {'oferta':oferta, 'profesores': profesores})
+
+#########################################################
+#                                                       #
+#               Oferta del Departamento                 #
+#                                                       #
+#########################################################
 
 def tablaOfertaDpto(request):
-	""" Muestra la oferta de asignaturas """
+	""" Muestra la oferta de asignaturas del departamento """
 	
 	# usuario autenticado
 	user = request.user
@@ -528,14 +574,19 @@ def tablaOfertaDpto(request):
 
 	materias = []
 
+	# Obtenemos materias de la oferta
 	for f in matOferta:
 		if (f.materia not in materias):
 			materias.append(f.materia)
 
 	ofertas = OfertaDpto.objects.filter(departamento = dept).all()
+
+	# Obtenemos trimestres de las ofertas (para cargar ofertas pasadas)
 	trimestres = []
+
 	for f in ofertas:
 		if f.trimestre not in trimestres:
+			print(f.trimestre)
 			trimestres.append(f.trimestre)
 
 	if request.method == 'POST':
@@ -571,9 +622,13 @@ def tablaOfertaDpto(request):
 			return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores, 'ofertas':ofertas, 'pro':profs})
 		
 		elif ((request.POST.get('modo')) == "Cargar"):
-
+			# Obtenemos trimestre a cargar
 			trim = request.POST.get('oferta')
+
+			# Obtenemos oferta a cargar
 			ofertas = OfertaDpto.objects.filter(departamento = dept, trimestre=trim).all()
+			
+			# Guardamos oferta cargada
 			for f in ofertas:
 				try:
 					OfertaDpto.objects.create(
@@ -584,60 +639,10 @@ def tablaOfertaDpto(request):
 				except:
 					pass
 
-		# si se selecciona agregar oferta
-		else:
-
-			# Asignatura de la oferta
-			asig = Asignatura.objects.get(codigo=request.POST.get('asignatura'))
-			# Profesores que expresaron preferencia por la asignatura
-			profesores = asig.profesor_set.all()
-			# guardar oferta para cada profesor
-
-			# si no se registraron profesores para esa materia
-			if (len(profesores)==0):
-				# se registra la oferta con None en el campo profesor
-				OfertaDpto.objects.create(
-						trimestre = "SD-18",
-						materia=asig,
-						departamento=dept)
-			else:
-				for profesor in profesores:
-					# registrar oferta para cada profesor
-					try:
-						OfertaDpto.objects.create(
-								trimestre = "SD-18",
-								profesor=profesor,
-								materia=asig,
-								departamento=dept)
-					except:
-						pass
-
 	# cargar tabla de ofertas
 	ofertas = OfertaDpto.objects.filter(departamento = dept, trimestre="SD-18").all()
 	return render(request, 'Asignaturas/tablaOferta.html', {'departamento':dept, 'materias':materias, 'profesores':profesores, 'ofertas':ofertas, 'trimestres':trimestres})
 
-def modificarOferta(request, id):
-	""" Carga form de una oferta con los datos ya guardados. """
-
-	# Obtenemos la oferta a modificar
-	oferta = Oferta.objects.filter(id = id).first()
-	user = request.user
-	prof = Profesor.objects.get(user = user)
-	dept = prof.departamento
-	profesores = Profesor.objects.filter(departamento = dept.codigo).all()
-	
-	if request.method == 'POST':
-		
-		# De una oferta solo modificamos el profesor asignado
-		oferta.profesor = Profesor.objects.get(cedula = request.POST.get('cedula'))
-		try:
-			oferta.save()
-		except:
-			return render(request, 'Asignaturas/modificarOferta.html', {'oferta':oferta, 'profesores': profesores})
-		
-		return redirect('/tabla-oferta/')
-
-	return render(request, 'Asignaturas/modificarOferta.html', {'oferta':oferta, 'profesores': profesores})
 
 def modificarOfertaDpto(request, id):
 	""" Carga form de una oferta con los datos ya guardados. """
@@ -662,6 +667,12 @@ def modificarOfertaDpto(request, id):
 
 	return render(request, 'Asignaturas/modificarOferta.html', {'oferta':oferta, 'profesores': profesores})
 
+
+#########################################################
+#                                                       #
+#             Gestion de Usuarios (Jefes)               #
+#                                                       #
+#########################################################
 
 def autenticacion(request):
 	"""Manejo de registro o autenticacion de un usuario."""
@@ -715,6 +726,12 @@ def entrar(request):
 	return redirect('/autenticacion/')
 
 
+#########################################################
+#                                                       #
+#                  Envío de Correos                     #
+#                                                       #
+#########################################################
+
 def salir(request):
 	""" Salir del sistema """
 	logout(request)
@@ -761,22 +778,45 @@ def send_email(jefe, request):
 	send_mass_mail(correos,fail_silently=False)
 
 def send_email_coord(jefe,request):
+	""" Enviar correo a las coordinaciones """
+
+	# Jefe logeado
 	prof = Profesor.objects.get(user = jefe)
+
+	# Dpto del jefe
 	dept = prof.departamento
+
+	# todas las materias ofertadas
 	materias_ofertadas = Asignatura.objects.filter(ofertadpto__isnull=False)
+	
+	# Lista de correos a enviar
 	correos = []
 
+	# Para cada coordinacion
 	for coordinacion in Coordinacion.objects.all():
+
+		# Obtenemos lista de materias que le interesan a la coordinacion
 		interesan_coordinacion = coordinacion.materias.all()
+		
+		# Lista de objectos materia que son ofertada por el dpto e interesan a la coord
 		materias_coordinacion =\
 			Asignatura.objects.\
 				filter(id__in=materias_ofertadas).\
-				filter(id__in=interesan_coordinacion)
+				filter(id__in=interesan_coordinacion).\
+				filter(departamento=dept)
 
+
+		# Si hay materias
 		if materias_coordinacion:
+
+			# Lista de nombre de materias ofertdas y que interesan a la coordinacion
 			materias = [materia.nombre for materia in materias_coordinacion]
+
+			# url que se enviara a las coordinaciones
 			relative_url = reverse('oferta-coord', args=(coordinacion.id,))
 			full_url = request.build_absolute_uri(relative_url)
+
+			# cuerpo del correo a enviar
 			mensaje_txt = render_to_string('emailCoord.txt', {
 				'materias':", ".join(materias), 'dpto':dept.nombre, 'enlace': full_url})
 			# Atributos del correo a enviar
@@ -790,15 +830,33 @@ def send_email_coord(jefe,request):
 	send_mass_mail(correos,fail_silently=False)
 
 def ofertaCoord(request, id):
+	""" Enviar correo a las coordinaciones """
+
+	# Usuario logeado
 	user = request.user
+
+	# Jefe
 	prof = Profesor.objects.get(user = user)
+	
+	# Dpto del jefe
 	dept = prof.departamento
+
+	# Lista de ofertas del dpto en el trimestre
 	ofertas = OfertaDpto.objects.filter(departamento = dept, trimestre="SD-18").all()
+	
+	# Materias ofertadas que le interesan a la coordinacion
 	ofertasCoord = []
+
+	# Coordinacion que hace el request
 	coord = Coordinacion.objects.filter(id = id).first()
+
+	# Materias que interesan a la coordinacion
 	materias = coord.materias.all()
 	
+	# Agregamos las materias ofertadas
 	for f in ofertas:
+		# que le interesan a la coordinacion
 		if f.materia in materias:
 			ofertasCoord.append(f)
+	
 	return render(request, 'Asignaturas/tablaTrimestral.html', {'departamento':dept,'ofertas':ofertasCoord})

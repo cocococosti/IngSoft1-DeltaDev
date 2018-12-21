@@ -114,6 +114,11 @@ class Profesor(models.Model):
 		return self.nombre + " " + self.apellido
 
 class Oferta(models.Model):
+	"""
+	Tabla que representa una oferta de asignatura tentativa. Contiene la asignatura, el profesor
+	asignado, el departamento y la preferencia del profesor (True si esta de acuerdo con dar la asignatura
+	False si no esta de acuerdo o no ha expresado su opinion).
+	"""
 	materia = models.ForeignKey(Asignatura, default="",on_delete=models.CASCADE)
 	profesor = models.ForeignKey(Profesor, default="",on_delete=models.CASCADE, blank=True, null=True)
 	preferencia = models.NullBooleanField(default=None)
@@ -132,8 +137,8 @@ class Oferta(models.Model):
 		unique_together = ("materia","profesor")
 
 class OfertaDpto(models.Model):
-	''' Tabla que representa las asignaturas que cada profesor puede dar en la proxima
-		oferta (asignaturas por confirmar)'''
+	''' Tabla que representa las asignaturas ofertadas por el departamento en un trimestre.'''
+
 	trimestre = models.CharField(max_length=5, default="SD-18", validators=[MaxLengthValidator(5, message='La específicación del trimestre son máximo 5 letras'), MinLengthValidator(5, message='La específicación del trimestre son mínimo 5 letras')])
 	profesor = models.ForeignKey('Profesor', default="",on_delete=models.CASCADE, blank=True, null=True)
 	materia = models.ForeignKey('Asignatura', default="",on_delete=models.CASCADE)
@@ -157,35 +162,11 @@ class OfertaDpto(models.Model):
 		"""
 		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id
 
-class OfertaCoord(models.Model):
-	''' Tabla que representa las asignaturas que cada profesor puede dar en la proxima
-		oferta (asignaturas por confirmar)'''
-	trimestre = models.CharField(max_length=5, default="SD-18", validators=[MaxLengthValidator(5, message='La específicación del trimestre son máximo 5 letras'), MinLengthValidator(5, message='La específicación del trimestre son mínimo 5 letras')])
-	profesor = models.ForeignKey('Profesor', default="",on_delete=models.CASCADE, blank=True, null=True)
-	materia = models.ForeignKey('Asignatura', default="",on_delete=models.CASCADE)
-	departamento = models.ForeignKey('Departamento',  default="",on_delete=models.CASCADE)
-	programa = models.CharField(max_length=10, default="") 
-	horario = models.CharField(max_length=10, default="")
 
-	class Meta:
-		"""
-		Provee algunas configuraciones básicas con respecto a las
-		operaciones del modelo.
-		"""
-
-		# Ordenamiento por defecto por trimestre
-		ordering = ["trimestre"]
-		# Limita a que no hayan repeticiones de la tupla trimestre-profesor-materia
-		# Garantiza que no aparezca 2 o mas veces un mismo profesor dando una misma materia en un mismo trimestre
-		unique_together = ("trimestre","profesor", "materia")
-
-	def __str__(self):
-		"""
-		Muestra la oferta de manera abreviada
-		"""
-		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id
 
 class Coordinacion(models.Model):
+	""" Tabla auxiliar que representa una coordinacion """
+	
 	nombre = models.CharField(max_length=50)
 	email = models.EmailField(max_length=200)
 	materias = models.ManyToManyField("Asignatura", symmetrical=False, blank=True)
