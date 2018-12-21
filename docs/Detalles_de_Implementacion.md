@@ -31,22 +31,60 @@ Funcionalidad del plug-in data tables de JQuery, ubicado en la carpeta Asignatur
 
 **3.1 Seleccionar Asignaturas, 3.2 Seleccionar Candidatos**
 * Modelo: Clase Oferta en models.py
-* Template: *tablaOferta.html* en Asignaturas > templates > Asignaturas
-* Vista: *tablaOferta(request)* en views.py para agregar boton "Agregar Asignatura" y su respectivo modal.
+* Template: *Ofertas.html* en Asignaturas > templates > Asignaturas para presentar la tabla de ofertas tentativas y *tablaAsignaturas.html* en el directorio Asignatura> templates> Asignatura para realizar la oferta de asignaturas mediante el boton "Ofertar Asignatura"
+* Vista: *tablaOferta(request)* en views.py para el boton "Agregar Asignatura" y *tablaAsignaturas(request)* en views.py para el boton "Ofertar Asignaturas"
 
 **3.3 Presentar Opciones** 
 * Modelo: Igual que en las historias 3.1, 3.2
-* Template: *tablaOferta.html* en Asignaturas > templates > Asignaturas
+* Template: *Ofertas.html* en Asignaturas > templates > Asignaturas
 * Vista: *tablaOferta(request)* para el boton "Enviar Oferta", *send_email(jefe, request)* para el envio de correos con el formulario especifico para cada profesor asignado en la oferta en views.py
 
 **3.4 Completar Asginación**
 * Modelo: Igual que en las historias 3.1, 3.2
-* Template: *tablaOferta.html*, *modificarOferta.html* en Asignaturas > templates > Asignaturas
-* Vista: *tablaOferta(request)*, *modificarOferta(request, id)* en views.py para agregar botones "Modificar" y "Eliminar" entradas de la oferta.
+* Template: *Ofertas.html*, *modificarOferta.html* en Asignaturas > templates > Asignaturas
+* Vista: *tablaOferta(request)*, *modificarOferta(request, id)* en views.py para manejar botones "Modificar" y "Eliminar" en las entradas de la oferta.
 
 **4.1 Seleccionar Preferencias**
 * Modelo: Igual que en las historias 3.1, 3.2
 * Template: *dictaProfesor.html* en Asignaturas > templates > Asignaturas
 * Vista: *seleccionMatProfesores(request, ci)* en views.py para mostrar el formulario de selección de asignaturas a dictar para los profesores y actualizar su aceptación en la oferta.
+
+### Sprint 3
+
+**5.1 Crear Oferta Trimestral**
+
+* Modelo: Clase OfertaDpto en models.py
+* Template: *tablaOferta.html* en Asignaturas > templates > Asignaturas
+* Vista: *tablaOfertaDpto(request)* en views.py para mostrar la oferta del departamento y *tablaOferta(request)* en views.py para guardar la oferta tentativa en la oferta del departamento mediante el botón  "Guardar Oferta Trimestral".
+
+**5.2 Modificar Oferta de Asignatura**
+
+* Modelo: Igual que en la historia 5.1
+* Template: *tablaOferta.html* en Asignaturas > templates > Asignaturas
+* Vista: *tablaOfertaDpto(request)* en views.py y *modificarOfertaDpto(request)* para manejar botón Modificar de cada entrada de la tabla de oferta departamental.
+
+**5.3 Eliminar Oferta de Asignatura**
+
+* Modelo: Igual que en la historia 5.1
+* Template: *tablaOferta.html* en Asignaturas > templates > Asignaturas
+* Vista: *tablaOfertaDpto(request)* en views.py para manejar botón Eliminar de cada entra de la tabla de oferta departamental y el botón Borrar Oferta.
+
+**5.4 Listar Asignaturas**
+
+* Modelo: Igual que en la historia 5.1
+* Template: *tablaOferta.html* en Asignaturas > templates > Asignaturas
+* Vista: *tablaOfertaDpto(request)* en views.py para presentar todas las ofertas del departamento.
+
+**5.5 Buscar Ofertas Trimestrales**
+
+* Modelo: Igual que en la historia 5.1
+* Template: *tablaOferta.html* en Asignaturas > templates > Asignaturas
+* Vista: *tablaOfertaDpto(request)* en views.py para manejar boton Cargar Oferta.
+
+**5.6 Enviar Ofertas Trimestrales**
+
+* Modelo: Clase OfertaDpto y Clase Coordinacion en models.py 
+* Template: *tablaOferta.html* y *tablaTrimestral.html* en Asignaturas > templates > Asignaturas
+* Vista: *tablaOfertaDpto(request)* en views.py para manejar boton Enviar a Coordinaciones, *send_email_coord(jefe,request)* para enviar correo a las coordinaciones y *ofertaCoord(request, id)* para presentar tabla de ofertas del departamento a la coordinación.
 
 
