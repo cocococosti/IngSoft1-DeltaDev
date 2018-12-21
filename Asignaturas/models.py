@@ -135,6 +135,11 @@ class Oferta(models.Model):
 		# Limita a que no hayan repeticiones de la tupla trimestre-profesor-materia
 		# Garantiza que no aparezca 2 o mas veces un mismo profesor dando una misma materia en un mismo trimestre
 		unique_together = ("materia","profesor")
+	def __str__(self):
+		"""
+		Muestra la oferta de manera abreviada
+		"""
+		return str(self.materia_id) + ", "+ str(self.profesor) + ", " + str(self.departamento) + ", " + str(self.preferencia)
 
 class OfertaDpto(models.Model):
 	''' Tabla que representa las asignaturas ofertadas por el departamento en un trimestre.'''
@@ -160,7 +165,7 @@ class OfertaDpto(models.Model):
 		"""
 		Muestra la oferta de manera abreviada
 		"""
-		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id
+		return self.trimestre + ", "+ str(self.profesor_id) + ", " + str(self.materia_id)
 
 
 
