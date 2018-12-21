@@ -45,7 +45,7 @@ python manage.py migrate
 
 ```
 
-python manage.py loaddata dataDpto.json
+python manage.py loaddata db.json
 
 
 ```
@@ -92,10 +92,10 @@ python manage.py test
 
 ## Versión
 
-**Novedad** Se hizo un deployment del producto para las correciones realizadas del Sprint 1 y las funcionalidades agregadas del Sprint 2 en Heroku. En el siguiente enlace puede acceder al sistema sin necesidad de realizar las configuraciones iniciales.
+**Novedad** Se hizo un deployment del producto para las correciones realizadas del Sprint 1 y las funcionalidades agregadas del Sprint 2 y el Sprint 3 en Heroku. En el siguiente enlace puede acceder al sistema sin necesidad de realizar las configuraciones iniciales.
 
 ```
-https://sistema-asignaturas-usb.herokuapp.com
+https://sistema-asignaturas-usb.herokuapp.com/autenticacion
 
 ```
 
