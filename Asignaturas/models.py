@@ -81,6 +81,25 @@ class Asignatura(models.Model):
 	def __str__(self):
 		return self.codigo + " Nombre: " + self.nombre + " Dpto: " + self.departamento_id + " UC: " + str(self.unidadesCredito)
 
+	
+class Coordinacion(models.Model):
+	""" Tabla Cordinacion:
+			- Atributos
+				-nombre: Nombre de la coordinacion.
+				-correo: Correo electronico de la coordinacion (unico), formato: "coord-siglasCoordinacion@usb.ve"
+				-lista_asignaturas: Relacion mucho a muchos con tabla Asignaturas.
+			- Validaciones: formato del correo, no se aceptan entradas vacias.		
+	."""
+
+	correo = models.CharField(primary_key=True, max_length=60, validators=[RegexValidator(r'^coord-[a-z]+@usb.ve$', "El format debe ser coord-siglasDeLaCoordinacion@usb.ve"), MinLengthValidator(2, message='El código del Departamento debe contener exactamente 2 caracteres')])
+	nombre = models.CharField(max_length=60, unique=True, validators=[MaxLengthValidator(60, message='El nombre del Departamento a lo sumo puede contener 60 caracteres'), MinLengthValidator(1, message='El nombre de la Coordinacion debe ser mayor a un caracter')])
+	lista_asignaturas = models.ManyToManyField("Asignatura", blank=True)
+
+	# metodo que permite devolver la informacion de la asignatura
+	def __str__(self):
+		return " Coord. de " + self.nombre
+
+	
 class Profesor(models.Model):
 	"""
 	Modelo que representa un profesor de la USB

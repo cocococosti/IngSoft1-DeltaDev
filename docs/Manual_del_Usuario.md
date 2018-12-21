@@ -182,11 +182,15 @@ Al ingresar en la pestaña "Ver profesores" se listan los profesores registrados
 
 El usuario debe hacer click en la pestaña de "Oferta de Asignaturas", luego para inicar el proceso de creación de la oferta debe hacer click en el boton "Agregar Asignatura" y aparecerá la siguiente venta emergente:
 
-![Agregar_Asignatura_Oferta](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/Agrega_asginatura_oferta.png "agrega a oferta")
+![Agregar_Asignatura_Oferta](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/agregar_asignatura_nueva.png "agrega asignatura a oferta")
 
-En el campo asignatura apareceran las materias registradas en el paso 2.1 del presente documento. En el campo de profesores aparecen los profesores registrados en el sistema en el punto 3.
-**Nota:** Proximamente los profesores que apareceran seran quienes en el punto 3 hayan indicado que suele dictar dicha asignatura.
-Se pueden seleccionar varios profesores y apareceran en diferentes entradas de la tabla con la misma asginatura.
+En la lista desplegable se encuentran las asignaturas que han sido registradas previamente a través de su respectivo formulario indicado en el punto 2.1. Al hacer click en "Agregar" en la tabla aparecerá una entrada por cada profesor que la seleccionó previamente en el formulario del punto 3.1. Si no hay profesores que hayan incluido la asignatura en su registro, aparecerá en la columna Profesor "No hay profesor asignado" tal como se muestra a continuación:
+
+![profesor_no_asignado](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/tabla_oferta_agregar_prof.png "asignatura sin prof")
+
+El jefe de departamento, a través del botón "Modificar" podrá agregar a cualquier profesor registrado previamente, al modificar la entrada, se verá reflejado el cambio en la tabla de la oferta.
+
+![modificar_oferta](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/modificar_oferta.png "modifcar oferta")
 
 ### 4.2 Enviar Correos a Profesores
 
@@ -194,7 +198,12 @@ Una vez hayan sido cargadas las asignaturas en la oferta con los respectivos pro
 
 ![Enviar_Oferta](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/enviar_oferta.png "Enviar oferta")
 
-**Nota:** Durante la etapa de desarrollo se utilizará la herramienta de django [Console backend](https://docs.djangoproject.com/en/1.11/topics/email/#console-backend) que escribe el email en la salida estandar. Proximamente el envio de correo se realizará de forma real.
+**Nota 1:** Durante la etapa de desarrollo se utilizará la herramienta de django [Console backend](https://docs.djangoproject.com/en/1.11/topics/email/#console-backend) que escribe el email en la salida estandar. Proximamente el envio de correo se realizará de forma real.
+
+**Nota 2:** Tentantivamente se encuentra activo el envio de correos real, a continuación se muestra uno de los correos enviados. Es necesario configurar una cuenta de correo electrónico específica para el uso del sistema. 
+
+![correo](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/correo_ejemplo.png "correo")
+
 
 ### 4.3 Formulario de Selección de Asignaturas
 
