@@ -68,7 +68,7 @@ http://localhost:8000/autenticacion/
 
 ## Correr las Pruebas
 
-Las pruebas realizadas en el sistema siguen los lineamientos de la TDD (Test Driven Development) para lograr un software eficaz. El sistema cuenta con formularios de registro de asignaturas con sus respectivas validaciones en los campos, las pruebas fueron desarrolladas con el objetivo de que las validaciones se realicen de forma correcta. Actualmente se tiene un total de 17 pruebas disponibles en el archivo test.py en directorio Asignaturas.
+Las pruebas realizadas en el sistema siguen los lineamientos de la TDD (Test Driven Development) para lograr un software eficaz. El sistema cuenta con formularios de registro de asignaturas con sus respectivas validaciones en los campos, las pruebas fueron desarrolladas con el objetivo de que las validaciones se realicen de forma correcta. Las pruebas estan disponibles en el archivo test.py en directorio Asignaturas.
 
 Para correr las pruebas, ejecutar el siguiente comando en la terminal:
 
