@@ -21,6 +21,10 @@ Los jefes de Departamento poseen las siguientes funcionalidades:
   * Enviar a los profesores asginados (Via cooreo electronico) un enlace con un formulario para que seleccionen la(s) asignatura(s) que deseen dictar en el respectivo trimestre.
  
   * Completar la asignacion de profesores a asignaturas.
+  * Generar la oferta trimestral departamento.
+  * Modificar la oferta trimestral del departamento.
+  * Cargar una oferta trimestral para utilizarla como modelo.
+  * Enviar oferta trimestral a las coordinaciones pertinentes.
   
   Los profesores pueden registrarse en el sistema y:
   
@@ -55,7 +59,7 @@ Para poder acceder al sistema el usuario debe proporcionar los datos de identifi
 
   Si el ingreso fué exitoso verá la siguiente pantalla con las Herramientas de Gestión de Asignaturas:
   
-  ![Menu de Asignaturas](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/jefeDepartamento_pagina_principal.png "Menu de funcionalidades sobre módulo de Asignaturas")
+  ![Menu de Asignaturas](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/inicio_nuevo.png "Menu de funcionalidades sobre módulo de Asignaturas")
 
 ## 2. Herramientas de Gestión de Asignaturas:
 Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramientas de gestion:
@@ -90,14 +94,11 @@ Una vez ingrese al menu de asignaturas podrá apreciar las siguientes herramient
   ![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_registrarAsignatura_Formulario.png "Formulario para agregar nueva Asignatura")
   
   Una vez haya finalizado se presiona el botón de "Enviar", inmediatamente volveremos a la página de catálogo donde se visualizará la actualización.
- 
-  ![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignatura_Actualizado.png "Tabla de Asignaturas actualizada")
 
-  
 
 ### 2.2 Ver Asignaturas
 
-![Menu de Asignaturas](imagenes/jefeDepartamento__Asignaturas_verAsignatura.png "listado de Asignaturas")
+![Menu de Asignaturas](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/tabla_asignaturas.png "listado de Asignaturas")
 
 
 ### 2.2.1 Modificar información de una asignatura.
@@ -178,7 +179,7 @@ Al ingresar en la pestaña "Ver profesores" se listan los profesores registrados
 
 ## 4. Herramientas de Gestión de Ofertas Trimestrales:
 
-### 4.1 Crear Oferta Trimestral
+### 4.1 Crear Oferta Tentantiva
 
 El usuario debe hacer click en la pestaña de "Oferta de Asignaturas", luego para inicar el proceso de creación de la oferta debe hacer click en el boton "Agregar Asignatura" y aparecerá la siguiente venta emergente:
 
@@ -191,6 +192,11 @@ En la lista desplegable se encuentran las asignaturas que han sido registradas p
 El jefe de departamento, a través del botón "Modificar" podrá agregar a cualquier profesor registrado previamente, al modificar la entrada, se verá reflejado el cambio en la tabla de la oferta.
 
 ![modificar_oferta](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/modificar_oferta.png "modifcar oferta")
+
+Adicionalmente, en la pestaña "Ver Asignaturas" se pueden seleccionar las asignaturas que se deseen agregar a la oferta tentativa. Una vez seleccionadas con el checkbox, al hacer click en "Ofertar Asignaturas" estas aparecerán en la oferta tentativa con los respectivos profesores asociados a dichas materias en el formulario de registro de profesores. 
+
+![checkbox](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/tabla_asignaturas.png "checkbox")
+
 
 ### 4.2 Enviar Correos a Profesores
 
@@ -221,3 +227,36 @@ Si el color está en rojo, quiere decir que no hay respuesta del profesor aun, o
 
 ![Oferta_Actualizada](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/actualizar_oferta.png "Oferta actualizada")
 
+### 4.5 Generar Oferta Trimestral
+
+En la oferta tentativa, al dar click en el boton "Guardar Oferta Trimestral" la misma aparecerá en la pestaña de "Oferta Departamento"
+
+![oferta_tentativa](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/tabla_tentativa.png "Oferta tentativa")
+
+La oferta generada se encuentra a continuación:
+
+![oferta_dpto](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/tabla_oferta_dpto.png "Oferta dpto")
+
+### 4.6 Modificar Oferta Trimestral
+
+La asignación de profesores a las asignaturas de la oferta trimestral se puede modificar a través del botón "Modificar" correspondiente a cada materia de la tabla. Al hacer click se muestra el siguiente formulario donde se puede seleccionar a cualquier profesor registrado en el departamento para dictar dicha asignatura.
+
+![modificar_oferta_dpto](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/modificar_oferta_dpto.png "modificar Oferta dpto")
+
+### 4.7 Eliminar Oferta Trimestral
+
+Esta opción se puede llevar a cabo en dos modalidades. A través del botón "Eliminar", se pueden ir eliminando asignaturas de la tabla y a través de el botón "Borrar Oferta" se puede borrar toda la oferta construida.
+
+![oferta_dpto](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/tabla_oferta_dpto.png "Oferta dpto")
+
+### 4.8 Cargar Oferta Trimestral 
+
+A través del botón "Cargar Oferta" se pueden seleccionar ofertas de trimestres anteriores para utilizar como modelo. Las materias de la oferta serán agregadas en la tabla, cambiando el valor del campo de trimestre al actual para el que se está elaborando la oferta.
+
+![cargar_oferta](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/cargar_oferta.png "Cargar oferta")
+
+### 4.9 Enviar Oferta Trimestral a Coordinaciones
+
+![oferta_dpto](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/tabla_oferta_dpto.png "Oferta dpto")
+
+Al hacer click en el botón "Enviar a Coordinaciones" se enviará por correo electrónico la oferta trimestral del departamento a las coordinaciones interesadas.
