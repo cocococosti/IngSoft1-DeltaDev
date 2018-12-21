@@ -131,6 +131,13 @@ class Oferta(models.Model):
 		# Garantiza que no aparezca 2 o mas veces un mismo profesor dando una misma materia en un mismo trimestre
 		unique_together = ("materia","profesor")
 
+	def __str__(self):
+		"""
+		Muestra la oferta de manera abreviada
+		"""
+		return str(self.materia_id) + ", "+ str(self.profesor) + ", " + str(self.departamento) + ", " + str(self.preferencia)
+
+
 class OfertaDpto(models.Model):
 	''' Tabla que representa las asignaturas que cada profesor puede dar en la proxima
 		oferta (asignaturas por confirmar)'''
@@ -155,7 +162,7 @@ class OfertaDpto(models.Model):
 		"""
 		Muestra la oferta de manera abreviada
 		"""
-		return self.trimestre + ", "+ str(self.profesor_id) + ", " + self.materia_id
+		return self.trimestre + ", "+ str(self.profesor_id) + ", " + str(self.materia_id)
 
 class OfertaCoord(models.Model):
 	''' Tabla que representa las asignaturas que cada profesor puede dar en la proxima
