@@ -1,0 +1,5 @@
+Puede revisar la Oferta Trimestral del Departamento de {{dpto}}
+
+en el siguiente enlace
+
+{{ enlace }}

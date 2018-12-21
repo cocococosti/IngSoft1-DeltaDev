@@ -1,0 +1,250 @@
+[
+
+	{
+		"model": "Asignaturas.asignatura",
+		"pk": 1,
+		"fields": {
+			"codigo": "CI-5437",
+			"nombre": "Inteligencia Artificial",
+			"unidadesCredito": 4,
+			"horasTeoria": 4,
+			"horasPractica": 0,
+			"horasLab": 0,
+			"requisitos": "",
+			"departamento": "CI"
+			
+		}
+	},
+
+	{
+		"model": "Asignaturas.asignatura",
+		"pk": 2,
+		"fields": {
+			"codigo": "CI-6644",
+			"nombre": "Programación concurrente",
+			"unidadesCredito": 5,
+			"horasTeoria": 4,
+			"horasPractica": 2,
+			"horasLab": 0,
+			"requisitos": "",
+			"departamento": "CI"
+			
+		}
+	},
+
+	{
+		"model": "Asignaturas.asignatura",
+		"pk": 3,
+		"fields": {
+			"codigo": "CI-7643",
+			"nombre": "Lenguajes de Especificación",
+			"unidadesCredito": 3,
+			"horasTeoria": 2,
+			"horasPractica": 2,
+			"horasLab": 2,
+			"requisitos": "",
+			"departamento": "CI"
+			
+		}
+	},
+
+	{
+		"model": "Asignaturas.asignatura",
+		"pk": 4,
+		"fields": {
+			"codigo": "CI-7641",
+			"nombre": "Semiótica",
+			"unidadesCredito": 4,
+			"horasTeoria": 4,
+			"horasPractica": 0,
+			"horasLab": 0,
+			"requisitos": "",
+			"departamento": "CI"
+			
+		}
+	},
+
+	{
+		"model": "Asignaturas.asignatura",
+		"pk": 5,
+		"fields": {
+			"codigo": "PB-5611",
+			"nombre": "Introducción a la Bioingeniería",
+			"unidadesCredito": 4,
+			"horasTeoria": 4,
+			"horasPractica": 0,
+			"horasLab": 0,
+			"requisitos": "",
+			"departamento": "PB"
+			
+		}
+	},
+
+	{
+		"model": "Asignaturas.asignatura",
+		"pk": 6,
+		"fields": {
+			"codigo": "MA7671",
+			"nombre": "Estructuras Combinatorias",
+			"unidadesCredito": 4,
+			"horasTeoria": 4,
+			"horasPractica": 0,
+			"horasLab": 0,
+			"requisitos": "",
+			"departamento": "MA"
+			
+		}
+	},
+
+	{
+		"model": "Asignaturas.asignatura",
+		"pk": 7,
+		"fields": {
+			"codigo": "MA8671",
+			"nombre": "Flujo de Redes",
+			"unidadesCredito": 4,
+			"horasTeoria": 4,
+			"horasPractica": 0,
+			"horasLab": 0,
+			"requisitos": "",
+			"departamento": "MA"
+			
+		}
+	},
+
+
+	{
+		"model": "Asignaturas.profesor",
+		"pk": 1,
+		"fields": {
+			"nombre": "Ana",
+			"apellido": "Diaz",
+			"cedula": "1234567",
+			"disponibilidad": "",
+			"departamento": "CI",
+			"email": "ana@gmail.com",
+			"asignaturas": [1, 4],
+			"user": null
+			
+		}
+	},
+
+		{
+		"model": "Asignaturas.profesor",
+		"pk": 2,
+		"fields": {
+			"nombre": "Juan",
+			"apellido": "Perez",
+			"cedula": "22333444",
+			"disponibilidad": "",
+			"departamento": "CI",
+			"email": "juan@gmail.com",
+			"asignaturas": [1, 3],
+			"user": null
+			
+		}
+	},
+
+		{
+		"model": "Asignaturas.profesor",
+		"pk": 3,
+		"fields": {
+			"nombre": "Maria",
+			"apellido": "Garcia",
+			"cedula": "44555666",
+			"disponibilidad": "",
+			"departamento": "CI",
+			"email": "maria@gmail.com",
+			"asignaturas": [1, 2, 4],
+			"user": null
+			
+		}
+	},
+
+
+	{
+		"model": "Asignaturas.ofertaDpto",
+		"pk": 1,
+		"fields": {
+			"trimestre": "SD-17",
+			"profesor": 1,
+			"materia": 1,
+			"departamento": "CI"
+		}
+	},
+
+	{
+		"model": "Asignaturas.ofertaDpto",
+		"pk": 2,
+		"fields": {
+			"trimestre": "SD-17",
+			"profesor": 1,
+			"materia": 4,
+			"departamento": "CI"
+		}
+	},
+
+	{
+		"model": "Asignaturas.ofertaDpto",
+		"pk": 3,
+		"fields": {
+			"trimestre": "SD-17",
+			"profesor": 2,
+			"materia": 1,
+			"departamento": "CI"
+		}
+	},
+
+	{
+		"model": "Asignaturas.ofertaDpto",
+		"pk": 4,
+		"fields": {
+			"trimestre": "SD-17",
+			"profesor": 2,
+			"materia": 3,
+			"departamento": "CI"
+		}
+	},
+
+	{
+		"model": "Asignaturas.ofertaDpto",
+		"pk": 5,
+		"fields": {
+			"trimestre": "SD-17",
+			"profesor": 3,
+			"materia": 4,
+			"departamento": "CI"
+		}
+	},
+
+	{
+		"model": "Asignaturas.coordinacion",
+		"pk": 1,
+		"fields": {
+			"nombre": "Coordinación de Matemáticas",
+			"email": "coord-ma@example.com",
+			"materias": [6, 7]
+		}
+	},
+
+	{
+		"model": "Asignaturas.coordinacion",
+		"pk": 2,
+		"fields": {
+			"nombre": "Coordinación de Ingeniería de la Computación",
+			"email": "coord-ci@example.com",
+			"materias": [1, 2, 3, 4, 5]
+		}
+	},
+
+	{
+		"model": "Asignaturas.coordinacion",
+		"pk": 3,
+		"fields": {
+			"nombre": "Coordinación de Biología",
+			"email": "jareinozacg@gmail.com",
+			"materias": [1,5]
+		}
+	}
+
+]

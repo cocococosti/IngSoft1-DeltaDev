@@ -5,5 +5,6 @@ from .models import *
 admin.site.register(Departamento)
 admin.site.register(Profesor)
 admin.site.register(Asignatura)
-admin.site.register(Oferta)
+admin.site.register(OfertaDpto)
+admin.site.register(OfertaCoord)
 admin.site.register(Coordinacion)
