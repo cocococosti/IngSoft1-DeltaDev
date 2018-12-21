@@ -260,3 +260,19 @@ A través del botón "Cargar Oferta" se pueden seleccionar ofertas de trimestres
 ![oferta_dpto](https://github.com/cocococosti/IngSoft1-DeltaDev/blob/master/docs/imagenes/tabla_oferta_dpto.png "Oferta dpto")
 
 Al hacer click en el botón "Enviar a Coordinaciones" se enviará por correo electrónico la oferta trimestral del departamento a las coordinaciones interesadas.
+
+## Nota importante:
+
+El archivo db.json es un fixture que carga algunos datos básicos en la base de datos; por ejemplo los departamentos de la USB y sus atributos. Este archivo también carga algunas materias y profesores del departamento de CI y CO, y una oferta departamental del trimestre SD-17 del departamento de CI y otra del trimestre SD-16 del departamento de CO. Esto se hace con el fin de probar la funcionalidad "Cargar Oferta".
+
+Adicionalmente, se cargan tres coordinaciones: Biología, Matemáticas y Computación. 
+Para cada coordinación se definen algunas materias de interes (a modo de prueba):
+
+- Biología: CI-5437, CO-5221, CO-5422
+- Computación: CI-5437, CI-6644, CI-7643, CI-7641, PB-5611, CO-5221, CO-5422, CO-6411
+- Matemáticas: MA7671, MA8671, CO-5221, CO-5422, CO-6411
+
+De modo que en el correo recibido por las coordinaciones, solo se verán las materias ofertadas que les interesan, como se definieron en el fixture.
+Por ejemplo, si el Departamento de Computación oferta CI-5437, solo la coordinación de Computación y Biologia recibirán un correo con la oferta de CI-5437.
+
+La tabla coordinación y los datos relaionados que se cargaron con el fixture son un stub, con datos de ejemplo necesarios para las pruebas. Al llevar el sistema a producción, se debe contar con los datos reales para cargarlos en la base.
